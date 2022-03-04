@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="Workspace">
+		<Project filename="Engine/Engine.cbp" />
+		<Project filename="RobotArm/RobotArm.cbp" />
+		<Project filename="UnitTest/UnitTest.cbp" />
+	</Workspace>
+</CodeBlocks_workspace_file>

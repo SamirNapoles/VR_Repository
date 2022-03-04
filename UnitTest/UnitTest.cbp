@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="UnitTest" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/UnitTest" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add directory="../Engine/bin/Debug" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/UnitTest" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add directory="../Engine/bin/Release" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add directory="../dependencies/glm/include" />
+			<Add directory="../Engine" />
+		</Compiler>
+		<Linker>
+			<Add library="Engine" />
+			<Add library="GL" />
+			<Add library="glut" />
+		</Linker>
+		<Unit filename="CameraTest.cpp" />
+		<Unit filename="FakeShadowTest.cpp" />
+		<Unit filename="FileReaderTest.cpp" />
+		<Unit filename="LightTest.cpp" />
+		<Unit filename="ListTest.cpp" />
+		<Unit filename="MaterialTest.cpp" />
+		<Unit filename="MeshTest.cpp" />
+		<Unit filename="NodeTest.cpp" />
+		<Unit filename="ObjectTest.cpp" />
+		<Unit filename="ProjectionTest.cpp" />
+		<Unit filename="Test.h" />
+		<Unit filename="VertexTest.cpp" />
+		<Unit filename="main.cpp" />
+		<Unit filename="simple3dScene.ovo" />
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>

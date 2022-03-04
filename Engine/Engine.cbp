@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Engine" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Engine" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Option projectLinkerOptionsRelation="0" />
+				<Option projectIncludeDirsRelation="0" />
+				<Compiler>
+					<Add option="-fPIC" />
+					<Add option="-g" />
+					<Add option="-fexceptions" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Engine" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Option projectLinkerOptionsRelation="0" />
+				<Option projectIncludeDirsRelation="0" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fPIC" />
+			<Add option="-fexceptions" />
+			<Add directory="../dependencies/glm/include" />
+			<Add directory="../dependencies/freeimage/include" />
+		</Compiler>
+		<Linker>
+			<Add library="glut" />
+			<Add library="GL" />
+			<Add library="freeimage" />
+			<Add library="GLU" />
+		</Linker>
+		<Unit filename="Camera.cpp" />
+		<Unit filename="Camera.h" />
+		<Unit filename="DirectionalLight.cpp" />
+		<Unit filename="DirectionalLight.h" />
+		<Unit filename="Engine.cpp" />
+		<Unit filename="Engine.h" />
+		<Unit filename="FakeShadow.cpp" />
+		<Unit filename="FakeShadow.h" />
+		<Unit filename="FileReader.cpp" />
+		<Unit filename="FileReader.h" />
+		<Unit filename="FrameRate.cpp" />
+		<Unit filename="FrameRate.h" />
+		<Unit filename="KeyCodes.h" />
+		<Unit filename="LibDef.h" />
+		<Unit filename="Light.cpp" />
+		<Unit filename="Light.h" />
+		<Unit filename="List.cpp" />
+		<Unit filename="List.h" />
+		<Unit filename="Material.cpp" />
+		<Unit filename="Material.h" />
+		<Unit filename="Mesh.cpp" />
+		<Unit filename="Mesh.h" />
+		<Unit filename="Node.cpp" />
+		<Unit filename="Node.h" />
+		<Unit filename="Object.cpp" />
+		<Unit filename="Object.h" />
+		<Unit filename="OrthogonalProjection.cpp" />
+		<Unit filename="OrthogonalProjection.h" />
+		<Unit filename="OvLight.h" />
+		<Unit filename="OvMesh.h" />
+		<Unit filename="OvObject.h" />
+		<Unit filename="PerspectiveProjection.cpp" />
+		<Unit filename="PerspectiveProjection.h" />
+		<Unit filename="PointLight.cpp" />
+		<Unit filename="PointLight.h" />
+		<Unit filename="Projection.cpp" />
+		<Unit filename="Projection.h" />
+		<Unit filename="SpotLight.cpp" />
+		<Unit filename="SpotLight.h" />
+		<Unit filename="Texture.cpp" />
+		<Unit filename="Texture.h" />
+		<Unit filename="UIProjection.cpp" />
+		<Unit filename="UIProjection.h" />
+		<Unit filename="Vertex.cpp" />
+		<Unit filename="Vertex.h" />
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>

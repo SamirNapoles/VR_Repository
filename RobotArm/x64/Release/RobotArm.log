@@ -1,0 +1,5 @@
+﻿  main.cpp
+main.obj : error LNK2001: unresolved external symbol "public: static bool __cdecl Engine::doNothing(void)" (?doNothing@Engine@@SA_NXZ)
+main.obj : error LNK2001: unresolved external symbol "public: static bool __cdecl Engine::free(void)" (?free@Engine@@SA_NXZ)
+main.obj : error LNK2001: unresolved external symbol "public: static bool __cdecl Engine::init(void)" (?init@Engine@@SA_NXZ)
+C:\Users\giair\Documents\Grafica\virtuale\Progetto\labingsw022021202204cg\x64\Release\RobotArm.exe : fatal error LNK1120: 3 unresolved externals

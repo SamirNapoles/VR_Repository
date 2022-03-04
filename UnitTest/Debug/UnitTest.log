@@ -1,0 +1,14 @@
+﻿  CameraTest.cpp
+  FakeShadowTest.cpp
+  FileReaderTest.cpp
+  LightTest.cpp
+  ListTest.cpp
+  main.cpp
+  MaterialTest.cpp
+  MeshTest.cpp
+  NodeTest.cpp
+  ObjectTest.cpp
+  ProjectionTest.cpp
+  VertexTest.cpp
+  Generazione del codice in corso...
+  UnitTest.vcxproj -> C:\Users\samir\source\repos\vr_repository\VR_Repository\x64\Debug\UnitTest.exe
