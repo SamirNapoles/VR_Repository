@@ -60,8 +60,8 @@ void LIB_API Light::setQuadraticAttenuation(float quadraticAttenuation) {
 	this->quadraticAttenuation = quadraticAttenuation;
 }
 
-void LIB_API Light::render(glm::mat4 cameraInv) {
-	glLoadMatrixf(glm::value_ptr(cameraInv * getFinalMatrix()));
+void LIB_API Light::render(glm::mat4 finalMatrix) {
+	glLoadMatrixf(glm::value_ptr(finalMatrix));
 
 	glLightfv(lightNumber, GL_AMBIENT, glm::value_ptr(ambient));
 	glLightfv(lightNumber, GL_DIFFUSE, glm::value_ptr(diffuse));

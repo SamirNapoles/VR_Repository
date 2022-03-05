@@ -13,7 +13,7 @@ class LIB_API Node : public Object {
 		~Node();
 
 	public:
-		void render(glm::mat4 cameraInv) override;
+		void render(glm::mat4 finalMatrix) override;
 
 		Node* findById(const int id);
 		Node* findByName(const std::string name);

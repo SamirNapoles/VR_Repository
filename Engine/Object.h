@@ -21,7 +21,7 @@ class LIB_API Object {
 		std::string getName() const;
 		void setName(const std::string name);
 		static int getNextId();
-		virtual void render(glm::mat4 cameraInv);
+		virtual void render(glm::mat4 finalMatrix);
 
 	private:
 		static int nextId;

@@ -8,7 +8,7 @@ void fileReaderTest() {
 	List list = List();
 	FileReader filereader = FileReader();
 	Node* root = filereader.readFile("..\\RobotArm\\examples\\simple3dScene.ovo");
-	list.addEntry(root);
+	list.addEntry(root, root->getTransform());
 
 	assert(root->getName() == "[root]");
 	assert(root->getNumberOfChildren() == 11);

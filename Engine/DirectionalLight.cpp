@@ -3,7 +3,7 @@
 LIB_API DirectionalLight::DirectionalLight(const int id, const std::string name, const int lightNumber, const glm::vec4 ambient, const glm::vec4 diffuse, const glm::vec4 specular) :
 	Light{ id, name, lightNumber, ambient, diffuse, specular } {}
 
-void LIB_API DirectionalLight::render(glm::mat4 cameraInv) {
+void LIB_API DirectionalLight::render(glm::mat4 finalMatrix) {
 
 	glm::vec4 pos = getPosition();
 	pos[3] = 0.0f;

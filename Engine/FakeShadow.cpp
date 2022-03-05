@@ -44,13 +44,13 @@ glm::mat4 FakeShadow::getRotationMatrix() {
     );
 }
 
-void LIB_API FakeShadow::render(glm::mat4 cameraInv) {
+void LIB_API FakeShadow::render(glm::mat4 finalMatrix) {
 
     if(this->getParent() != nullptr) {
         if (getCastShadow()) {
             //Material
             Material* m = material.get();
-            m->render(cameraInv);
+            m->render(finalMatrix);
 
             //World position of orginal mesh
             glm::vec3 modelPos = model->getWorldPosition();
@@ -89,7 +89,7 @@ void LIB_API FakeShadow::render(glm::mat4 cameraInv) {
             setTransform(offset * scaling * shadowParentScale * modelScale * R);
 
             // Set model matrix as current OpenGL matrix:
-            glLoadMatrixf(glm::value_ptr(cameraInv * getFinalMatrix()));
+            glLoadMatrixf(glm::value_ptr(finalMatrix));
 
             //Vertex rendering Counter Clock-Wise
             glFrontFace(GL_CCW);

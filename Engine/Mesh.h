@@ -13,7 +13,7 @@ public:
 
 public:
 	void addVertex(Vertex* v, int lod);
-	virtual void render(glm::mat4 cameraInv) override;
+	virtual void render(glm::mat4 finalMatrix) override;
 	virtual bool getCastShadow() const;
 	virtual void setCastShadow(bool castShadow);
 	std::vector<Vertex*> getVertices(int lod);

@@ -16,7 +16,7 @@ public:
 	void setPosition(glm::vec4 pos);
 	glm::vec4 getPosition();
 	static int getNextLightNumber();
-	virtual void render(glm::mat4 cameraInv) override;
+	virtual void render(glm::mat4 finalMatrix) override;
 	virtual void setTransform(glm::mat4 transform) override;
 
 	float getConstantAttenuation();

@@ -15,7 +15,7 @@ public:
 	~FakeShadow();
 
 public:
-	void render(glm::mat4 cameraInv) override;
+	void render(glm::mat4 finalMatrix) override;
 	void setOffset(glm::mat4 offset);
 	glm::mat4 getOffset() const;
 	glm::mat4 getScaling() const;

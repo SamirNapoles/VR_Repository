@@ -12,7 +12,7 @@ public:
 	~Material();
 
 public:
-	void render(glm::mat4 cameraInv) override;
+	void render(glm::mat4 finalMatrix) override;
 	glm::vec4 getEmission();
 	glm::vec4 getAmbient();
 	glm::vec4 getDiffuse();

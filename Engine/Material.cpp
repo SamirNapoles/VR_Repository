@@ -9,9 +9,9 @@ LIB_API Material::Material(int id, const std::string name, glm::vec4 ambient, gl
 
 Material::~Material() {}
 
-void LIB_API Material::render(glm::mat4 cameraInv) {
+void LIB_API Material::render(glm::mat4 finalMatrix) {
 	if(texture != NULL)
-		texture->render(cameraInv);
+		texture->render(finalMatrix);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, glm::value_ptr(getEmission()));
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, glm::value_ptr(getAmbient()));
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, glm::value_ptr(getDiffuse()));

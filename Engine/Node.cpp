@@ -16,7 +16,7 @@ LIB_API Node::Node(int id, const std::string name) :
 
 Node::~Node() {}
 
-void LIB_API Node::render(glm::mat4 cameraInv) {
+void LIB_API Node::render(glm::mat4 finalMatrix) {
 }
 
 Node LIB_API *Node::findById(const int id) {

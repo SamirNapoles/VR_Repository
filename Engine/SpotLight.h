@@ -11,7 +11,7 @@ public:
 	~SpotLight() {};
 
 public:
-	void render(glm::mat4 cameraInv) override;
+	void render(glm::mat4 finalMatrix) override;
 
 private:
 	glm::vec3 direction;

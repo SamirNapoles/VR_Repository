@@ -29,14 +29,14 @@ std::vector<Vertex*> Mesh::getVertices(int lod) {
     return vertices.at(lod);
 }
 
-void LIB_API Mesh::render(glm::mat4 cameraInv) {
+void LIB_API Mesh::render(glm::mat4 finalMatrix) {
 
     //Material
     Material* m = material.get();
-    m->render(cameraInv);
+    m->render(finalMatrix);
 
     // Set model matrix as current OpenGL matrix:
-    glLoadMatrixf(glm::value_ptr(cameraInv * getFinalMatrix()));
+    glLoadMatrixf(glm::value_ptr(finalMatrix));
 
     //Vertex rendering Counter Clock-Wise
     glFrontFace(GL_CCW);

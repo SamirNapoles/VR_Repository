@@ -99,6 +99,7 @@
     <ClCompile Include="FrameRate.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="List.cpp" />
+    <ClCompile Include="ListNode.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Node.cpp" />
@@ -123,6 +124,7 @@
     <ClInclude Include="LibDef.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="List.h" />
+    <ClInclude Include="ListNode.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Node.h" />

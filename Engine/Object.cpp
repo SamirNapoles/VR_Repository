@@ -22,7 +22,7 @@ void LIB_API Object::setName(std::string name) {
 	Object::name = name;
 }
 
-void LIB_API Object::render(glm::mat4 cameraInv) {
+void LIB_API Object::render(glm::mat4 finalMatrix) {
 	std::cout << "Object={"
 		<< "id=" << Object::id << ", "
 		<< "name=" << Object::name

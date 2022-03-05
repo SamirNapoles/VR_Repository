@@ -87,7 +87,7 @@ void spotLightTest() {
 	assert(sl->getLinearAttenuation() == 1.0f);
 	assert(sl->getQuadraticAttenuation() == 2.0f);
 
-	lightList.addEntry(root);
+	lightList.addEntry(root, root->getTransform());
 	lightList.render(glm::mat4(1.0f));
 
 	GLfloat attenuation;

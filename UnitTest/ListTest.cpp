@@ -27,7 +27,7 @@ void listTest() {
     bulb->addChild(light);
     root->addChild(cube1);
     root->addChild(cube2);
-    list.addEntry(root);
+    list.addEntry(root, root->getTransform());
     //4 elements in the list
     assert(list.size() == 4);
 
@@ -98,7 +98,7 @@ void listTest() {
     root->addChild(light7);
     root->addChild(light8);
 
-    list.addEntry(root);
+    list.addEntry(root, root->getTransform());
     assert(list.size() == 8);
 
 }

@@ -15,7 +15,7 @@ LIB_API Texture::Texture(int id, const std::string name) :
 Texture::~Texture() {}
 
 
-void LIB_API Texture::render(glm::mat4 cameraInv) {
+void LIB_API Texture::render(glm::mat4 finalMatrix) {
 	glBindTexture(GL_TEXTURE_2D, texId);
 
 	// Set circular coordinates:
