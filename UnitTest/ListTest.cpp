@@ -40,6 +40,7 @@ void listTest() {
     list.clear();
     assert(list.size() == 0);
 
+    //delete root; // avoid memory leak
     //Test to add more then 8 lights
     root = new Node(Object::getNextId(), std::string("root"));
     PointLight* light0 = new PointLight(Object::getNextId(), std::string("light0"), Light::getNextLightNumber(),
@@ -101,4 +102,6 @@ void listTest() {
     list.addEntry(root, root->getTransform());
     assert(list.size() == 8);
 
+    //list.clear();
+    //delete root;
 }

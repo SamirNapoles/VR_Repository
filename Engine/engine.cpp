@@ -85,6 +85,7 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
 void LIB_API Engine::free() {
     list.clear();
     FreeImage_DeInitialise();
+    //delete root; // avoid root memory leak
 }
 
 void LIB_API Engine::setCamera(Camera* camera) {
@@ -105,7 +106,7 @@ Node LIB_API* Engine::loadScene(std::string fileName) {
     camera = new Camera(Object::getNextId(), std::string("stationaryCamera"), proj);
     root->addChild(camera);
 
-    list.addEntry(root, root->getTransform());
+    //list.addEntry(root, root->getTransform());
     this->camera = camera;
     
     return root;

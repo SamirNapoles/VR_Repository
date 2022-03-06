@@ -15,4 +15,5 @@ void fileReaderTest() {
 	assert(root->getNthChild(0)->getName() == "Box001");
 
 	list.clear();
+	//delete root;
 }

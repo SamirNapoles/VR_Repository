@@ -60,6 +60,11 @@ void List::clear()
     objectsList.clear();
 }
 
+void List::removeAllEntries()
+{
+    objectsList.clear();
+}
+
 Node LIB_API *List::getObject(int i) {
     std::list<ListNode>::iterator it;
     int counter = 0;

@@ -12,6 +12,7 @@ class LIB_API List : public  Object {
 		void addEntry(Node* node, glm::mat4 nodeMatrix);
 		void render(glm::mat4 inverseCameraMatrix) override;
 		void clear();
+		void removeAllEntries();
 		Node* getObject(int i);
 		int size();
 
