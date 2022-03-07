@@ -1,13 +1,3 @@
-d:\scuola\supsi\scuola anno 2021-2022\ing sw 2\lab\progetti\labingsw022021202204cg\unittest\release\vc142.pdb
-d:\scuola\supsi\scuola anno 2021-2022\ing sw 2\lab\progetti\labingsw022021202204cg\unittest\release\vertextest.obj
-d:\scuola\supsi\scuola anno 2021-2022\ing sw 2\lab\progetti\labingsw022021202204cg\unittest\release\projectiontest.obj
-d:\scuola\supsi\scuola anno 2021-2022\ing sw 2\lab\progetti\labingsw022021202204cg\unittest\release\objecttest.obj
-d:\scuola\supsi\scuola anno 2021-2022\ing sw 2\lab\progetti\labingsw022021202204cg\unittest\release\nodetest.obj
-d:\scuola\supsi\scuola anno 2021-2022\ing sw 2\lab\progetti\labingsw022021202204cg\unittest\release\meshtest.obj
-d:\scuola\supsi\scuola anno 2021-2022\ing sw 2\lab\progetti\labingsw022021202204cg\unittest\release\materialtest.obj
-d:\scuola\supsi\scuola anno 2021-2022\ing sw 2\lab\progetti\labingsw022021202204cg\unittest\release\main.obj
-d:\scuola\supsi\scuola anno 2021-2022\ing sw 2\lab\progetti\labingsw022021202204cg\unittest\release\lighttest.obj
-d:\scuola\supsi\scuola anno 2021-2022\ing sw 2\lab\progetti\labingsw022021202204cg\unittest\release\cameratest.obj
 c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\unittest\release\vc142.pdb
 c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\unittest\release\vertextest.obj
 c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\unittest\release\projectiontest.obj
@@ -19,27 +9,18 @@ c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\unitte
 c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\unittest\release\listtest.obj
 c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\unittest\release\lighttest.obj
 c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\unittest\release\cameratest.obj
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\unittest\release\configtest.obj
 c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\unittest\release\filereadertest.obj
-c:\users\samir\source\repos\labingsw022021202204cg\unittest\release\cameratest.obj
-c:\users\samir\source\repos\labingsw022021202204cg\unittest\release\configtest.obj
-c:\users\samir\source\repos\labingsw022021202204cg\unittest\release\filereadertest.obj
-c:\users\samir\source\repos\labingsw022021202204cg\unittest\release\lighttest.obj
-c:\users\samir\source\repos\labingsw022021202204cg\unittest\release\listtest.obj
-c:\users\samir\source\repos\labingsw022021202204cg\unittest\release\main.obj
-c:\users\samir\source\repos\labingsw022021202204cg\unittest\release\materialtest.obj
-c:\users\samir\source\repos\labingsw022021202204cg\unittest\release\meshtest.obj
-c:\users\samir\source\repos\labingsw022021202204cg\unittest\release\nodetest.obj
-c:\users\samir\source\repos\labingsw022021202204cg\unittest\release\objecttest.obj
-c:\users\samir\source\repos\labingsw022021202204cg\unittest\release\projectiontest.obj
-c:\users\samir\source\repos\labingsw022021202204cg\unittest\release\vertextest.obj
-c:\users\samir\source\repos\labingsw022021202204cg\unittest\release\unittest.ipdb
-c:\users\samir\source\repos\labingsw022021202204cg\unittest\release\unittest.iobj
-c:\users\samir\source\repos\labingsw022021202204cg\unittest\release\vc142.pdb
-c:\users\samir\source\repos\labingsw022021202204cg\release\unittest.exe
-c:\users\samir\source\repos\labingsw022021202204cg\unittest\release\unittest.tlog\cl.command.1.tlog
-c:\users\samir\source\repos\labingsw022021202204cg\unittest\release\unittest.tlog\cl.read.1.tlog
-c:\users\samir\source\repos\labingsw022021202204cg\unittest\release\unittest.tlog\cl.write.1.tlog
-c:\users\samir\source\repos\labingsw022021202204cg\unittest\release\unittest.tlog\link.command.1.tlog
-c:\users\samir\source\repos\labingsw022021202204cg\unittest\release\unittest.tlog\link.read.1.tlog
-c:\users\samir\source\repos\labingsw022021202204cg\unittest\release\unittest.tlog\link.write.1.tlog
+c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\unittest\release\fakeshadowtest.obj
+c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\release\unittest.exe
+c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\unittest\release\unittest.ipdb
+c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\unittest\release\unittest.iobj
+c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\release\unittest.pdb
+d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\unittest\release\unittest.ipdb
+d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\unittest\release\unittest.iobj
+d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\unittest\release\vc142.pdb
+d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\unittest\release\unittest.tlog\cl.command.1.tlog
+d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\unittest\release\unittest.tlog\cl.read.1.tlog
+d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\unittest\release\unittest.tlog\cl.write.1.tlog
+d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\unittest\release\unittest.tlog\link.command.1.tlog
+d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\unittest\release\unittest.tlog\link.read.1.tlog
+d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\unittest\release\unittest.tlog\link.write.1.tlog

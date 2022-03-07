@@ -28,7 +28,7 @@ void LIB_API List::addEntry(Node* root, glm::mat4 rootMatrix) {
     }
 }
 
-void List::render(glm::mat4 inverseCameraMatrix) {
+void LIB_API List::render(glm::mat4 inverseCameraMatrix) {
     std::list<ListNode>::iterator it;
     //Render each list element
     for (it = objectsList.begin(); it != objectsList.end(); it++)
@@ -60,7 +60,7 @@ void List::clear()
     objectsList.clear();
 }
 
-void List::removeAllEntries()
+void LIB_API List::removeAllEntries()
 {
     objectsList.clear();
 }

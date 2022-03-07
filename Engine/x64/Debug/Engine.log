@@ -75,8 +75,10 @@ D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\FileReade
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\FileReader.h(24): message : vedere la dichiarazione di 'std::map<std::string,Material *,std::less<std::string>,std::allocator<std::pair<const std::string,Material *>>>'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\FileReader.h(25,23): warning C4251: 'FileReader::tempVertices': class 'std::vector<Vertex *,std::allocator<Vertex *>>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'FileReader'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Mesh.h(19): message : vedere la dichiarazione di 'std::vector<Vertex *,std::allocator<Vertex *>>'
-D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\List.h(18,20): warning C4251: 'List::objectsList': class 'std::list<Node *,std::allocator<Node *>>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'List'
-D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\List.h(18): message : vedere la dichiarazione di 'std::list<Node *,std::allocator<Node *>>'
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\ListNode.h(15,12): warning C4251: 'ListNode::objectMatrix': struct 'glm::mat<4,4,glm::f32,glm::packed_highp>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'ListNode'
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\dependencies\glm\include\glm\fwd.hpp(518): message : vedere la dichiarazione di 'glm::mat<4,4,glm::f32,glm::packed_highp>'
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\List.h(20,23): warning C4251: 'List::objectsList': class 'std::list<ListNode,std::allocator<ListNode>>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'List'
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\List.h(20): message : vedere la dichiarazione di 'std::list<ListNode,std::allocator<ListNode>>'
   FakeShadow.cpp
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Object.h(29,15): warning C4251: 'Object::name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'Object'
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xstring(4905): message : vedere la dichiarazione di 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
@@ -133,8 +135,10 @@ D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Node.h(41
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Node.h(41): message : vedere la dichiarazione di 'std::vector<Node *,std::allocator<Node *>>'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Node.h(43,13): warning C4251: 'Node::transform': struct 'glm::mat<4,4,glm::f32,glm::packed_highp>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'Node'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\dependencies\glm\include\glm\fwd.hpp(518): message : vedere la dichiarazione di 'glm::mat<4,4,glm::f32,glm::packed_highp>'
-D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\List.h(18,20): warning C4251: 'List::objectsList': class 'std::list<Node *,std::allocator<Node *>>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'List'
-D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\List.h(18): message : vedere la dichiarazione di 'std::list<Node *,std::allocator<Node *>>'
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\ListNode.h(15,12): warning C4251: 'ListNode::objectMatrix': struct 'glm::mat<4,4,glm::f32,glm::packed_highp>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'ListNode'
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\dependencies\glm\include\glm\fwd.hpp(518): message : vedere la dichiarazione di 'glm::mat<4,4,glm::f32,glm::packed_highp>'
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\List.h(20,23): warning C4251: 'List::objectsList': class 'std::list<ListNode,std::allocator<ListNode>>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'List'
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\List.h(20): message : vedere la dichiarazione di 'std::list<ListNode,std::allocator<ListNode>>'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Light.h(32,12): warning C4251: 'Light::ambient': struct 'glm::vec<4,float,glm::packed_highp>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'Light'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\dependencies\glm\include\glm\fwd.hpp(419): message : vedere la dichiarazione di 'glm::vec<4,float,glm::packed_highp>'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Light.h(33,12): warning C4251: 'Light::diffuse': struct 'glm::vec<4,float,glm::packed_highp>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'Light'
@@ -145,7 +149,16 @@ D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Light.h(3
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\dependencies\glm\include\glm\fwd.hpp(419): message : vedere la dichiarazione di 'glm::vec<4,float,glm::packed_highp>'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\SpotLight.h(17,12): warning C4251: 'SpotLight::direction': struct 'glm::vec<3,float,glm::packed_highp>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'SpotLight'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\dependencies\glm\include\glm\fwd.hpp(418): message : vedere la dichiarazione di 'glm::vec<3,float,glm::packed_highp>'
-D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\List.cpp(77,30): warning C4267: 'return': conversione da 'size_t' a 'int'. Possibile perdita di dati.
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\List.cpp(82,30): warning C4267: 'return': conversione da 'size_t' a 'int'. Possibile perdita di dati.
+  ListNode.cpp
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Object.h(29,15): warning C4251: 'Object::name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'Object'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xstring(4905): message : vedere la dichiarazione di 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Node.h(41,22): warning C4251: 'Node::children': class 'std::vector<Node *,std::allocator<Node *>>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'Node'
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Node.h(41): message : vedere la dichiarazione di 'std::vector<Node *,std::allocator<Node *>>'
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Node.h(43,13): warning C4251: 'Node::transform': struct 'glm::mat<4,4,glm::f32,glm::packed_highp>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'Node'
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\dependencies\glm\include\glm\fwd.hpp(518): message : vedere la dichiarazione di 'glm::mat<4,4,glm::f32,glm::packed_highp>'
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\ListNode.h(15,12): warning C4251: 'ListNode::objectMatrix': struct 'glm::mat<4,4,glm::f32,glm::packed_highp>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'ListNode'
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\dependencies\glm\include\glm\fwd.hpp(518): message : vedere la dichiarazione di 'glm::mat<4,4,glm::f32,glm::packed_highp>'
   Material.cpp
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Object.h(29,15): warning C4251: 'Object::name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'Object'
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xstring(4905): message : vedere la dichiarazione di 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
@@ -308,6 +321,9 @@ D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\UIProject
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\UIProjection.h(22): message : vedere la dichiarazione di 'std::vector<std::string,std::allocator<std::string>>'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\UIProjection.h(23,12): warning C4251: 'UIProjection::color': struct 'glm::vec<3,float,glm::packed_highp>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'UIProjection'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\dependencies\glm\include\glm\fwd.hpp(418): message : vedere la dichiarazione di 'glm::vec<3,float,glm::packed_highp>'
+  Generazione del codice in corso...
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\FileReader.cpp(433): warning C4715: 'FileReader::recursiveLoad': non tutti i percorsi di controllo restituiscono un valore
+  Compilazione in corso...
   Vertex.cpp
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Vertex.h(20,12): warning C4251: 'Vertex::position': struct 'glm::vec<3,float,glm::packed_highp>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'Vertex'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\dependencies\glm\include\glm\fwd.hpp(418): message : vedere la dichiarazione di 'glm::vec<3,float,glm::packed_highp>'
@@ -316,5 +332,6 @@ D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\dependencies\glm
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Vertex.h(22,12): warning C4251: 'Vertex::textureCoordinates': struct 'glm::vec<2,float,glm::packed_highp>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'Vertex'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\dependencies\glm\include\glm\fwd.hpp(417): message : vedere la dichiarazione di 'glm::vec<2,float,glm::packed_highp>'
   Generazione del codice in corso...
-D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\FileReader.cpp(433): warning C4715: 'FileReader::recursiveLoad': non tutti i percorsi di controllo restituiscono un valore
-LINK : fatal error LNK1104: impossibile aprire il file 'FreeImageLib.lib'
+     Creazione della libreria D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\x64\Debug\Engine.lib e dell'oggetto D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\x64\Debug\Engine.exp
+  Engine.vcxproj -> D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\x64\Debug\Engine.dll
+          1 file copiati.

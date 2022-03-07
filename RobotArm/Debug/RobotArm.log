@@ -3,5 +3,4 @@ D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\FrameRate
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\FrameRate.h(22,23): warning C4244: 'inizializzazione': conversione da 'float' a 'time_t'. Possibile perdita di dati.
   RobotArm.cpp
   Generazione del codice in corso...
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(1074,5): error MSB6006: "link.exe" terminato con il codice 1104.
-LINK : fatal error LNK1104: impossibile aprire il file 'Engine.lib'
+  RobotArm.vcxproj -> D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\x64\Debug\RobotArm.exe

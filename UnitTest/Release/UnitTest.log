@@ -1,11 +1,17 @@
-﻿  FakeShadowTest.cpp
+﻿  CameraTest.cpp
+  FakeShadowTest.cpp
   FileReaderTest.cpp
   LightTest.cpp
   ListTest.cpp
   main.cpp
-  Generating code
-  80 of 217 functions (36.9%) were compiled, the rest were copied from previous compilation.
-    2 functions were new in current compilation
-    22 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-  UnitTest.vcxproj -> C:\Users\giair\Documents\Grafica\virtuale\Progetto\labingsw022021202204cg\Release\UnitTest.exe
+  MaterialTest.cpp
+  MeshTest.cpp
+  NodeTest.cpp
+  ObjectTest.cpp
+  ProjectionTest.cpp
+  VertexTest.cpp
+  Generazione codice in corso...
+  Previous IPDB not found, fall back to full compilation.
+  All 219 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Generazione codice terminata
+  UnitTest.vcxproj -> D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Release\UnitTest.exe

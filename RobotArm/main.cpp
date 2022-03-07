@@ -56,38 +56,38 @@ void keyboardCallback(int key) {
 	if (activeCamera == freeCamera) {
 		switch (key) {
 			//Free camera movement
-		case 'w':
-			cameraPos += cameraSpeed * cameraFront;
-			break;
-		case 's':
-			cameraPos -= cameraSpeed * cameraFront;
-			break;
-		case 'a':
-			cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-			break;
-		case 'd':
-			cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-			break;
-		case 'e':
-			cameraPos += cameraSpeed * cameraUp;
-			break;
-		case 'q':
-			cameraPos -= cameraSpeed * cameraUp;
-			break;
+			case 'w':
+				cameraPos += cameraSpeed * cameraFront;
+				break;
+			case 's':
+				cameraPos -= cameraSpeed * cameraFront;
+				break;
+			case 'a':
+				cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+				break;
+			case 'd':
+				cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+				break;
+			case 'e':
+				cameraPos += cameraSpeed * cameraUp;
+				break;
+			case 'q':
+				cameraPos -= cameraSpeed * cameraUp;
+				break;
 
 			//Free camera rotation
-		case '8':
-			pitch++;
-			break;
-		case '2':
-			pitch--;
-			break;
-		case '6':
-			yaw++;
-			break;
-		case '4':
-			yaw--;
-			break;
+			case '8':
+				pitch++;
+				break;
+			case '2':
+				pitch--;
+				break;
+			case '6':
+				yaw++;
+				break;
+			case '4':
+				yaw--;
+				break;
 		}
 
 		if (pitch > 89.0f)
@@ -99,41 +99,41 @@ void keyboardCallback(int key) {
 	switch (key) {
 
 		//Camera management
-	case 'c':
-		activeCamera = (activeCamera == freeCamera ? stationaryCamera : freeCamera);
-		engine.setCamera(activeCamera);
-		break;
+		case 'c':
+			activeCamera = (activeCamera == freeCamera ? stationaryCamera : freeCamera);
+			engine.setCamera(activeCamera);
+			break;
 
 		//Application controls
-	case '.':
-		isActive = false;
-		break;
-	case KEY_F1:
-		showUI = !showUI;
-		break;
+		case '.':
+			isActive = false;
+			break;
+		case KEY_F1:
+			showUI = !showUI;
+			break;
 
 		//Robot arm controls
-	case '+':
-		ra->setActiveJoint((ra->getActiveJoint() + 4 + 1) % 4);
-		break;
-	case '-':
-		ra->setActiveJoint((ra->getActiveJoint() + 4 - 1) % 4);
-		break;
-	case KEY_UP:
-		ra->rotateJoint(glm::vec3(-1.0f, 0.0f, 0.0f));
-		break;
-	case KEY_DOWN:
-		ra->rotateJoint(glm::vec3(1.0f, 0.0f, 0.0f));
-		break;
-	case KEY_RIGHT:
-		ra->rotateJoint(glm::vec3(0.0f, 1.0f, 0.0f));
-		break;
-	case KEY_LEFT:
-		ra->rotateJoint(glm::vec3(0.0f, -1.0f, 0.0f));
-		break;
-	case ' ':
-		ra->claw();
-		break;
+		case '+':
+			ra->setActiveJoint((ra->getActiveJoint() + 4 + 1) % 4);
+			break;
+		case '-':
+			ra->setActiveJoint((ra->getActiveJoint() + 4 - 1) % 4);
+			break;
+		case KEY_UP:
+			ra->rotateJoint(glm::vec3(-1.0f, 0.0f, 0.0f));
+			break;
+		case KEY_DOWN:
+			ra->rotateJoint(glm::vec3(1.0f, 0.0f, 0.0f));
+			break;
+		case KEY_RIGHT:
+			ra->rotateJoint(glm::vec3(0.0f, 1.0f, 0.0f));
+			break;
+		case KEY_LEFT:
+			ra->rotateJoint(glm::vec3(0.0f, -1.0f, 0.0f));
+			break;
+		case ' ':
+			ra->claw();
+			break;
 	}
 }
 

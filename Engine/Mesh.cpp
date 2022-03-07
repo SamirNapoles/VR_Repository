@@ -44,11 +44,12 @@ void LIB_API Mesh::render(glm::mat4 finalMatrix) {
     // Triangles rendering
     glBegin(GL_TRIANGLES);
     for (Vertex* v : vertices.at(lod)) {
-        glColor3f(1.0f, 0.0f, 0.0f);
         glNormal3fv(glm::value_ptr(v->getNormal()));
         glTexCoord2fv(glm::value_ptr(v->getTextureCoordinates()));
         glVertex3fv(glm::value_ptr(v->getPosition()));     
     }
 
     glEnd();
+
+    glDisable(GL_TEXTURE_2D);
 }
