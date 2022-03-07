@@ -68,8 +68,6 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     glEnable(GL_CULL_FACE);
     //Enable smooth shading
     glShadeModel(GL_SMOOTH);
-    //Enable texture
-    glEnable(GL_TEXTURE_2D);
     // Set callback functions:
     glutDisplayFunc(displayCallbackDelegator);
     glutReshapeFunc(reshapeCallback);

@@ -95,17 +95,14 @@ void LIB_API FakeShadow::render(glm::mat4 cameraInv) {
             glFrontFace(GL_CCW);
 
             // Triangles rendering
-            glDisable(GL_LIGHTING);
             glBegin(GL_TRIANGLES);
             for (Vertex* v : vertices.at(lod)) {
-                glColor3f(0.0f, 0.0f, 0.0f);
                 glNormal3fv(glm::value_ptr(v->getNormal()));
                 glTexCoord2fv(glm::value_ptr(v->getTextureCoordinates()));
                 glVertex3fv(glm::value_ptr(v->getPosition()));
             }
 
             glEnd();
-            glEnable(GL_LIGHTING);
         }
     }
 }
