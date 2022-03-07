@@ -29,7 +29,7 @@ void fakeShadowTest() {
 		glm::vec3(0.0f, 0.0f, -1.0f)
 	), 0);
 
-	shadow.render(glm::mat4(1.0f));
+	shadow.render(glm::mat4(1.0f) * shadow.getFinalMatrix());
 
 	assert(glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 0.0f, 1.0f)) == shadow.getScaling());
 }

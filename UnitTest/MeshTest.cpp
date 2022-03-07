@@ -50,7 +50,7 @@ void meshTest() {
 		glm::vec3(0.0f, 0.0f, -1.0f)
 	), 0);
 
-	mesh.render(glm::mat4(1.0f));
+	mesh.render(glm::mat4(1.0f) * mesh.getFinalMatrix());
 
 	meshMaterialTest();
 }

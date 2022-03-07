@@ -32,7 +32,7 @@ void pointLightTest() {
 	assert(pl.getLinearAttenuation() == 1.0f);
 	assert(pl.getQuadraticAttenuation() == 2.0f);
 
-	pl.render(glm::mat4(1.0f));
+	pl.render(glm::mat4(1.0f) * pl.getFinalMatrix());
 
 	GLfloat attenuation;
 	glGetLightfv(GL_LIGHT0, GL_CONSTANT_ATTENUATION, &attenuation);
@@ -148,7 +148,7 @@ void directionalLightTest() {
 	assert(dl->getLinearAttenuation() == 1.0f);
 	assert(dl->getQuadraticAttenuation() == 2.0f);
 
-	dl->render(glm::mat4(1.0f));
+	dl->render(glm::mat4(1.0f) * dl->getFinalMatrix());
 
 	GLfloat attenuation;
 	glGetLightfv(GL_LIGHT1, GL_CONSTANT_ATTENUATION, &attenuation);
