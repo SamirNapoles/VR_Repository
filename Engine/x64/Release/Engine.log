@@ -149,7 +149,7 @@ D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Light.h(3
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\dependencies\glm\include\glm\fwd.hpp(419): message : vedere la dichiarazione di 'glm::vec<4,float,glm::packed_highp>'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\SpotLight.h(17,12): warning C4251: 'SpotLight::direction': struct 'glm::vec<3,float,glm::packed_highp>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'SpotLight'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\dependencies\glm\include\glm\fwd.hpp(418): message : vedere la dichiarazione di 'glm::vec<3,float,glm::packed_highp>'
-D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\List.cpp(82,30): warning C4267: 'return': conversione da 'size_t' a 'int'. Possibile perdita di dati.
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\List.cpp(86,30): warning C4267: 'return': conversione da 'size_t' a 'int'. Possibile perdita di dati.
   ListNode.cpp
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Object.h(29,15): warning C4251: 'Object::name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'Object'
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xstring(4905): message : vedere la dichiarazione di 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'

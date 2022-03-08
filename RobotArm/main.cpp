@@ -156,11 +156,13 @@ void displayCallback() {
 
 	ra->update();
 
+
+	// necessary to remove all and readd because addEntry is called in engine.loadScene and the scene is already populated
+	//clear() would delete pointers which would probably erease scene graph; to consider use of shared pointers in ListNode
+	engine.getList().removeAllEntries();
 	engine.getList().addEntry(root, root->getTransform());
 	//draw scene
 	engine.getList().render(activeCamera->getInverse());
-	//clear() would delete pointers which would probably erease scene graph; to consider use of shared pointers in ListNode
-	engine.getList().removeAllEntries();
 
 	if (showUI) {
 		ui->editLabel(0, "FPS: " + std::to_string(engine.getFps()));

@@ -100,7 +100,21 @@ void listTest() {
     root->addChild(light8);
 
     list.addEntry(root, root->getTransform());
-    assert(list.size() == 8);
+    assert(list.size() == 8); // should be 9?
+
+    //Test for element removal
+    list.removeAllEntries();
+    assert(list.size() == 0);
+
+    delete light0;
+    delete light1;
+    delete light2;
+    delete light3;
+    delete light4;
+    delete light5;
+    delete light6;
+    delete light7;
+    delete light8;
 
     //list.clear();
     //delete root;

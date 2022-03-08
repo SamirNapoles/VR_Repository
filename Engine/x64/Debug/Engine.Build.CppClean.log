@@ -1,72 +1,5 @@
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\vc142.pdb
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\vc142.idb
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\vertex.obj
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\uiprojection.obj
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\texture.obj
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\spotlight.obj
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\projection.obj
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\pointlight.obj
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\perspectiveprojection.obj
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\filereader.obj
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\orthogonalprojection.obj
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\object.obj
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\node.obj
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\mesh.obj
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\material.obj
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\list.obj
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\light.obj
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\framerate.obj
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\fakeshadow.obj
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\engine.obj
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\directionallight.obj
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\engine\x64\debug\camera.obj
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\vc142.pdb
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\vc142.idb
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\vertex.obj
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\uiprojection.obj
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\texture.obj
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\spotlight.obj
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\projection.obj
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\pointlight.obj
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\perspectiveprojection.obj
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\filereader.obj
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\orthogonalprojection.obj
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\object.obj
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\node.obj
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\mesh.obj
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\material.obj
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\list.obj
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\light.obj
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\framerate.obj
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\fakeshadow.obj
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\engine.obj
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\directionallight.obj
-c:\users\samir\source\repos\labingsw022021202204cg\engine\x64\debug\camera.obj
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\vc142.pdb
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\vc142.idb
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\vertex.obj
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\uiprojection.obj
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\texture.obj
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\spotlight.obj
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\projection.obj
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\pointlight.obj
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\perspectiveprojection.obj
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\filereader.obj
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\orthogonalprojection.obj
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\object.obj
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\node.obj
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\mesh.obj
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\material.obj
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\list.obj
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\light.obj
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\framerate.obj
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\fakeshadow.obj
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\engine.obj
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\directionallight.obj
-c:\users\samir\source\repos\vr_repository\vr_repository\engine\x64\debug\camera.obj
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\vc142.pdb
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\vc142.idb
-d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\vertex.obj
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\uiprojection.obj
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\texture.obj
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\spotlight.obj
@@ -79,6 +12,7 @@ d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\node.obj
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\mesh.obj
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\material.obj
+d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\listnode.obj
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\list.obj
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\light.obj
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\framerate.obj
@@ -86,29 +20,16 @@ d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\engine.obj
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\directionallight.obj
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\camera.obj
-d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\listnode.obj
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\x64\debug\engine.lib
-c:\users\giair\documents\grafica\virtuale\progetto\labingsw022021202204cg\x64\debug\engine.exp
-c:\users\samir\source\repos\labingsw022021202204cg\x64\debug\engine.lib
-c:\users\samir\source\repos\labingsw022021202204cg\x64\debug\engine.exp
-c:\users\samir\source\repos\vr_repository\vr_repository\x64\debug\engine.lib
-c:\users\samir\source\repos\vr_repository\vr_repository\x64\debug\engine.exp
-d:\scuola\supsi\scuola anno 2021-2022\vr\serie\vr_repository\x64\debug\engine.lib
-d:\scuola\supsi\scuola anno 2021-2022\vr\serie\vr_repository\x64\debug\engine.exp
-d:\scuola\supsi\scuola anno 2021-2022\vr\serie\vr_repository\x64\debug\engine.dll
-d:\scuola\supsi\scuola anno 2021-2022\vr\serie\vr_repository\engine\x64\debug\engine.ilk
-d:\scuola\supsi\scuola anno 2021-2022\vr\serie\vr_repository\x64\debug\engine.pdb
+d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\vertex.obj
+d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\x64\debug\engine.lib
+d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\x64\debug\engine.exp
+d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\engine.ilk
+d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\x64\debug\engine.dll
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\x64\debug\engine.pdb
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\engine.tlog\cl.command.1.tlog
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\engine.tlog\cl.read.1.tlog
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\engine.tlog\cl.write.1.tlog
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\engine.tlog\engine.write.1u.tlog
-d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\engine.tlog\link-cvtres.read.1.tlog
-d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\engine.tlog\link-cvtres.write.1.tlog
-d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\engine.tlog\link-rc.read.1.tlog
-d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\engine.tlog\link-rc.write.1.tlog
-d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\engine.tlog\link.10688.delete.1.tlog
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\engine.tlog\link.command.1.tlog
-d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\engine.tlog\link.delete.1.tlog
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\engine.tlog\link.read.1.tlog
 d:\supsi\anno iii\semestre ii\realtàvirtuale\git\vr_repository\engine\x64\debug\engine.tlog\link.write.1.tlog
