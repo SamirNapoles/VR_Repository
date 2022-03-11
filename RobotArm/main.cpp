@@ -167,7 +167,7 @@ void displayCallback() {
 	}
 
 	// Swap this context's buffer:
-	engine.swap();
+	engine.swap();;
 
 	// Force rendering refresh:
 	engine.forceRefresh();
