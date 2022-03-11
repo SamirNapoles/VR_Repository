@@ -44,17 +44,10 @@ glm::mat4 FakeShadow::getRotationMatrix() {
     );
 }
 
-void LIB_API FakeShadow::render(glm::mat4 finalMatrix) {
-
-    if(this->getParent() != nullptr) {
+void FakeShadow::updateTransform()
+{
+    if (this->getParent() != nullptr) {
         if (getCastShadow()) {
-            //Material
-            Material* m = material.get();
-            m->render(finalMatrix);
-
-            //remove the effect of present transform matrix which will be modified later
-            finalMatrix *= glm::inverse(this->getTransform());
-
             //World position of orginal mesh
             glm::vec3 modelPos = model->getWorldPosition();
             //World position of node on which shadow will be casted
@@ -90,9 +83,20 @@ void LIB_API FakeShadow::render(glm::mat4 finalMatrix) {
             );
 
             setTransform(offset * scaling * shadowParentScale * modelScale * R);
+        }
+    }
+}
+
+void LIB_API FakeShadow::render(glm::mat4 finalMatrix) {
+
+    if(this->getParent() != nullptr) {
+        if (getCastShadow()) {
+            //Material
+            Material* m = material.get();
+            m->render(finalMatrix);
 
             // Set model matrix as current OpenGL matrix:
-            glLoadMatrixf(glm::value_ptr(finalMatrix * getTransform()));
+            glLoadMatrixf(glm::value_ptr(finalMatrix));
 
             //Vertex rendering Counter Clock-Wise
             glFrontFace(GL_CCW);

@@ -15,6 +15,7 @@ public:
 	~FakeShadow();
 
 public:
+	void updateTransform();
 	void render(glm::mat4 finalMatrix) override;
 	void setOffset(glm::mat4 offset);
 	glm::mat4 getOffset() const;

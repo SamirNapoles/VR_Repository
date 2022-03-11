@@ -6,6 +6,7 @@
 #include <GL/freeglut.h>
 
 #include <glm/gtx/string_cast.hpp>
+#include "FakeShadow.h"
 
 void LIB_API List::addEntry(Node* root, glm::mat4 rootMatrix) {
     //don't get the root
@@ -20,6 +21,11 @@ void LIB_API List::addEntry(Node* root, glm::mat4 rootMatrix) {
                 objectsList.push_front(ListNode(node, rootMatrix * node->getTransform()));
         }
         else{
+            FakeShadow* s;
+            if (s = dynamic_cast<FakeShadow*>(node))
+            {
+                s->updateTransform();
+            }
             objectsList.push_back(ListNode(node, rootMatrix * node->getTransform()));
         }
         //Add children of children
@@ -35,8 +41,6 @@ void LIB_API List::render(glm::mat4 inverseCameraMatrix) {
     //Render each list element
     for (it = objectsList.begin(); it != objectsList.end(); it++)
     {
-        // print whether saved matrix is equal to final matrix (only for checking correctness, to be removed)
-        std::cout << (*it).getObject()->getName() << " " << ((*it).getMatrix() == (*it).getObject()->getFinalMatrix()) << std::endl;
         if (DirectionalLight* v = dynamic_cast<DirectionalLight*>((*it).getObject()))
             v->render(inverseCameraMatrix * (*it).getMatrix());
         if (PointLight* v = dynamic_cast<PointLight*>((*it).getObject()))
@@ -67,7 +71,6 @@ void List::clear()
 void LIB_API List::removeAllEntries()
 {
     objectsList.clear();
-    // after this call, objectsList's size is 0, but when entering addEntry() it's like the list isn't changed and same when entering render()
 }
 
 Node LIB_API *List::getObject(int i) {

@@ -23,6 +23,7 @@ class LIB_API Node : public Object {
 		void removeChildren();
 		
 		Node* getNthChild(int n) const;
+		int getChildIndex(const std::string name) const;
 		void addChild(Node* child);
 		void removeNthChild(int n);
 		int getNumberOfChildren() const;

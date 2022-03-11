@@ -104,7 +104,6 @@ Node LIB_API* Engine::loadScene(std::string fileName) {
     camera = new Camera(Object::getNextId(), std::string("stationaryCamera"), proj);
     root->addChild(camera);
 
-    //list.addEntry(root, root->getTransform());
     this->camera = camera;
     
     return root;

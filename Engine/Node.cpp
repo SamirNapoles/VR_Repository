@@ -105,9 +105,25 @@ Node* Node::getNthChild(int n) const
 	return children.at(n);//.get();
 }
 
+int Node::getChildIndex(const std::string name) const {
+	if (children.empty()) {
+		return -1;
+	}
+
+	for (int i = 0; i < getNumberOfChildren(); i++)
+		if (getNthChild(i)->getName() == name)
+			return i;
+
+	return -1;
+}
+
 void LIB_API Node::addChild(Node* child)
 {
 	if (child != nullptr) {
+		if (child->parent != nullptr) {
+			int index = child->parent->getChildIndex(child->getName());
+			child->parent->removeNthChild(index);
+		}
 		child->parent = this;
 		children.push_back(child);
 	}
