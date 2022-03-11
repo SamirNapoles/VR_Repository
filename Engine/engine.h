@@ -44,7 +44,7 @@ class LIB_API Engine
 		static void swap();
 		static void forceRefresh();
 
-		static List getList();
+		static List* getList();
 		static UIProjection* getUI();
 		static int getFps();
 		static void setTexturePath(std::string width);
