@@ -59,6 +59,7 @@ class LIB_API Engine
 		static void reshapeCallback(int width, int heigth);
 		static void displayCallbackDelegator();
 		static void(*displayCallBackApplication)();
+		static void closeCallback();
 
 	private:
 		static int windowId;

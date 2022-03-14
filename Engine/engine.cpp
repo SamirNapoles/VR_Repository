@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <FreeImage.h>
 //////////////
@@ -47,6 +48,8 @@ FrameRate* Engine::fps = nullptr;
 void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplication)(int), void(*displayCallBackApplication)()) {
     // Init context:
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+    glutInitContextVersion(4, 4);
+    glutInitContextProfile(GLUT_CORE_PROFILE);
     glutInitWindowPosition(200, 200);
     glutInitWindowSize(1000, 563);
 
@@ -61,7 +64,60 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
     // Create the window with a specific title:   
     Engine::windowId = glutCreateWindow(windowName);
+
     // The OpenGL context is now initialized...
+    
+    // Init all available OpenGL extensions (especially GLEW):
+    glewExperimental = GL_TRUE;
+    GLenum error = glewInit();
+    if (error != GLEW_OK) {
+        std::cout << "[ERROR] " << glewGetErrorString(error) << std::endl;
+        return;
+    }
+    else {
+        if (GLEW_VERSION_4_4)
+            std::cout << "Driver supports OpenGL 4.4\n" << std::endl;
+        else {
+            std::cout << "[ERROR] OpenGL 4.4 not supported\n" << std::endl;
+            return;
+        }
+    }
+
+    /*********************************/
+
+    // Log context properties:
+    std::cout << "OpenGL properties:" << std::endl;
+    std::cout << "   Vendor . . . :  " << glGetString(GL_VENDOR) << std::endl;
+    std::cout << "   Driver . . . :  " << glGetString(GL_RENDERER) << std::endl;
+
+    int oglVersion[2];
+    glGetIntegerv(GL_MAJOR_VERSION, &oglVersion[0]);
+    glGetIntegerv(GL_MINOR_VERSION, &oglVersion[1]);
+    std::cout << "   Version  . . :  " << glGetString(GL_VERSION) << " [" << oglVersion[0] << "." << oglVersion[1] << "]" << std::endl;
+
+    int oglContextProfile;
+    glGetIntegerv(GL_CONTEXT_PROFILE_MASK, &oglContextProfile);
+    if (oglContextProfile & GL_CONTEXT_CORE_PROFILE_BIT)
+        std::cout << "                :  " << "Core profile" << std::endl;
+    if (oglContextProfile & GL_CONTEXT_COMPATIBILITY_PROFILE_BIT)
+        std::cout << "                :  " << "Compatibility profile" << std::endl;
+
+    int oglContextFlags;
+    glGetIntegerv(GL_CONTEXT_FLAGS, &oglContextFlags);
+    if (oglContextFlags & GL_CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT)
+        std::cout << "                :  " << "Forward compatible" << std::endl;
+    if (oglContextFlags & GL_CONTEXT_FLAG_DEBUG_BIT)
+        std::cout << "                :  " << "Debug flag" << std::endl;
+    if (oglContextFlags & GL_CONTEXT_FLAG_ROBUST_ACCESS_BIT)
+        std::cout << "                :  " << "Robust access flag" << std::endl;
+    if (oglContextFlags & GL_CONTEXT_FLAG_NO_ERROR_BIT)
+        std::cout << "                :  " << "No error flag" << std::endl;
+
+    std::cout << "   GLSL . . . . :  " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+    std::cout << std::endl;
+
+    /*********************************/
+
     //Enable Z-Buffer
     glEnable(GL_DEPTH_TEST);
     //Enable face culling
@@ -73,6 +129,7 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     glutReshapeFunc(reshapeCallback);
     glutKeyboardFunc(keyboardCallbackDelegator);
     glutSpecialFunc(specialCallbackDelegator);
+    glutCloseFunc(closeCallback);
     Engine::keyboardCallbackApplication = keyboardCallbackApplication;
     Engine::displayCallBackApplication = displayCallBackApplication;
     //Initialize the UI
@@ -160,6 +217,16 @@ void Engine::displayCallbackDelegator() {
     fps->calculateFrameRate();
 }
 
+void Engine::closeCallback() {
+    // Release OpenGL resources (VBO, VAO, shaders) while the context is still available:
+    /*glDeleteBuffers(1, &vertexVbo);
+    glDeleteBuffers(1, &colorVbo);
+    glDeleteVertexArrays(1, &globalVao);
+    delete shader;
+    delete fs;
+    delete vs;*/
+}
+
 List LIB_API* Engine::getList() {
     return &Engine::list;
 }
@@ -176,8 +243,6 @@ UIProjection LIB_API* Engine::getUI() {
     return ui;
 }
 
-//Vector returned with size elements
-// "width" and "height"
 
 int LIB_API Engine::getFps() {
     return fps->getFps();
