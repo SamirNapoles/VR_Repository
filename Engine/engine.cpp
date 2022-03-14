@@ -34,6 +34,13 @@ int APIENTRY DllMain(HANDLE instDLL, DWORD reason, LPVOID _reserved)
 }
 #endif
 
+/**
+ * Debug message callback for OpenGL. See https://www.opengl.org/wiki/Debug_Output
+ */
+void __stdcall DebugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, GLvoid* userParam) {
+    std::cout << "OpenGL says: \"" << std::string(message) << "\"" << std::endl;
+}
+
 ////////////////////////////////
 // BODY OF CLASS Engine       //
 ////////////////////////////////
@@ -50,6 +57,7 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
     glutInitContextVersion(4, 4);
     glutInitContextProfile(GLUT_CORE_PROFILE);
+    glutInitContextFlags(GLUT_DEBUG);
     glutInitWindowPosition(200, 200);
     glutInitWindowSize(1000, 563);
 
@@ -82,6 +90,10 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
             return;
         }
     }
+
+    // Register OpenGL debug callback:
+    glDebugMessageCallback((GLDEBUGPROC)DebugCallback, nullptr);
+    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 
     /*********************************/
 
@@ -150,6 +162,7 @@ void LIB_API Engine::setCamera(Camera* camera) {
 Node LIB_API* Engine::loadScene(std::string fileName) {
     FileReader fileReader = FileReader();
     Node* root = fileReader.readFile(fileName.c_str());
+    //Node* root = new Node(Object::getNextId(), "root");
 
     //free camera
     Projection* proj = new PerspectiveProjection(glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT), 45.0f, 1.0f, 1000.0f);

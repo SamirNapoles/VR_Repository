@@ -1,4 +1,5 @@
 #include "Texture.h"
+#include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <FreeImage.h>
 
@@ -6,9 +7,13 @@ std::string Texture::path = "";
 LIB_API Texture::Texture(int id, const std::string name) :
 	Object{id, name}  {
 
-	if (strstr((const char*)glGetString(GL_EXTENSIONS), "GL_EXT_texture_filter_anisotropic")) {
-		isAnisotropicSupported = true;
-		glGetIntegerv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &anisotropicLevel);
+	GLint num = 0;
+	glGetIntegerv(GL_NUM_EXTENSIONS, &num);
+	while (0 < --num) {
+		if (strstr((const char*)glGetStringi(GL_EXTENSIONS, num - 1), "GL_EXT_texture_filter_anisotropic")) {
+			isAnisotropicSupported = true;
+			glGetIntegerv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &anisotropicLevel);
+		}
 	}
 }
 
