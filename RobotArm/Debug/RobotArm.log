@@ -1,6 +1,6 @@
 ﻿  main.cpp
-D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\FrameRate.h(21,20): warning C4244: 'inizializzazione': conversione da 'float' a 'time_t'. Possibile perdita di dati.
-D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\FrameRate.h(22,23): warning C4244: 'inizializzazione': conversione da 'float' a 'time_t'. Possibile perdita di dati.
+C:\Users\samir\source\repos\vr_repository\VR_Repository\Engine\FrameRate.h(21,20): warning C4244: 'inizializzazione': conversione da 'float' a 'time_t'. Possibile perdita di dati.
+C:\Users\samir\source\repos\vr_repository\VR_Repository\Engine\FrameRate.h(22,23): warning C4244: 'inizializzazione': conversione da 'float' a 'time_t'. Possibile perdita di dati.
   RobotArm.cpp
   Generazione del codice in corso...
-  RobotArm.vcxproj -> D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\x64\Debug\RobotArm.exe
+  RobotArm.vcxproj -> C:\Users\samir\source\repos\vr_repository\VR_Repository\x64\Debug\RobotArm.exe
