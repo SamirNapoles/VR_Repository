@@ -1,4 +1,5 @@
 #include "FakeShadow.h"
+#include <GL/glew.h>
 #include <GL/freeglut.h>
 
 
@@ -9,7 +10,12 @@ LIB_API FakeShadow::FakeShadow(const int id, const std::string name, std::shared
 };
 
 FakeShadow::~FakeShadow() {
-    vertices.clear();
+    //vertices.clear();
+    glDeleteBuffers(1, &vertexVbo);
+    glDeleteBuffers(1, &normalVbo);
+    glDeleteBuffers(1, &textureVbo);
+    glDeleteBuffers(1, &faceVbo);
+    glDeleteVertexArrays(1, &vao);
 }
 
 void FakeShadow::setOffset(glm::mat4 offset) {
@@ -101,6 +107,7 @@ void LIB_API FakeShadow::render(glm::mat4 finalMatrix) {
             //Vertex rendering Counter Clock-Wise
             glFrontFace(GL_CCW);
 
+            /*
             // Triangles rendering
             glBegin(GL_TRIANGLES);
             for (Vertex* v : vertices.at(lod)) {
@@ -110,6 +117,26 @@ void LIB_API FakeShadow::render(glm::mat4 finalMatrix) {
             }
 
             glEnd();
+            */
+
+            glBindVertexArray(vao);
+
+            glEnableClientState(GL_VERTEX_ARRAY);
+            glBindBuffer(GL_ARRAY_BUFFER, vertexVbo);
+            glVertexPointer(3, GL_FLOAT, 0, nullptr);
+
+            glEnableClientState(GL_NORMAL_ARRAY);
+            glBindBuffer(GL_ARRAY_BUFFER, normalVbo);
+            glNormalPointer(GL_FLOAT, 0, nullptr);
+
+            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+            glBindBuffer(GL_ARRAY_BUFFER, textureVbo);
+            glTexCoordPointer(2, GL_FLOAT, 0, nullptr);
+
+            glDrawArrays(GL_TRIANGLES, 0, faceNr);
+            glDrawElements(GL_TRIANGLES, faceNr * 3, GL_UNSIGNED_INT, nullptr);
+
+            glBindVertexArray(0);
         }
     }
 }
