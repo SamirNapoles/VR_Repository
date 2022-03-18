@@ -1,6 +1,8 @@
 #include "Projection.h"
 #include <GL/freeglut.h>
 
+#include "engine.h"
+
 Projection::Projection(int width, int heigth) :
 	width(width), heigth(heigth) {}
 Projection::~Projection() {};
@@ -8,9 +10,11 @@ Projection::~Projection() {};
 
 void LIB_API Projection::setOpenGLProjection() {
     // Set projection matrix:
-    glMatrixMode(GL_PROJECTION);
+/*    glMatrixMode(GL_PROJECTION);
         glLoadMatrixf(glm::value_ptr(projection));
     glMatrixMode(GL_MODELVIEW);
+*/
+    Engine::getProgram()->setMatrix(Engine::getProjectionMatrix(), projection);
 }
 
 void Projection::setProjection(glm::mat4 projection) {

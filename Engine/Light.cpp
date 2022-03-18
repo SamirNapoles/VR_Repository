@@ -1,6 +1,8 @@
 #include "Light.h"
 #include <GL/freeglut.h>
 
+#include "engine.h"
+
 LIB_API Light::Light(const int id, const std::string name, const int lightNumber, const glm::vec4 ambient, const glm::vec4 diffuse, const glm::vec4 specular) :
 	Node{ id, name }, lightNumber(lightNumber), ambient(ambient), diffuse(diffuse), specular(specular) {
 	glEnable(GL_LIGHTING);
@@ -61,7 +63,8 @@ void LIB_API Light::setQuadraticAttenuation(float quadraticAttenuation) {
 }
 
 void LIB_API Light::render(glm::mat4 finalMatrix) {
-	glLoadMatrixf(glm::value_ptr(finalMatrix));
+	// glLoadMatrixf(glm::value_ptr(finalMatrix));
+	Engine::getProgram()->setMatrix(Engine::getModelViewMatrix(), finalMatrix);
 
 	glLightfv(lightNumber, GL_AMBIENT, glm::value_ptr(ambient));
 	glLightfv(lightNumber, GL_DIFFUSE, glm::value_ptr(diffuse));

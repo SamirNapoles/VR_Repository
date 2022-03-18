@@ -41,12 +41,12 @@ int Program::getParamLocation(const char* name)
 bool Program::build(Shader* vertexShader, Shader* fragmentShader)
 {
 	// Safety net:
-	if (vertexShader && vertexShader->getType() != vertexShader->TYPE_VERTEX)
+	if (vertexShader && vertexShader->getType() != Shader::TYPE_VERTEX)
 	{
 		std::cout << "[ERROR] Invalid vertex shader passed" << std::endl;
 		return false;
 	}
-	if (fragmentShader && fragmentShader->getType() != fragmentShader->TYPE_FRAGMENT)
+	if (fragmentShader && fragmentShader->getType() != Shader::TYPE_FRAGMENT)
 	{
 		std::cout << " [ERROR] Invalid fragment shader passed" << std::endl;
 		return false;

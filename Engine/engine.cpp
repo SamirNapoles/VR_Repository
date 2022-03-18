@@ -2,6 +2,9 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <FreeImage.h>
+
+#include "VertexShader.h"
+#include "FragmentShader.h"
 //////////////
 // DLL MAIN //
 //////////////
@@ -44,6 +47,11 @@ void(*Engine::displayCallBackApplication)() = nullptr;
 Camera* Engine::camera = nullptr;
 UIProjection* Engine::ui = nullptr;
 FrameRate* Engine::fps = nullptr;
+
+Shader* vertexShader = nullptr;
+Shader* fragmentShader = nullptr;
+Program* Engine::program = nullptr;
+int Engine::projectionMatrix = -1, Engine::modelViewMatrix = -1;    // -1 means not assigned
 
 void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplication)(int), void(*displayCallBackApplication)()) {
     // Init context:
@@ -134,6 +142,28 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     Engine::displayCallBackApplication = displayCallBackApplication;
 
     //shaders and program initialization here
+    vertexShader = new Shader(Object::getNextId(), "vertx_shader");
+    vertexShader->loadFromMemory(Shader::TYPE_VERTEX, VertexShader::vertexShader);
+
+    fragmentShader = new Shader(Object::getNextId(), "fragment_shader");
+    fragmentShader->loadFromMemory(Shader::TYPE_FRAGMENT, FragmentShader::fragmentShader);
+
+    program = new Program(Object::getNextId(), "shader_program");
+    if (!program->build(vertexShader, fragmentShader))
+    {
+        std::cout << "[ERROR] Unable to build program!" << std::endl;
+        // exit(100);
+    }
+    if (!program->render())
+    {
+        std::cout << "[ERROR] Unable to render program!" << std::endl;
+        // exit(101);
+    }
+    program->bind(0, "in_Posîtion");
+
+    projectionMatrix = program->getParamLocation("projection");
+    modelViewMatrix = program->getParamLocation("modelview");
+
 
     //Initialize the UI
     ui = new UIProjection(glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT));
@@ -144,6 +174,9 @@ void LIB_API Engine::free() {
     list.clear();
     FreeImage_DeInitialise();
     //delete root; // avoid root memory leak
+    delete vertexShader;
+    delete fragmentShader;
+    delete program;
 }
 
 void LIB_API Engine::setCamera(Camera* camera) {
@@ -249,4 +282,16 @@ UIProjection LIB_API* Engine::getUI() {
 
 int LIB_API Engine::getFps() {
     return fps->getFps();
+}
+
+Program* Engine::getProgram() {
+    return program;
+}
+
+int Engine::getProjectionMatrix() {
+    return projectionMatrix;
+}
+
+int Engine::getModelViewMatrix() {
+    return modelViewMatrix;
 }

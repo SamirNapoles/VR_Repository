@@ -28,6 +28,10 @@ public:
 	{
 		glUniformMatrix4fv(param, 1, GL_FALSE, glm::value_ptr(mat));
 	}
+	inline void setMatrix3(int param, const glm::mat3& mat)
+	{
+		glUniformMatrix3fv(param, 1, GL_FALSE, glm::value_ptr(mat));
+	}
 	inline void setFloat(int param, float value)
 	{
 		glUniform1f(param, value);

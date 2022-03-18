@@ -18,6 +18,8 @@
 #include "FakeShadow.h"
 #include "FileReader.h"
 #include "List.h"
+#include "Shader.h"
+#include "Program.h"
 
 /////////////
 // CLASSES //
@@ -50,6 +52,10 @@ class LIB_API Engine
 		static void setTexturePath(std::string width);
 		void setCamera(Camera* camera);
 
+		static Program* getProgram();
+		static int getProjectionMatrix();
+		static int getModelViewMatrix();
+
 	private:
 		static void keyboardCallbackDelegator(unsigned char key, int x, int y);
 		static void specialCallbackDelegator(int code, int x, int y);
@@ -68,4 +74,7 @@ class LIB_API Engine
 		static Node* root;
 		static List list;
 		static FrameRate* fps;
+		static Program* program;
+		static int projectionMatrix;
+		static int modelViewMatrix;
 };

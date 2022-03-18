@@ -1,6 +1,8 @@
 #include "Mesh.h"
 #include <GL/freeglut.h>
 
+#include "engine.h"
+
 LIB_API Mesh::Mesh(const int id, const std::string name, std::shared_ptr<Material> material) :
 	Node{id, name}, material(material) {}
 
@@ -36,7 +38,8 @@ void LIB_API Mesh::render(glm::mat4 finalMatrix) {
     m->render(finalMatrix);
 
     // Set model matrix as current OpenGL matrix:
-    glLoadMatrixf(glm::value_ptr(finalMatrix));
+    // glLoadMatrixf(glm::value_ptr(finalMatrix));
+    Engine::getProgram()->setMatrix(Engine::getModelViewMatrix(), finalMatrix);
 
     //Vertex rendering Counter Clock-Wise
     glFrontFace(GL_CCW);
@@ -50,6 +53,10 @@ void LIB_API Mesh::render(glm::mat4 finalMatrix) {
     }
 
     glEnd();
+
+    // future element rendering through its faces
+    // glBindVertexArray(vao);
+    // glDrawElements(GL_TRIANGLES, faces.size() * 3, GL_UNSIGNED_INT, nullptr);
 
     glDisable(GL_TEXTURE_2D);
 }
