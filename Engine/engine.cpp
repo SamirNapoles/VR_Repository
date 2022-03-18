@@ -132,6 +132,9 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     glutCloseFunc(closeCallback);
     Engine::keyboardCallbackApplication = keyboardCallbackApplication;
     Engine::displayCallBackApplication = displayCallBackApplication;
+
+    //shaders and program initialization here
+
     //Initialize the UI
     ui = new UIProjection(glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT));
     fps = new FrameRate();

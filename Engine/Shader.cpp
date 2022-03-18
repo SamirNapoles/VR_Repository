@@ -10,7 +10,7 @@
 /**
  * Constructor.
  */
-Shader::Shader() : type(TYPE_UNDEFINED),
+Shader::Shader(int id, const std::string name) : Object(id, name), type(TYPE_UNDEFINED),
 glId(0)
 {}
 
@@ -28,11 +28,22 @@ Shader::~Shader()
 		case TYPE_FRAGMENT:
 			glDeleteShader(glId);
 			break;
-
+/*
 		case TYPE_PROGRAM:
 			glDeleteProgram(glId);
 			break;
+*/
 		}
+}
+
+int Shader::getType()
+{
+	return type;
+}
+
+GLuint Shader::getGlId()
+{
+	return glId;
 }
 
 
@@ -42,6 +53,7 @@ Shader::~Shader()
  * @param name variable name
  * @return location ID or -1 if not found
  */
+	/*
 int Shader::getParamLocation(const char* name)
 {
 	// Safety net:
@@ -57,7 +69,7 @@ int Shader::getParamLocation(const char* name)
 		std::cout << "[ERROR] Param '" << name << "' not found" << std::endl;
 	return r;
 }
-
+	*/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
@@ -199,6 +211,7 @@ bool Shader::loadFromFile(int type, const char* filename)
  * @param fragmentShader pointer to a fragment shader, or nullptr if not used
  * @return true/false on success/failure
  */
+	/*
 bool Shader::build(Shader* vertexShader, Shader* fragmentShader)
 {
 	// Safety net:
@@ -269,6 +282,7 @@ bool Shader::build(Shader* vertexShader, Shader* fragmentShader)
 	// Done:
 	return true;
 }
+	*/
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -277,6 +291,7 @@ bool Shader::build(Shader* vertexShader, Shader* fragmentShader)
  * @param data generic pointer to optional custom data
  * @return true on success, false on failure
  */
+	/*
 bool Shader::render(void* data)
 {
 	// Activate shader:
@@ -291,3 +306,4 @@ bool Shader::render(void* data)
 	// Done:
 	return true;
 }
+	*/

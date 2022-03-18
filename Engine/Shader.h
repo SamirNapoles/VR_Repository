@@ -21,6 +21,9 @@
 #include <iostream>
 
 
+#include "Object.h"
+
+
 
 //////////////////
 // CLASS Shader //
@@ -29,7 +32,7 @@
 /**
  * @brief OGL Shader. Management and rendering of shaders.
  */
-class Shader
+class Shader : public Object
 {
 	//////////
 public: //
@@ -44,16 +47,18 @@ public: //
 		TYPE_UNDEFINED = 0,
 		TYPE_VERTEX,
 		TYPE_FRAGMENT,
-		TYPE_PROGRAM,
+		//TYPE_PROGRAM,
 		TYPE_LAST
 	};
 
 	// Const/dest:	 
-	Shader();
+	Shader(int id, const std::string name);
 	~Shader();
 
 	// Get/set:
-	int getParamLocation(const char* name);
+	int getType();
+	GLuint getGlId();
+/*	int getParamLocation(const char* name);
 	inline void setMatrix(int param, const glm::mat4& mat)
 	{
 		glUniformMatrix4fv(param, 1, GL_FALSE, glm::value_ptr(mat));
@@ -74,11 +79,11 @@ public: //
 	{
 		glUniform4fv(param, 1, glm::value_ptr(vect));
 	}
-
+*/
 	// Accessing data:
 	bool loadFromMemory(int kind, const char* data);
 	bool loadFromFile(int kind, const char* filename);
-	bool build(Shader* vertexShader, Shader* fragmentShader);
+/*	bool build(Shader* vertexShader, Shader* fragmentShader);
 
 	inline void bind(int location, const char* attribName)
 	{
@@ -87,7 +92,7 @@ public: //
 
 	// Rendering:				
 	bool render(void* data = nullptr);
-
+*/
 
 	///////////	 
 private:	//

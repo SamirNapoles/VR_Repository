@@ -313,9 +313,15 @@ D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Light.h(3
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\dependencies\glm\include\glm\fwd.hpp(419): message : vedere la dichiarazione di 'glm::vec<4,float,glm::packed_highp>'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Light.h(35,12): warning C4251: 'Light::position': struct 'glm::vec<4,float,glm::packed_highp>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'Light'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\dependencies\glm\include\glm\fwd.hpp(419): message : vedere la dichiarazione di 'glm::vec<4,float,glm::packed_highp>'
+  Program.cpp
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Object.h(29,15): warning C4251: 'Object::name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'Object'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xstring(4905): message : vedere la dichiarazione di 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
   Projection.cpp
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Projection.h(27,13): warning C4251: 'Projection::projection': struct 'glm::mat<4,4,glm::f32,glm::packed_highp>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'Projection'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\dependencies\glm\include\glm\fwd.hpp(518): message : vedere la dichiarazione di 'glm::mat<4,4,glm::f32,glm::packed_highp>'
+  Shader.cpp
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Object.h(29,15): warning C4251: 'Object::name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'Object'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xstring(4905): message : vedere la dichiarazione di 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
   SpotLight.cpp
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Object.h(29,15): warning C4251: 'Object::name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'Object'
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xstring(4905): message : vedere la dichiarazione di 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
@@ -333,6 +339,9 @@ D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Light.h(3
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\dependencies\glm\include\glm\fwd.hpp(419): message : vedere la dichiarazione di 'glm::vec<4,float,glm::packed_highp>'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\SpotLight.h(17,12): warning C4251: 'SpotLight::direction': struct 'glm::vec<3,float,glm::packed_highp>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'SpotLight'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\dependencies\glm\include\glm\fwd.hpp(418): message : vedere la dichiarazione di 'glm::vec<3,float,glm::packed_highp>'
+  Generazione del codice in corso...
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\FileReader.cpp(433): warning C4715: 'FileReader::recursiveLoad': non tutti i percorsi di controllo restituiscono un valore
+  Compilazione in corso...
   Texture.cpp
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Object.h(29,15): warning C4251: 'Object::name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'Object'
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xstring(4905): message : vedere la dichiarazione di 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
@@ -345,9 +354,6 @@ D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\UIProject
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\UIProjection.h(22): message : vedere la dichiarazione di 'std::vector<std::string,std::allocator<std::string>>'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\UIProjection.h(23,12): warning C4251: 'UIProjection::color': struct 'glm::vec<3,float,glm::packed_highp>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'UIProjection'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\dependencies\glm\include\glm\fwd.hpp(418): message : vedere la dichiarazione di 'glm::vec<3,float,glm::packed_highp>'
-  Generazione del codice in corso...
-D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\FileReader.cpp(433): warning C4715: 'FileReader::recursiveLoad': non tutti i percorsi di controllo restituiscono un valore
-  Compilazione in corso...
   Vertex.cpp
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\Vertex.h(20,12): warning C4251: 'Vertex::position': struct 'glm::vec<3,float,glm::packed_highp>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'Vertex'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\dependencies\glm\include\glm\fwd.hpp(418): message : vedere la dichiarazione di 'glm::vec<3,float,glm::packed_highp>'
