@@ -36,20 +36,19 @@ void LIB_API Mesh::render(glm::mat4 finalMatrix) {
     m->render(finalMatrix);
 
     // Set model matrix as current OpenGL matrix:
-    glLoadMatrixf(glm::value_ptr(finalMatrix));
+    //glLoadMatrixf(glm::value_ptr(finalMatrix));
 
     //Vertex rendering Counter Clock-Wise
     glFrontFace(GL_CCW);
 
     // Triangles rendering
-    glBegin(GL_TRIANGLES);
+    //glBegin(GL_TRIANGLES);
     for (Vertex* v : vertices.at(lod)) {
-        glNormal3fv(glm::value_ptr(v->getNormal()));
-        glTexCoord2fv(glm::value_ptr(v->getTextureCoordinates()));
-        glVertex3fv(glm::value_ptr(v->getPosition()));     
+        //glNormal3fv(glm::value_ptr(v->getNormal()));
+        //glTexCoord2fv(glm::value_ptr(v->getTextureCoordinates()));
+        //glVertex3fv(glm::value_ptr(v->getPosition()));     
     }
+    //glEnd();
 
-    glEnd();
-
-    glDisable(GL_TEXTURE_2D);
+    //glDisable(GL_TEXTURE_2D);
 }

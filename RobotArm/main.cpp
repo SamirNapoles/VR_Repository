@@ -20,7 +20,6 @@
 //////////
 
 Engine engine;
-UIProjection* ui;
 
 glm::vec3 cameraPos = glm::vec3(0.0f, 100.0f, -40.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
@@ -42,7 +41,6 @@ float stationaryRotationZ = -8.0f;
 
 Node* root;
 bool isActive = true;
-bool showUI = true;
 RobotArm* ra;
 
 Camera* freeCamera = nullptr;
@@ -108,9 +106,6 @@ void keyboardCallback(int key) {
 		case '.':
 			isActive = false;
 			break;
-		case KEY_F1:
-			showUI = !showUI;
-			break;
 
 		//Robot arm controls
 		case '+':
@@ -162,13 +157,6 @@ void displayCallback() {
 	engine.getList()->render(activeCamera->getInverse());
 	//clear() would delete pointers which would probably erease scene graph; to consider use of shared pointers in ListNode
 	engine.getList()->removeAllEntries();
-
-	if (showUI) {
-		ui->editLabel(0, "FPS: " + std::to_string(engine.getFps()));
-		ui->editLabel(2, "[+/-] - Switch active joint: " + std::to_string(ra->getActiveJoint()));
-		ui->editLabel(7, "[c] - change camera: " + std::string(activeCamera == freeCamera ? "free" : "stationary"));
-		ui->print();
-	}
 
 	// Swap this context's buffer:
 	engine.swap();
@@ -227,17 +215,6 @@ int main(int argc, char* argv[])
 	((FakeShadow*)root->findByName("clawL_shadow"))->setShadowParent(floor);
 	((FakeShadow*)root->findByName("clawR_shadow"))->setShadowParent(floor);
 	((FakeShadow*)root->findByName("Sphere_shadow"))->setShadowParent(floor);
-
-	//Set menu
-	ui = engine.getUI();
-	ui->addLabel("FPS");
-	ui->addLabel("[F1] - Show/Hide Menu");
-	ui->addLabel("[+/-]");
-	ui->addLabel("[up/down/left/right] - rotate robot joint");
-	ui->addLabel("[space] - grab ball");
-	ui->addLabel("[w/a/s/d] - move camera");
-	ui->addLabel("[8/4/2/6] - rotate camera");
-	ui->addLabel("[c]");
 
 	//Prepare robotarm
 	Node* ball = root->findByName("Sphere");

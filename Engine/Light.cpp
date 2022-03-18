@@ -3,9 +3,9 @@
 
 LIB_API Light::Light(const int id, const std::string name, const int lightNumber, const glm::vec4 ambient, const glm::vec4 diffuse, const glm::vec4 specular) :
 	Node{ id, name }, lightNumber(lightNumber), ambient(ambient), diffuse(diffuse), specular(specular) {
-	glEnable(GL_LIGHTING);
-	glEnable(lightNumber);
-	glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER, 1.0f);
+	//glEnable(GL_LIGHTING);
+	//glEnable(lightNumber);
+	//glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER, 1.0f);
 }
 
 Light::~Light() {
@@ -61,7 +61,7 @@ void LIB_API Light::setQuadraticAttenuation(float quadraticAttenuation) {
 }
 
 void LIB_API Light::render(glm::mat4 finalMatrix) {
-	glLoadMatrixf(glm::value_ptr(finalMatrix));
+	/*glLoadMatrixf(glm::value_ptr(finalMatrix));
 
 	glLightfv(lightNumber, GL_AMBIENT, glm::value_ptr(ambient));
 	glLightfv(lightNumber, GL_DIFFUSE, glm::value_ptr(diffuse));
@@ -71,5 +71,5 @@ void LIB_API Light::render(glm::mat4 finalMatrix) {
 	glLightfv(lightNumber, GL_LINEAR_ATTENUATION, &linearAttenuation);
 	glLightfv(lightNumber, GL_QUADRATIC_ATTENUATION, &quadraticAttenuation);
 	
-	glLightfv(lightNumber, GL_POSITION, glm::value_ptr(glm::vec4(0.0f, 0.0f, 0.0f, position.w)));
+	glLightfv(lightNumber, GL_POSITION, glm::value_ptr(glm::vec4(0.0f, 0.0f, 0.0f, position.w)));*/
 }

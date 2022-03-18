@@ -50,7 +50,6 @@ List Engine::list = List();
 void(*Engine::keyboardCallbackApplication)(int) = nullptr;
 void(*Engine::displayCallBackApplication)() = nullptr;
 Camera* Engine::camera = nullptr;
-UIProjection* Engine::ui = nullptr;
 FrameRate* Engine::fps = nullptr;
 
 void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplication)(int), void(*displayCallBackApplication)()) {
@@ -147,8 +146,7 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     glutCloseFunc(closeCallback);
     Engine::keyboardCallbackApplication = keyboardCallbackApplication;
     Engine::displayCallBackApplication = displayCallBackApplication;
-    //Initialize the UI
-    ui = new UIProjection(glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT));
+
     fps = new FrameRate();
 }
 
@@ -165,7 +163,6 @@ void LIB_API Engine::setCamera(Camera* camera) {
 Node LIB_API* Engine::loadScene(std::string fileName) {
     FileReader fileReader = FileReader();
     Node* root = fileReader.readFile(fileName.c_str());
-    //Node* root = new Node(Object::getNextId(), "root");
 
     //free camera
     Projection* proj = new PerspectiveProjection(glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT), 45.0f, 1.0f, 1000.0f);
@@ -220,10 +217,6 @@ void Engine::reshapeCallback(int width, int height) {
     p->setHeigth(height);
     p->update();
     p->setOpenGLProjection();
-    // Refresh ui projection matrix:
-    ui->setWidth(width);
-    ui->setHeigth(height);
-    ui->update();
     // Force rendering refresh:
     glutPostWindowRedisplay(windowId);
 }
@@ -251,12 +244,6 @@ List LIB_API* Engine::getList() {
 void Engine::setTexturePath(std::string path)
 {
     Texture::setPath(path);
-}
-
-
-//UI
-UIProjection LIB_API* Engine::getUI() {
-    return ui;
 }
 
 

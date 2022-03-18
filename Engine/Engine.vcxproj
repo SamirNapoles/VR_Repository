@@ -114,7 +114,6 @@
     <ClCompile Include="Projection.cpp" />
     <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="UIProjection.cpp" />
     <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -142,7 +141,6 @@
     <ClInclude Include="Projection.h" />
     <ClInclude Include="SpotLight.h" />
     <ClInclude Include="Texture.h" />
-    <ClInclude Include="UIProjection.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -21,7 +21,7 @@ Texture::~Texture() {}
 
 
 void LIB_API Texture::render(glm::mat4 finalMatrix) {
-	glEnable(GL_TEXTURE_2D);
+	//glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, texId);
 
 	// Set circular coordinates:

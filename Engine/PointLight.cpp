@@ -6,7 +6,7 @@ LIB_API PointLight::PointLight(const int id, const std::string name, const int l
 	Light{ id, name, lightNumber, ambient, diffuse, specular}, cutOff(cutOff) {};
 
 void LIB_API PointLight::render(glm::mat4 finalMatrix) {
-	glLightfv(getLightNumber(), GL_SPOT_CUTOFF, &cutOff);
+	//glLightfv(getLightNumber(), GL_SPOT_CUTOFF, &cutOff);
 
 	Light::render(finalMatrix);
 }

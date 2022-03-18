@@ -12,11 +12,11 @@ Material::~Material() {}
 void LIB_API Material::render(glm::mat4 finalMatrix) {
 	if(texture != NULL)
 		texture->render(finalMatrix);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, glm::value_ptr(getEmission()));
-	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, glm::value_ptr(getAmbient()));
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, glm::value_ptr(getDiffuse()));
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, glm::value_ptr(getSpecular()));
-	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, getShininess());
+	//glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, glm::value_ptr(getEmission()));
+	//glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, glm::value_ptr(getAmbient()));
+	//glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, glm::value_ptr(getDiffuse()));
+	//glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, glm::value_ptr(getSpecular()));
+	//glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, getShininess());
 }
 
 glm::vec4 LIB_API Material::getEmission() {

@@ -6,7 +6,7 @@ LIB_API SpotLight::SpotLight(const int id, const std::string name, const int lig
 	PointLight{ id, name, lightNumber, ambient, diffuse, specular, cutOff }, direction(direction) {};
 
 void LIB_API SpotLight::render(glm::mat4 finalMatrix) {
-	glLightfv(getLightNumber(), GL_SPOT_DIRECTION, glm::value_ptr(glm::vec4(direction, 1.0f)));
+	//glLightfv(getLightNumber(), GL_SPOT_DIRECTION, glm::value_ptr(glm::vec4(direction, 1.0f)));
 
 	PointLight::render(finalMatrix);
 }
