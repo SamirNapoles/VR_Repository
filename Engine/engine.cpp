@@ -2,6 +2,7 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <FreeImage.h>
+
 //////////////
 // DLL MAIN //
 //////////////
@@ -92,8 +93,10 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     }
 
     // Register OpenGL debug callback:
-    glDebugMessageCallback((GLDEBUGPROC)DebugCallback, nullptr);
-    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+    #ifdef _DEBUG
+        glDebugMessageCallback((GLDEBUGPROC)DebugCallback, nullptr);
+        glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+    #endif // _DEBUG
 
     /*********************************/
 
