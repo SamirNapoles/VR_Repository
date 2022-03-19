@@ -8,7 +8,7 @@
 
 class RobotArm {
 public:
-	RobotArm(std::vector<Node*> joints, std::vector<glm::vec3> jointsRotationLimit, Node* ball);
+	RobotArm(std::vector<Node*> joints, std::vector<glm::vec3> jointsRotationLimit, std::vector<Node*> claws, std::vector<glm::vec3> clawsRotationLimit, Node* ball);
 	~RobotArm();
 
 public:
@@ -17,8 +17,13 @@ public:
 	float getRotationSpeed();
 	void setActiveJoint(int activeJoint);
 	int getActiveJoint();
-	void claw();
+	void openClaws();
+	void closeClaws();
 	void update();
+
+private:
+	void rotateClaw(int clawIndex, glm::vec3 direction);
+	void grab();
 
 private:
 	std::vector<Node*> joints;
@@ -26,16 +31,21 @@ private:
 	std::vector<glm::vec3> jointsRotation;
 	std::vector<glm::mat4> jointsOriginalTransform;
 
+	std::vector<Node*> claws;
+	std::vector<glm::vec3> clawsRotationLimit;
+	std::vector<glm::vec3> clawsRotation;
+	std::vector<glm::mat4> clawsOriginalTransform;
+
 	Node* originalBallParent;
 	glm::mat4 originalBallTransform;
 	Node* ball;
 	bool release = true;
 	bool hasBall = false;
 
-	float clawDistance = 15.0f;
+	float clawDistance = 30.0f;
 
 	float rotationSpeed = 1.0f;
-	float fallSpeed = 1.0f;
+	float fallSpeed = 3.0f;
 	int activeJoint = 0;
 };
 

@@ -99,41 +99,44 @@ void keyboardCallback(int key) {
 	switch (key) {
 
 		//Camera management
-	case 'c':
-		activeCamera = (activeCamera == freeCamera ? stationaryCamera : freeCamera);
-		engine.setCamera(activeCamera);
-		break;
+		case 'c':
+			activeCamera = (activeCamera == freeCamera ? stationaryCamera : freeCamera);
+			engine.setCamera(activeCamera);
+			break;
 
 		//Application controls
-	case '.':
-		isActive = false;
-		break;
-	case KEY_F1:
-		showUI = !showUI;
-		break;
+		case 27:
+			isActive = false;
+			break;
+		case KEY_F1:
+			showUI = !showUI;
+			break;
 
 		//Robot arm controls
-	case '+':
-		ra->setActiveJoint((ra->getActiveJoint() + 4 + 1) % 4);
-		break;
-	case '-':
-		ra->setActiveJoint((ra->getActiveJoint() + 4 - 1) % 4);
-		break;
-	case KEY_UP:
-		ra->rotateJoint(glm::vec3(-1.0f, 0.0f, 0.0f));
-		break;
-	case KEY_DOWN:
-		ra->rotateJoint(glm::vec3(1.0f, 0.0f, 0.0f));
-		break;
-	case KEY_RIGHT:
-		ra->rotateJoint(glm::vec3(0.0f, 1.0f, 0.0f));
-		break;
-	case KEY_LEFT:
-		ra->rotateJoint(glm::vec3(0.0f, -1.0f, 0.0f));
-		break;
-	case ' ':
-		ra->claw();
-		break;
+		case '+':
+			ra->setActiveJoint((ra->getActiveJoint() + 4 + 1) % 4);
+			break;
+		case '-':
+			ra->setActiveJoint((ra->getActiveJoint() + 4 - 1) % 4);
+			break;
+		case KEY_UP:
+			ra->rotateJoint(glm::vec3(-1.0f, 0.0f, 0.0f));
+			break;
+		case KEY_DOWN:
+			ra->rotateJoint(glm::vec3(1.0f, 0.0f, 0.0f));
+			break;
+		case KEY_RIGHT:
+			ra->rotateJoint(glm::vec3(0.0f, 1.0f, 0.0f));
+			break;
+		case KEY_LEFT:
+			ra->rotateJoint(glm::vec3(0.0f, -1.0f, 0.0f));
+			break;
+		case '.':
+			ra->openClaws();
+			break;
+		case ',':
+			ra->closeClaws();
+			break;
 	}
 }
 
@@ -162,7 +165,7 @@ void displayCallback() {
 	if (showUI) {
 		ui->editLabel(0, "FPS: " + std::to_string(engine.getFps()));
 		ui->editLabel(2, "[+/-] - Switch active joint: " + std::to_string(ra->getActiveJoint()));
-		ui->editLabel(7, "[c] - change camera: " + std::string(activeCamera == freeCamera ? "free" : "stationary"));
+		ui->editLabel(6, "[c] - change camera: " + std::string(activeCamera == freeCamera ? "free" : "stationary"));
 		ui->print();
 	}
 
@@ -230,10 +233,11 @@ int main(int argc, char* argv[])
 	ui->addLabel("[F1] - Show/Hide Menu");
 	ui->addLabel("[+/-]");
 	ui->addLabel("[up/down/left/right] - rotate robot joint");
-	ui->addLabel("[space] - grab ball");
 	ui->addLabel("[w/a/s/d] - move camera");
 	ui->addLabel("[8/4/2/6] - rotate camera");
 	ui->addLabel("[c]");
+	ui->addLabel("[.] - open claws");
+	ui->addLabel("[,] - close claws");
 
 	//Prepare robotarm
 	Node* ball = root->findByName("Sphere");
@@ -243,13 +247,20 @@ int main(int argc, char* argv[])
 	Node* joint2 = joint1->findByName("arm3");
 	Node* joint3 = joint2->findByName("clawSupport");
 	std::vector<Node*> joints{ joint0, joint1, joint2, joint3 };
-	std::vector<glm::vec3> limits{
+	std::vector<glm::vec3> jointsLimits{
 		glm::vec3(0.0f, 360.0f, 0.0f),
 		glm::vec3(90.0f, 0.0f, 0.0f),
 		glm::vec3(90.0f, 0.0f, 0.0f),
 		glm::vec3(90.0f, 0.0f, 0.0f)
 	};
-	ra = new RobotArm(joints, limits, ball);
+	Node* claw0 = joint3->findByName("clawL");
+	Node* claw1 = joint3->findByName("clawR");
+	std::vector<Node*> claws{ claw0, claw1 };
+	std::vector<glm::vec3> clawsLimits{
+		glm::vec3(0.0f, 10.0f, 0.0f),
+		glm::vec3(0.0f, 10.0f, 0.0f)
+	};
+	ra = new RobotArm(joints, jointsLimits, claws, clawsLimits, ball);
 
 	while (isActive) {
 		engine.begin();
