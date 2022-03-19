@@ -103,8 +103,11 @@ void keyboardCallback(int key) {
 			break;
 
 		//Application controls
-		case '.':
+		case 27:
 			isActive = false;
+			break;
+		case KEY_F1:
+			showUI = !showUI;
 			break;
 
 		//Robot arm controls
@@ -126,8 +129,11 @@ void keyboardCallback(int key) {
 		case KEY_LEFT:
 			ra->rotateJoint(glm::vec3(0.0f, -1.0f, 0.0f));
 			break;
-		case ' ':
-			ra->claw();
+		case '.':
+			ra->openClaws();
+			break;
+		case ',':
+			ra->closeClaws();
 			break;
 	}
 }
@@ -224,13 +230,20 @@ int main(int argc, char* argv[])
 	Node* joint2 = joint1->findByName("arm3");
 	Node* joint3 = joint2->findByName("clawSupport");
 	std::vector<Node*> joints{ joint0, joint1, joint2, joint3 };
-	std::vector<glm::vec3> limits{
+	std::vector<glm::vec3> jointsLimits{
 		glm::vec3(0.0f, 360.0f, 0.0f),
 		glm::vec3(90.0f, 0.0f, 0.0f),
 		glm::vec3(90.0f, 0.0f, 0.0f),
 		glm::vec3(90.0f, 0.0f, 0.0f)
 	};
-	ra = new RobotArm(joints, limits, ball);
+	Node* claw0 = joint3->findByName("clawL");
+	Node* claw1 = joint3->findByName("clawR");
+	std::vector<Node*> claws{ claw0, claw1 };
+	std::vector<glm::vec3> clawsLimits{
+		glm::vec3(0.0f, 10.0f, 0.0f),
+		glm::vec3(0.0f, 10.0f, 0.0f)
+	};
+	ra = new RobotArm(joints, jointsLimits, claws, clawsLimits, ball);
 
 	while (isActive) {
 		engine.begin();
