@@ -106,9 +106,6 @@ void keyboardCallback(int key) {
 		case 27:
 			isActive = false;
 			break;
-		case KEY_F1:
-			showUI = !showUI;
-			break;
 
 		//Robot arm controls
 		case '+':

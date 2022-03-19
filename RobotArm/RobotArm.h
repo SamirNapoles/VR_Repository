@@ -37,6 +37,7 @@ private:
 	std::vector<glm::vec3> clawsRotation;
 	std::vector<glm::mat4> clawsOriginalTransform;
 
+private:
 	Node* originalBallParent;
 	glm::mat4 originalBallTransform;
 	Node* ball;
