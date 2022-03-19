@@ -22,6 +22,7 @@ public:
 	void update();
 
 private:
+	glm::mat4 rotate(glm::vec3* rotation, glm::vec3* limit, glm::vec3 direction);
 	void rotateClaw(int clawIndex, glm::vec3 direction);
 	void grab();
 
