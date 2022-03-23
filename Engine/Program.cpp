@@ -1,5 +1,9 @@
 #include "Program.h"
 
+#include <GL/glew.h>
+
+#include <GL/freeglut.h>
+
 Program::Program(int id, const std::string name) : Object(id, name), glId{ 0 }
 {}
 
@@ -9,6 +13,36 @@ Program::~Program()
 	{
 		glDeleteProgram(glId);
 	}
+}
+
+void Program::setMatrix(int param, const glm::mat4& mat)
+{
+	glUniformMatrix4fv(param, 1, GL_FALSE, glm::value_ptr(mat));
+}
+
+void Program::setMatrix3(int param, const glm::mat3& mat)
+{
+	glUniformMatrix3fv(param, 1, GL_FALSE, glm::value_ptr(mat));
+}
+
+void Program::setFloat(int param, float value)
+{
+	glUniform1f(param, value);
+}
+
+void Program::setInt(int param, int value)
+{
+	glUniform1i(param, value);
+}
+
+void Program::setVec3(int param, const glm::vec3& vect)
+{
+	glUniform3fv(param, 1, glm::value_ptr(vect));
+}
+
+void Program::setVec4(int param, const glm::vec4& vect)
+{
+	glUniform4fv(param, 1, glm::value_ptr(vect));
 }
 
 /**
@@ -109,6 +143,11 @@ bool Program::build(Shader* vertexShader, Shader* fragmentShader)
 
 	// Done:
 	return true;
+}
+
+void Program::bind(int location, const char* attribName)
+{
+	glBindAttribLocation(glId, location, attribName);
 }
 
 /**
