@@ -76,15 +76,16 @@ void LIB_API Mesh::render(glm::mat4 finalMatrix) {
 
     glEnableClientState(GL_VERTEX_ARRAY);
     glBindBuffer(GL_ARRAY_BUFFER, vertexVbo);
-    glVertexPointer(3, GL_FLOAT, 0, nullptr);
+    glVertexAttribPointer((GLuint) 0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glEnableVertexAttribArray(0);
 
     glEnableClientState(GL_NORMAL_ARRAY);
     glBindBuffer(GL_ARRAY_BUFFER, normalVbo);
-    glNormalPointer(GL_FLOAT, 0, nullptr);
+    glVertexAttribPointer((GLuint) 1, 3, GL_FLOAT, GL_TRUE, 0, nullptr); // second parameter 3 or 1?
 
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glBindBuffer(GL_ARRAY_BUFFER, textureVbo);
-    glTexCoordPointer(2, GL_FLOAT, 0, nullptr);
+    glVertexAttribPointer((GLuint) 2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
 
     glDrawArrays(GL_TRIANGLES, 0, faceNr);
     glDrawElements(GL_TRIANGLES, faceNr * 3, GL_UNSIGNED_INT, nullptr);
