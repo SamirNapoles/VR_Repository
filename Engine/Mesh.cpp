@@ -81,7 +81,7 @@ void LIB_API Mesh::render(glm::mat4 finalMatrix) {
 
     glEnableClientState(GL_NORMAL_ARRAY);
     glBindBuffer(GL_ARRAY_BUFFER, normalVbo);
-    glVertexAttribPointer((GLuint) 1, 3, GL_FLOAT, GL_TRUE, 0, nullptr); // second parameter 3 or 1?
+    glVertexAttribPointer((GLuint) 1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glBindBuffer(GL_ARRAY_BUFFER, textureVbo);
