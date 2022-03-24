@@ -1,5 +1,11 @@
 #include "Shader.h"
 
+// Glew (include it before GL.h):
+#include <GL/glew.h>
+
+// FreeGLUT:
+#include <GL/freeglut.h>
+
 
 
 //////////////////////////
@@ -41,7 +47,7 @@ int Shader::getType()
 	return type;
 }
 
-GLuint Shader::getGlId()
+unsigned int/*GLuint*/ Shader::getGlId()
 {
 	return glId;
 }

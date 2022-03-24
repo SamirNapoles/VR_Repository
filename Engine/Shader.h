@@ -11,12 +11,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-// Glew (include it before GL.h):
-#include <GL/glew.h>
-
-// FreeGLUT:
-#include <GL/freeglut.h>
-
 // C/C++:
 #include <iostream>
 
@@ -57,7 +51,7 @@ public: //
 
 	// Get/set:
 	int getType();
-	GLuint getGlId();
+	unsigned int/*GLuint*/ getGlId();
 /*	int getParamLocation(const char* name);
 	inline void setMatrix(int param, const glm::mat4& mat)
 	{
@@ -102,5 +96,5 @@ private:	//
 	int type;
 
 	// OGL id:
-	GLuint glId;
+	unsigned int/*GLuint*/ glId;
 };

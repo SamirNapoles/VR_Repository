@@ -12,9 +12,9 @@ public:
 	void update() override;
 
 private:
-	float fov;
-	float near;
-	float far;
+	float p_fov;
+	float p_near;
+	float p_far;
 };
 
 #endif //PERSPECTIVE_PROJECTION

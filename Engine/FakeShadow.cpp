@@ -1,4 +1,5 @@
 #include "FakeShadow.h"
+#include <GL/glew.h>
 #include <GL/freeglut.h>
 
 #include "engine.h"
@@ -11,7 +12,12 @@ LIB_API FakeShadow::FakeShadow(const int id, const std::string name, std::shared
 };
 
 FakeShadow::~FakeShadow() {
-    vertices.clear();
+    //vertices.clear();
+    glDeleteBuffers(1, &vertexVbo);
+    glDeleteBuffers(1, &normalVbo);
+    glDeleteBuffers(1, &textureVbo);
+    glDeleteBuffers(1, &faceVbo);
+    glDeleteVertexArrays(1, &vao);
 }
 
 void FakeShadow::setOffset(glm::mat4 offset) {
@@ -104,6 +110,7 @@ void LIB_API FakeShadow::render(glm::mat4 finalMatrix) {
             //Vertex rendering Counter Clock-Wise
             glFrontFace(GL_CCW);
 
+            /*
             // Triangles rendering
             glBegin(GL_TRIANGLES);
             for (Vertex* v : vertices.at(lod)) {
@@ -114,9 +121,30 @@ void LIB_API FakeShadow::render(glm::mat4 finalMatrix) {
 
             glEnd();
 
-            // future element rendering through its faces
+            // future element rendering through its faces (check differences)
             // glBindVertexArray(vao);
             // glDrawElements(GL_TRIANGLES, faces.size() * 3, GL_UNSIGNED_INT, nullptr);
+            */
+
+            glBindVertexArray(vao);
+
+            glEnableClientState(GL_VERTEX_ARRAY);
+            glBindBuffer(GL_ARRAY_BUFFER, vertexVbo);
+            glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+            glEnableVertexAttribArray(0);
+
+            glEnableClientState(GL_NORMAL_ARRAY);
+            glBindBuffer(GL_ARRAY_BUFFER, normalVbo);
+            glVertexAttribPointer((GLuint)1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+
+            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+            glBindBuffer(GL_ARRAY_BUFFER, textureVbo);
+            glVertexAttribPointer((GLuint)2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+
+            glDrawArrays(GL_TRIANGLES, 0, faceNr);
+            glDrawElements(GL_TRIANGLES, faceNr * 3, GL_UNSIGNED_INT, nullptr);
+
+            glBindVertexArray(0);
         }
     }
 }
