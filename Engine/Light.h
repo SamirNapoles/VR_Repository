@@ -15,6 +15,9 @@ public:
 	void setPosition();
 	void setPosition(glm::vec4 pos);
 	glm::vec4 getPosition();
+	glm::vec4 getAmbient();
+	glm::vec4 getDiffuse();
+	glm::vec4 getSpecular();
 	static int getNextLightNumber();
 	virtual void render(glm::mat4 finalMatrix) override;
 	virtual void setTransform(glm::mat4 transform) override;

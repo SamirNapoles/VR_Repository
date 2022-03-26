@@ -5,6 +5,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <iostream>
+#include <map>
 
 #include "Object.h"
 #include "Shader.h"
@@ -34,6 +35,11 @@ public:
 	// Rendering:				
 	bool render(void* data = nullptr);
 
+	static Program* getActiveProgram();
+	static std::map<std::string, int> getUniforms();
+
 private:
 	unsigned int/*GLuint*/ glId;
+	static Program* activeProgram;
+	static std::map<std::string, int> uniformVariables;
 };

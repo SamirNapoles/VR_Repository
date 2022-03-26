@@ -1,8 +1,6 @@
 #include "Light.h"
 #include <GL/freeglut.h>
 
-#include "engine.h"
-
 LIB_API Light::Light(const int id, const std::string name, const int lightNumber, const glm::vec4 ambient, const glm::vec4 diffuse, const glm::vec4 specular) :
 	Node{ id, name }, lightNumber(lightNumber), ambient(ambient), diffuse(diffuse), specular(specular) {
 	glEnable(GL_LIGHTING);
@@ -26,6 +24,18 @@ void Light::setPosition(glm::vec4 pos) {
 
 glm::vec4 LIB_API Light::getPosition() {
 	return position;
+}
+
+glm::vec4 LIB_API Light::getAmbient() {
+	return ambient;
+}
+
+glm::vec4 LIB_API Light::getDiffuse() {
+	return diffuse;
+}
+
+glm::vec4 LIB_API Light::getSpecular() {
+	return specular;
 }
 
 void LIB_API Light::setTransform(glm::mat4 transform) {
@@ -64,8 +74,10 @@ void LIB_API Light::setQuadraticAttenuation(float quadraticAttenuation) {
 
 void LIB_API Light::render(glm::mat4 finalMatrix) {
 	// glLoadMatrixf(glm::value_ptr(finalMatrix));
-	Engine::getProgram()->setMatrix(Engine::getModelViewMatrix(), finalMatrix);
+	// Engine::getProgramOmni()->setMatrix(Engine::getModelViewMatrixOmni(), finalMatrix);
+	// Engine::getProgramOmni()->setMatrix3(Engine::getInverseTransposeOmni(), glm::inverseTranspose(glm::mat3(finalMatrix)));
 
+	/*
 	glLightfv(lightNumber, GL_AMBIENT, glm::value_ptr(ambient));
 	glLightfv(lightNumber, GL_DIFFUSE, glm::value_ptr(diffuse));
 	glLightfv(lightNumber, GL_SPECULAR, glm::value_ptr(specular));
@@ -75,4 +87,5 @@ void LIB_API Light::render(glm::mat4 finalMatrix) {
 	glLightfv(lightNumber, GL_QUADRATIC_ATTENUATION, &quadraticAttenuation);
 	
 	glLightfv(lightNumber, GL_POSITION, glm::value_ptr(glm::vec4(0.0f, 0.0f, 0.0f, position.w)));
+	*/
 }

@@ -11,6 +11,7 @@ public:
 
 public:
 	virtual void render(glm::mat4 finalMatrix) override;
+	float getCutOff();
 
 private:
 	float cutOff;

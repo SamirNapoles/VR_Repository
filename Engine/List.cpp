@@ -8,6 +8,8 @@
 #include <glm/gtx/string_cast.hpp>
 #include "FakeShadow.h"
 
+#include "engine.h"
+
 void LIB_API List::addEntry(Node* root, glm::mat4 rootMatrix) {
     //don't get the root
     Node* node = root->getNthChild(0);
@@ -42,14 +44,38 @@ void LIB_API List::render(glm::mat4 inverseCameraMatrix) {
     for (it = objectsList.begin(); it != objectsList.end(); it++)
     {
         if (DirectionalLight* v = dynamic_cast<DirectionalLight*>((*it).getObject()))
-            v->render(inverseCameraMatrix * (*it).getMatrix());
+            // v->render(inverseCameraMatrix * (*it).getMatrix());
+            Engine::getProgramDirectional()->render();
         if (PointLight* v = dynamic_cast<PointLight*>((*it).getObject()))
-            v->render(inverseCameraMatrix * (*it).getMatrix());
+            // v->render(inverseCameraMatrix * (*it).getMatrix());
+            Engine::getProgramOmni()->render();
         if (SpotLight* v = dynamic_cast<SpotLight*>((*it).getObject()))
-            v->render(inverseCameraMatrix * (*it).getMatrix());
-        else
-            (*it).getObject()->render(inverseCameraMatrix * (*it).getMatrix());
+            // v->render(inverseCameraMatrix * (*it).getMatrix());
+            Engine::getProgramSpot()->render();
+        if (dynamic_cast<Light*>((*it).getObject()) == nullptr)
+            break;
+
+        (*it).getObject()->render(inverseCameraMatrix * (*it).getMatrix());
+        //std::cout << (*it).getObject()->getName() << std::endl;
+
+        // render only non-Light objects
+        std::list<ListNode>::iterator nonLightIt;
+        for (nonLightIt = objectsList.begin(); nonLightIt != objectsList.end(); nonLightIt++) {
+            if (dynamic_cast<Light*>((*nonLightIt).getObject()) == nullptr) {
+                (*nonLightIt).getObject()->render(inverseCameraMatrix * (*nonLightIt).getMatrix());
+                //std::cout << (*nonLightIt).getObject()->getName() << std::endl;
+            }
+        }
+
+        break;
+        //glEnable(GL_BLEND);
+        //glBlendFunc(GL_ONE, GL_ONE);
+        //glDepthMask(false);
+        //glDepthFunc(GL_LEQUAL);
     }
+    //glDisable(GL_BLEND);
+    //glDepthMask(true);
+    //glDepthFunc(GL_LESS);
 }
 
 void List::clear()

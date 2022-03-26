@@ -4,6 +4,9 @@
 
 #include <GL/freeglut.h>
 
+Program* Program::activeProgram = nullptr;
+std::map<std::string, int> Program::uniformVariables = {};
+
 Program::Program(int id, const std::string name) : Object(id, name), glId{ 0 }
 {}
 
@@ -159,7 +162,27 @@ bool Program::render(void* data)
 {
 	// Activate shader:
 	if (glId)
+	{
 		glUseProgram(glId);
+		activeProgram = this;
+
+		uniformVariables["projection"] = this->getParamLocation("projection");
+		uniformVariables["modelview"] = this->getParamLocation("modelview");
+		uniformVariables["modelviewInverseTranspose"] = this->getParamLocation("modelviewInverseTranspose");
+
+		uniformVariables["materialEmission"] = this->getParamLocation("materialEmission");
+		uniformVariables["materialAmbient"] = this->getParamLocation("materialAmbient");
+		uniformVariables["materialDiffuse"] = this->getParamLocation("materialDiffuse");
+		uniformVariables["materialSpecular"] = this->getParamLocation("materialSpecular");
+		uniformVariables["materialShiniess"] = this->getParamLocation("materialShiniess");
+
+		// uniformVariables["lightPosition"] = this->getParamLocation("lightPosition");
+		// uniformVariables["lightDirection"] = this->getParamLocation("lightDirection");
+		uniformVariables["lightAmbient"] = this->getParamLocation("lightAmbient");
+		uniformVariables["lightDiffuse"] = this->getParamLocation("lightDiffuse");
+		uniformVariables["lightSpecular"] = this->getParamLocation("lightSpecular");
+		// uniformVariables["cutOff"] = this->getParamLocation("cutOff");
+	}
 	else
 	{
 		std::cout << "[ERROR] Invalid shader rendered" << std::endl;
@@ -168,4 +191,14 @@ bool Program::render(void* data)
 
 	// Done:
 	return true;
+}
+
+Program* Program::getActiveProgram()
+{
+	return activeProgram;
+}
+
+std::map<std::string, int> Program::getUniforms()
+{
+	return uniformVariables;
 }

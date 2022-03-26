@@ -49,9 +49,17 @@ UIProjection* Engine::ui = nullptr;
 FrameRate* Engine::fps = nullptr;
 
 Shader* vertexShader = nullptr;
-Shader* fragmentShader = nullptr;
-Program* Engine::program = nullptr;
-int Engine::projectionMatrix = -1, Engine::modelViewMatrix = -1;    // -1 means not assigned
+Shader* fragmentShaderOmni = nullptr;
+Program* Engine::programOmni = nullptr;
+Shader* fragmentShaderDirectional = nullptr;
+Program* Engine::programDirectional = nullptr;
+Shader* fragmentShaderSpot = nullptr;
+Program* Engine::programSpot = nullptr;
+/*
+int Engine::projectionMatrixOmni = -1, Engine::modelViewMatrixOmni = -1, Engine::inverseTransposeOmni = -1;    // -1 means not assigned
+int Engine::projectionMatrixDirectional = -1, Engine::modelViewMatrixDirectional = -1, Engine::inverseTransposeDirectional = -1;    // -1 means not assigned
+int Engine::projectionMatrixSpot = -1, Engine::modelViewMatrixSpot = -1, Engine::inverseTransposeSpot = -1;    // -1 means not assigned
+*/
 
 void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplication)(int), void(*displayCallBackApplication)()) {
     // Init context:
@@ -145,24 +153,76 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     vertexShader = new Shader(Object::getNextId(), "vertx_shader");
     vertexShader->loadFromMemory(Shader::TYPE_VERTEX, VertexShader::vertexShader);
 
-    fragmentShader = new Shader(Object::getNextId(), "fragment_shader");
-    fragmentShader->loadFromMemory(Shader::TYPE_FRAGMENT, FragmentShader::fragmentShader);
+    fragmentShaderOmni = new Shader(Object::getNextId(), "fragment_shader_omni");
+    fragmentShaderOmni->loadFromMemory(Shader::TYPE_FRAGMENT, FragmentShader::fragmentShaderOmni);
 
-    program = new Program(Object::getNextId(), "shader_program");
-    if (!program->build(vertexShader, fragmentShader))
+    programOmni = new Program(Object::getNextId(), "shader_program_omni");
+    if (!programOmni->build(vertexShader, fragmentShaderOmni))
     {
         std::cout << "[ERROR] Unable to build program!" << std::endl;
         // exit(100);
     }
-    if (!program->render())
+    if (!programOmni->render())
     {
         std::cout << "[ERROR] Unable to render program!" << std::endl;
         // exit(101);
     }
-    program->bind(0, "in_Posîtion");
+    programOmni->bind(0, "in_Position");
+    programOmni->bind(1, "in_Normal");
 
-    projectionMatrix = program->getParamLocation("projection");
-    modelViewMatrix = program->getParamLocation("modelview");
+    /*
+    projectionMatrixOmni = programOmni->getParamLocation("projection");
+    modelViewMatrixOmni = programOmni->getParamLocation("modelview");
+    inverseTransposeOmni = programOmni->getParamLocation("modelviewInverseTranspose");
+    */
+
+
+    fragmentShaderDirectional = new Shader(Object::getNextId(), "fragment_shader_directional");
+    fragmentShaderDirectional->loadFromMemory(Shader::TYPE_FRAGMENT, FragmentShader::fragmentShaderDirectional);
+
+    programDirectional = new Program(Object::getNextId(), "shader_program_directional");
+    if (!programDirectional->build(vertexShader, fragmentShaderDirectional))
+    {
+        std::cout << "[ERROR] Unable to build program!" << std::endl;
+        // exit(100);
+    }
+    if (!programDirectional->render())
+    {
+        std::cout << "[ERROR] Unable to render program!" << std::endl;
+        // exit(101);
+    }
+    programDirectional->bind(0, "in_Position");
+    programDirectional->bind(1, "in_Normal");
+
+    /*
+    projectionMatrixDirectional = programDirectional->getParamLocation("projection");
+    modelViewMatrixDirectional = programDirectional->getParamLocation("modelview");
+    inverseTransposeDirectional = programDirectional->getParamLocation("modelviewInverseTranspose");
+    */
+
+
+    fragmentShaderSpot = new Shader(Object::getNextId(), "fragment_shader_spot");
+    fragmentShaderSpot->loadFromMemory(Shader::TYPE_FRAGMENT, FragmentShader::fragmentShaderSpot);
+
+    programSpot = new Program(Object::getNextId(), "shader_program_spot");
+    if (!programSpot->build(vertexShader, fragmentShaderSpot))
+    {
+        std::cout << "[ERROR] Unable to build program!" << std::endl;
+        // exit(100);
+    }
+    if (!programSpot->render())
+    {
+        std::cout << "[ERROR] Unable to render program!" << std::endl;
+        // exit(101);
+    }
+    programSpot->bind(0, "in_Position");
+    programSpot->bind(1, "in_Normal");
+
+    /*
+    projectionMatrixSpot = programSpot->getParamLocation("projection");
+    modelViewMatrixSpot = programSpot->getParamLocation("modelview");
+    inverseTransposeSpot = programSpot->getParamLocation("modelviewInverseTranspose");
+    */
 
 
     //Initialize the UI
@@ -175,8 +235,12 @@ void LIB_API Engine::free() {
     FreeImage_DeInitialise();
     //delete root; // avoid root memory leak
     delete vertexShader;
-    delete fragmentShader;
-    delete program;
+    delete fragmentShaderOmni;
+    delete programOmni;
+    delete fragmentShaderDirectional;
+    delete programDirectional;
+    delete fragmentShaderSpot;
+    delete programSpot;
 }
 
 void LIB_API Engine::setCamera(Camera* camera) {
@@ -284,14 +348,56 @@ int LIB_API Engine::getFps() {
     return fps->getFps();
 }
 
-Program* Engine::getProgram() {
-    return program;
+Program* Engine::getProgramOmni() {
+    return programOmni;
 }
 
-int Engine::getProjectionMatrix() {
-    return projectionMatrix;
+/*
+int Engine::getProjectionMatrixOmni() {
+    return projectionMatrixOmni;
 }
 
-int Engine::getModelViewMatrix() {
-    return modelViewMatrix;
+int Engine::getModelViewMatrixOmni() {
+    return modelViewMatrixOmni;
 }
+
+int Engine::getInverseTransposeOmni() {
+    return inverseTransposeOmni;
+}
+*/
+
+Program* Engine::getProgramDirectional() {
+    return programDirectional;
+}
+
+/*
+int Engine::getProjectionMatrixDirectional() {
+    return projectionMatrixDirectional;
+}
+
+int Engine::getModelViewMatrixDirectional() {
+    return modelViewMatrixDirectional;
+}
+
+int Engine::getInverseTransposeDirectional() {
+    return inverseTransposeDirectional;
+}
+*/
+
+Program* Engine::getProgramSpot() {
+    return programSpot;
+}
+
+/*
+int Engine::getProjectionMatrixSpot() {
+    return projectionMatrixSpot;
+}
+
+int Engine::getModelViewMatrixSpot() {
+    return modelViewMatrixSpot;
+}
+
+int Engine::getInverseTransposeSpot() {
+    return inverseTransposeSpot;
+}
+*/
