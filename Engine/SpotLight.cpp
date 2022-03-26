@@ -24,10 +24,10 @@ void LIB_API SpotLight::render(glm::mat4 finalMatrix) {
 
 	Program* activeProgram = Program::getActiveProgram();
 	std::map<std::string, int> uniforms = activeProgram->getUniforms();
-	activeProgram->setMatrix(uniforms["modelview"], finalMatrix);
-	activeProgram->setMatrix3(uniforms["modelviewInverseTranspose"], glm::inverseTranspose(glm::mat3(finalMatrix)));
-	activeProgram->setVec3(activeProgram->getParamLocation("lightPosition"), glm::vec3(getPosition()));
-	activeProgram->setVec3(activeProgram->getParamLocation("lightDirection"), direction);
+	//activeProgram->setMatrix(uniforms["modelview"], finalMatrix);
+	//activeProgram->setMatrix3(uniforms["modelviewInverseTranspose"], glm::inverseTranspose(glm::mat3(finalMatrix)));
+	activeProgram->setVec3(activeProgram->getParamLocation("lightPosition"), glm::vec3(finalMatrix[3]));
+	activeProgram->setVec3(activeProgram->getParamLocation("lightDirection"), glm::normalize(glm::mat3(finalMatrix) * direction));
 	activeProgram->setVec3(uniforms["lightAmbient"], glm::vec3(getAmbient()));
 	activeProgram->setVec3(uniforms["lightDiffuse"], glm::vec3(getDiffuse()));
 	activeProgram->setVec3(uniforms["lightSpecular"], glm::vec3(getSpecular()));

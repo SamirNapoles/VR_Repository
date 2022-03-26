@@ -137,7 +137,7 @@ const char* FragmentShader::fragmentShaderSpot = R"(
       float fragmentToLightDotDirection = dot(fragmentPositionToLight, -lightDirection);
 
       // only if lighted
-      if ((normalDotFragmentToLight > 0.0f) && (fragmentToLightDotDirection > cos(cutOff))) {
+      if ((normalDotFragmentToLight > 0.0f) && (fragmentToLightDotDirection > cos(cutOff))) { //
          // Diffuse
          fragmentColor += materialDiffuse * normalDotFragmentToLight * lightDiffuse;
 
@@ -150,5 +150,6 @@ const char* FragmentShader::fragmentShaderSpot = R"(
 
       frag_Output = vec4(fragmentColor, 1.0f);
       // frag_Output = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+      fragmentColor += vec3(cutOff);
    }
 )";

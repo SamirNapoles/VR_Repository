@@ -46,12 +46,14 @@ void LIB_API List::render(glm::mat4 inverseCameraMatrix) {
         if (DirectionalLight* v = dynamic_cast<DirectionalLight*>((*it).getObject()))
             // v->render(inverseCameraMatrix * (*it).getMatrix());
             Engine::getProgramDirectional()->render();
-        if (PointLight* v = dynamic_cast<PointLight*>((*it).getObject()))
-            // v->render(inverseCameraMatrix * (*it).getMatrix());
-            Engine::getProgramOmni()->render();
         if (SpotLight* v = dynamic_cast<SpotLight*>((*it).getObject()))
             // v->render(inverseCameraMatrix * (*it).getMatrix());
             Engine::getProgramSpot()->render();
+        else if (PointLight* v = dynamic_cast<PointLight*>((*it).getObject())) {
+            // v->render(inverseCameraMatrix * (*it).getMatrix());
+            //continue;
+            Engine::getProgramOmni()->render();
+        }
         if (dynamic_cast<Light*>((*it).getObject()) == nullptr)
             break;
 
