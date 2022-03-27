@@ -224,6 +224,7 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     inverseTransposeSpot = programSpot->getParamLocation("modelviewInverseTranspose");
     */
 
+    glDepthFunc(GL_LEQUAL);
 
     //Initialize the UI
     ui = new UIProjection(glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT));
