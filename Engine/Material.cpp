@@ -50,7 +50,6 @@ void LIB_API Material::render(glm::mat4 finalMatrix) {
 	activeProgram->setVec3(uniforms["materialDiffuse"], glm::vec3(getDiffuse()));
 	activeProgram->setVec3(uniforms["materialSpecular"], glm::vec3(getSpecular()));
 	activeProgram->setFloat(uniforms["materialShiniess"], shininess);
-
 }
 
 glm::vec4 LIB_API Material::getEmission() {

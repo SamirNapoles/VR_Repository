@@ -20,7 +20,6 @@
 //////////
 
 Engine engine;
-UIProjection* ui;
 
 glm::vec3 cameraPos = glm::vec3(0.0f, 100.0f, -40.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
@@ -42,7 +41,6 @@ float stationaryRotationZ = -8.0f;
 
 Node* root;
 bool isActive = true;
-bool showUI = true;
 RobotArm* ra;
 
 Camera* freeCamera = nullptr;
@@ -105,11 +103,8 @@ void keyboardCallback(int key) {
 			break;
 
 		//Application controls
-		case '.':
+		case 27:
 			isActive = false;
-			break;
-		case KEY_F1:
-			showUI = !showUI;
 			break;
 
 		//Robot arm controls
@@ -131,8 +126,11 @@ void keyboardCallback(int key) {
 		case KEY_LEFT:
 			ra->rotateJoint(glm::vec3(0.0f, -1.0f, 0.0f));
 			break;
-		case ' ':
-			ra->claw();
+		case '.':
+			ra->openClaws();
+			break;
+		case ',':
+			ra->closeClaws();
 			break;
 	}
 }
@@ -162,13 +160,6 @@ void displayCallback() {
 	engine.getList()->render(activeCamera->getInverse());
 	//clear() would delete pointers which would probably erease scene graph; to consider use of shared pointers in ListNode
 	engine.getList()->removeAllEntries();
-
-	if (showUI) {
-		ui->editLabel(0, "FPS: " + std::to_string(engine.getFps()));
-		ui->editLabel(2, "[+/-] - Switch active joint: " + std::to_string(ra->getActiveJoint()));
-		ui->editLabel(7, "[c] - change camera: " + std::string(activeCamera == freeCamera ? "free" : "stationary"));
-		ui->print();
-	}
 
 	// Swap this context's buffer:
 	engine.swap();
@@ -228,17 +219,6 @@ int main(int argc, char* argv[])
 	((FakeShadow*)root->findByName("clawR_shadow"))->setShadowParent(floor);
 	((FakeShadow*)root->findByName("Sphere_shadow"))->setShadowParent(floor);
 
-	//Set menu
-	ui = engine.getUI();
-	ui->addLabel("FPS");
-	ui->addLabel("[F1] - Show/Hide Menu");
-	ui->addLabel("[+/-]");
-	ui->addLabel("[up/down/left/right] - rotate robot joint");
-	ui->addLabel("[space] - grab ball");
-	ui->addLabel("[w/a/s/d] - move camera");
-	ui->addLabel("[8/4/2/6] - rotate camera");
-	ui->addLabel("[c]");
-
 	//Prepare robotarm
 	Node* ball = root->findByName("Sphere");
 	Node* plane = floor->findByName("base");
@@ -247,13 +227,20 @@ int main(int argc, char* argv[])
 	Node* joint2 = joint1->findByName("arm3");
 	Node* joint3 = joint2->findByName("clawSupport");
 	std::vector<Node*> joints{ joint0, joint1, joint2, joint3 };
-	std::vector<glm::vec3> limits{
+	std::vector<glm::vec3> jointsLimits{
 		glm::vec3(0.0f, 360.0f, 0.0f),
 		glm::vec3(90.0f, 0.0f, 0.0f),
 		glm::vec3(90.0f, 0.0f, 0.0f),
 		glm::vec3(90.0f, 0.0f, 0.0f)
 	};
-	ra = new RobotArm(joints, limits, ball);
+	Node* claw0 = joint3->findByName("clawL");
+	Node* claw1 = joint3->findByName("clawR");
+	std::vector<Node*> claws{ claw0, claw1 };
+	std::vector<glm::vec3> clawsLimits{
+		glm::vec3(0.0f, 10.0f, 0.0f),
+		glm::vec3(0.0f, 10.0f, 0.0f)
+	};
+	ra = new RobotArm(joints, jointsLimits, claws, clawsLimits, ball);
 
 	while (isActive) {
 		engine.begin();

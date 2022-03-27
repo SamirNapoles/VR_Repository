@@ -3,9 +3,9 @@
 
 LIB_API Light::Light(const int id, const std::string name, const int lightNumber, const glm::vec4 ambient, const glm::vec4 diffuse, const glm::vec4 specular) :
 	Node{ id, name }, lightNumber(lightNumber), ambient(ambient), diffuse(diffuse), specular(specular) {
-	glEnable(GL_LIGHTING);
-	glEnable(lightNumber);
-	glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER, 1.0f);
+	//glEnable(GL_LIGHTING);
+	//glEnable(lightNumber);
+	//glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER, 1.0f);
 }
 
 Light::~Light() {

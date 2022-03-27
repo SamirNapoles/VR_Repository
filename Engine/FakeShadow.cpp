@@ -122,11 +122,11 @@ void LIB_API FakeShadow::render(glm::mat4 finalMatrix) {
 
             /*
             // Triangles rendering
-            glBegin(GL_TRIANGLES);
+            //glBegin(GL_TRIANGLES);
             for (Vertex* v : vertices.at(lod)) {
-                glNormal3fv(glm::value_ptr(v->getNormal()));
-                glTexCoord2fv(glm::value_ptr(v->getTextureCoordinates()));
-                glVertex3fv(glm::value_ptr(v->getPosition()));
+                //glNormal3fv(glm::value_ptr(v->getNormal()));
+                //glTexCoord2fv(glm::value_ptr(v->getTextureCoordinates()));
+                //glVertex3fv(glm::value_ptr(v->getPosition()));
             }
 
             glEnd();

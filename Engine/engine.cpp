@@ -37,6 +37,13 @@ int APIENTRY DllMain(HANDLE instDLL, DWORD reason, LPVOID _reserved)
 }
 #endif
 
+/**
+ * Debug message callback for OpenGL. See https://www.opengl.org/wiki/Debug_Output
+ */
+void __stdcall DebugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, GLvoid* userParam) {
+    std::cout << "OpenGL says: \"" << std::string(message) << "\"" << std::endl;
+}
+
 ////////////////////////////////
 // BODY OF CLASS Engine       //
 ////////////////////////////////
@@ -45,7 +52,6 @@ List Engine::list = List();
 void(*Engine::keyboardCallbackApplication)(int) = nullptr;
 void(*Engine::displayCallBackApplication)() = nullptr;
 Camera* Engine::camera = nullptr;
-UIProjection* Engine::ui = nullptr;
 FrameRate* Engine::fps = nullptr;
 
 Shader* vertexShader = nullptr;
@@ -66,6 +72,7 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
     glutInitContextVersion(4, 4);
     glutInitContextProfile(GLUT_CORE_PROFILE);
+    glutInitContextFlags(GLUT_DEBUG);
     glutInitWindowPosition(200, 200);
     glutInitWindowSize(1000, 563);
 
@@ -98,6 +105,12 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
             return;
         }
     }
+
+    // Register OpenGL debug callback:
+    #ifdef _DEBUG
+        glDebugMessageCallback((GLDEBUGPROC)DebugCallback, nullptr);
+        glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+    #endif // _DEBUG
 
     /*********************************/
 
@@ -227,7 +240,7 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     glDepthFunc(GL_LEQUAL);
 
     //Initialize the UI
-    ui = new UIProjection(glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT));
+    // ui = new UIProjection(glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT));
     fps = new FrameRate();
 }
 
@@ -305,10 +318,6 @@ void Engine::reshapeCallback(int width, int height) {
     p->setHeigth(height);
     p->update();
     p->setOpenGLProjection();
-    // Refresh ui projection matrix:
-    ui->setWidth(width);
-    ui->setHeigth(height);
-    ui->update();
     // Force rendering refresh:
     glutPostWindowRedisplay(windowId);
 }
@@ -336,12 +345,6 @@ List LIB_API* Engine::getList() {
 void Engine::setTexturePath(std::string path)
 {
     Texture::setPath(path);
-}
-
-
-//UI
-UIProjection LIB_API* Engine::getUI() {
-    return ui;
 }
 
 

@@ -11,10 +11,10 @@ Projection::~Projection() {};
 
 void LIB_API Projection::setOpenGLProjection() {
     // Set projection matrix:
-/*    glMatrixMode(GL_PROJECTION);
+    /*glMatrixMode(GL_PROJECTION);
         glLoadMatrixf(glm::value_ptr(projection));
-    glMatrixMode(GL_MODELVIEW);
-*/
+    glMatrixMode(GL_MODELVIEW);*/
+
     /*
     Engine::getProgramOmni()->setMatrix(Engine::getProjectionMatrixOmni(), projection);
     Engine::getProgramDirectional()->setMatrix(Engine::getProjectionMatrixDirectional(), projection);

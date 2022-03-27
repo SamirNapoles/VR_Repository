@@ -5,7 +5,6 @@
 #include "Projection.h"
 #include "PerspectiveProjection.h"
 #include "OrthogonalProjection.h"
-#include "UIProjection.h"
 #include "Camera.h"
 #include "Light.h"
 #include "DirectionalLight.h"
@@ -47,7 +46,6 @@ class LIB_API Engine
 		static void forceRefresh();
 
 		static List* getList();
-		static UIProjection* getUI();
 		static int getFps();
 		static void setTexturePath(std::string width);
 		void setCamera(Camera* camera);
@@ -87,7 +85,6 @@ class LIB_API Engine
 	private:
 		static int windowId;
 		static Camera* camera;
-		static UIProjection* ui;
 		static Node* root;
 		static List list;
 		static FrameRate* fps;

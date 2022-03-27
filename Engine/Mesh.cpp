@@ -75,9 +75,9 @@ void LIB_API Mesh::render(glm::mat4 finalMatrix) {
     /*
     glBegin(GL_TRIANGLES);
     for (Vertex* v : vertices.at(lod)) {
-        glNormal3fv(glm::value_ptr(v->getNormal()));
-        glTexCoord2fv(glm::value_ptr(v->getTextureCoordinates()));
-        glVertex3fv(glm::value_ptr(v->getPosition()));     
+        //glNormal3fv(glm::value_ptr(v->getNormal()));
+        //glTexCoord2fv(glm::value_ptr(v->getTextureCoordinates()));
+        //glVertex3fv(glm::value_ptr(v->getPosition()));     
     }
     glEnd();
     */
@@ -107,5 +107,8 @@ void LIB_API Mesh::render(glm::mat4 finalMatrix) {
     // glBindVertexArray(vao);
     // glDrawElements(GL_TRIANGLES, faces.size() * 3, GL_UNSIGNED_INT, nullptr);
 
-    glDisable(GL_TEXTURE_2D);
+    //glDisable(GL_TEXTURE_2D);
+    //glEnd();
+
+    //glDisable(GL_TEXTURE_2D);
 }
