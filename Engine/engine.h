@@ -51,25 +51,10 @@ class LIB_API Engine
 		void setCamera(Camera* camera);
 
 		static Program* getProgramOmni();
-		/*
-		static int getProjectionMatrixOmni();
-		static int getModelViewMatrixOmni();
-		static int getInverseTransposeOmni();
-		*/
 
 		static Program* getProgramDirectional();
-		/*
-		static int getProjectionMatrixDirectional();
-		static int getModelViewMatrixDirectional();
-		static int getInverseTransposeDirectional();
-		*/
 
 		static Program* getProgramSpot();
-		/*
-		static int getProjectionMatrixSpot();
-		static int getModelViewMatrixSpot();
-		static int getInverseTransposeSpot();
-		*/
 
 	private:
 		static void keyboardCallbackDelegator(unsigned char key, int x, int y);
@@ -88,22 +73,9 @@ class LIB_API Engine
 		static Node* root;
 		static List list;
 		static FrameRate* fps;
+		// programOmni not used because omni lights considered spot light with 180° cut off 
+		// (to make rendering work correctly avoiding unwanted buffer clearing when switching programs)
 		static Program* programOmni;
-		/*
-		static int projectionMatrixOmni;
-		static int modelViewMatrixOmni;
-		static int inverseTransposeOmni;
-		*/
 		static Program* programDirectional;
-		/*
-		static int projectionMatrixDirectional;
-		static int modelViewMatrixDirectional;
-		static int inverseTransposeDirectional;
-		*/
 		static Program* programSpot;
-		/*
-		static int projectionMatrixSpot;
-		static int modelViewMatrixSpot;
-		static int inverseTransposeSpot;
-		*/
 };

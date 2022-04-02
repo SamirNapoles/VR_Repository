@@ -51,7 +51,7 @@ public: //
 
 	// Get/set:
 	int getType();
-	unsigned int/*GLuint*/ getGlId();
+	unsigned int getGlId();
 /*	int getParamLocation(const char* name);
 	inline void setMatrix(int param, const glm::mat4& mat)
 	{
@@ -96,5 +96,5 @@ private:	//
 	int type;
 
 	// OGL id:
-	unsigned int/*GLuint*/ glId;
+	unsigned int glId;
 };

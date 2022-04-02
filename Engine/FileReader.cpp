@@ -384,6 +384,7 @@ Node* FileReader::recursiveLoad(FILE* dat)
 
 
 		thisMesh->setVao(vertexVbo, normalVbo, textureVbo, faceVbo, vao, faces);
+		shadow->setVao(vertexVbo, normalVbo, textureVbo, faceVbo, vao, faces);
 
 		// Go recursive when child nodes are avaialble:
 		if (nrOfChildren)

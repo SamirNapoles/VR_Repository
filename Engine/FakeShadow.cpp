@@ -2,7 +2,6 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
-// #include "engine.h"
 #include "Program.h"
 
 
@@ -105,57 +104,23 @@ void LIB_API FakeShadow::render(glm::mat4 finalMatrix) {
             m->render(finalMatrix);
 
             // Set model matrix as current OpenGL matrix:
-            // glLoadMatrixf(glm::value_ptr(finalMatrix));
-            /*
-            Engine::getProgramOmni()->setMatrix(Engine::getModelViewMatrixOmni(), finalMatrix);
-            Engine::getProgramOmni()->setMatrix3(Engine::getInverseTransposeOmni(), glm::inverseTranspose(glm::mat3(finalMatrix)));
-            Engine::getProgramDirectional()->setMatrix(Engine::getModelViewMatrixDirectional(), finalMatrix);
-            Engine::getProgramDirectional()->setMatrix3(Engine::getInverseTransposeDirectional(), glm::inverseTranspose(glm::mat3(finalMatrix)));
-            Engine::getProgramSpot()->setMatrix(Engine::getModelViewMatrixSpot(), finalMatrix);
-            Engine::getProgramSpot()->setMatrix3(Engine::getInverseTransposeSpot(), glm::inverseTranspose(glm::mat3(finalMatrix)));
-            */
-            Program::getActiveProgram()->setMatrix(Program::getUniforms()["modelview"], finalMatrix);
-            Program::getActiveProgram()->setMatrix3(Program::getUniforms()["modelviewInverseTranspose"], glm::inverseTranspose(glm::mat3(finalMatrix)));
-
-            //Vertex rendering Counter Clock-Wise
-            glFrontFace(GL_CCW);
-
-            /*
-            // Triangles rendering
-            //glBegin(GL_TRIANGLES);
-            for (Vertex* v : vertices.at(lod)) {
-                //glNormal3fv(glm::value_ptr(v->getNormal()));
-                //glTexCoord2fv(glm::value_ptr(v->getTextureCoordinates()));
-                //glVertex3fv(glm::value_ptr(v->getPosition()));
-            }
-
-            glEnd();
-
-            // future element rendering through its faces (check differences)
-            // glBindVertexArray(vao);
-            // glDrawElements(GL_TRIANGLES, faces.size() * 3, GL_UNSIGNED_INT, nullptr);
-            */
+            Program::getActiveProgram()->setMatrix(Program::getActiveProgram()->getUniforms()["modelview"], finalMatrix);
+            Program::getActiveProgram()->setMatrix3(Program::getActiveProgram()->getUniforms()["modelviewInverseTranspose"], glm::inverseTranspose(glm::mat3(finalMatrix)));
 
             glBindVertexArray(vao);
 
-            //glEnableClientState(GL_VERTEX_ARRAY);
             glBindBuffer(GL_ARRAY_BUFFER, vertexVbo);
             glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
             glEnableVertexAttribArray(0);
 
-            //glEnableClientState(GL_NORMAL_ARRAY);
             glBindBuffer(GL_ARRAY_BUFFER, normalVbo);
             glVertexAttribPointer((GLuint)1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
             glEnableVertexAttribArray(1);
 
-            //glEnableClientState(GL_TEXTURE_COORD_ARRAY);
             glBindBuffer(GL_ARRAY_BUFFER, textureVbo);
             glVertexAttribPointer((GLuint)2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
 
-            //glDrawArrays(GL_TRIANGLES, 0, faceNr);
             glDrawElements(GL_TRIANGLES, faceNr * 3, GL_UNSIGNED_INT, nullptr);
-
-            glBindVertexArray(0);
         }
     }
 }

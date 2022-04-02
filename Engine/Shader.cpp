@@ -47,7 +47,7 @@ int Shader::getType()
 	return type;
 }
 
-unsigned int/*GLuint*/ Shader::getGlId()
+unsigned int Shader::getGlId()
 {
 	return glId;
 }

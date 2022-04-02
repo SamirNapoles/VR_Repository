@@ -61,11 +61,6 @@ Shader* fragmentShaderDirectional = nullptr;
 Program* Engine::programDirectional = nullptr;
 Shader* fragmentShaderSpot = nullptr;
 Program* Engine::programSpot = nullptr;
-/*
-int Engine::projectionMatrixOmni = -1, Engine::modelViewMatrixOmni = -1, Engine::inverseTransposeOmni = -1;    // -1 means not assigned
-int Engine::projectionMatrixDirectional = -1, Engine::modelViewMatrixDirectional = -1, Engine::inverseTransposeDirectional = -1;    // -1 means not assigned
-int Engine::projectionMatrixSpot = -1, Engine::modelViewMatrixSpot = -1, Engine::inverseTransposeSpot = -1;    // -1 means not assigned
-*/
 
 void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplication)(int), void(*displayCallBackApplication)()) {
     // Init context:
@@ -183,12 +178,6 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     programOmni->bind(0, "in_Position");
     programOmni->bind(1, "in_Normal");
 
-    /*
-    projectionMatrixOmni = programOmni->getParamLocation("projection");
-    modelViewMatrixOmni = programOmni->getParamLocation("modelview");
-    inverseTransposeOmni = programOmni->getParamLocation("modelviewInverseTranspose");
-    */
-
 
     fragmentShaderDirectional = new Shader(Object::getNextId(), "fragment_shader_directional");
     fragmentShaderDirectional->loadFromMemory(Shader::TYPE_FRAGMENT, FragmentShader::fragmentShaderDirectional);
@@ -207,12 +196,6 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     programDirectional->bind(0, "in_Position");
     programDirectional->bind(1, "in_Normal");
 
-    /*
-    projectionMatrixDirectional = programDirectional->getParamLocation("projection");
-    modelViewMatrixDirectional = programDirectional->getParamLocation("modelview");
-    inverseTransposeDirectional = programDirectional->getParamLocation("modelviewInverseTranspose");
-    */
-
 
     fragmentShaderSpot = new Shader(Object::getNextId(), "fragment_shader_spot");
     fragmentShaderSpot->loadFromMemory(Shader::TYPE_FRAGMENT, FragmentShader::fragmentShaderSpot);
@@ -230,12 +213,6 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     }
     programSpot->bind(0, "in_Position");
     programSpot->bind(1, "in_Normal");
-
-    /*
-    projectionMatrixSpot = programSpot->getParamLocation("projection");
-    modelViewMatrixSpot = programSpot->getParamLocation("modelview");
-    inverseTransposeSpot = programSpot->getParamLocation("modelviewInverseTranspose");
-    */
 
     glDepthFunc(GL_LEQUAL);
 
@@ -356,52 +333,10 @@ Program* Engine::getProgramOmni() {
     return programOmni;
 }
 
-/*
-int Engine::getProjectionMatrixOmni() {
-    return projectionMatrixOmni;
-}
-
-int Engine::getModelViewMatrixOmni() {
-    return modelViewMatrixOmni;
-}
-
-int Engine::getInverseTransposeOmni() {
-    return inverseTransposeOmni;
-}
-*/
-
 Program* Engine::getProgramDirectional() {
     return programDirectional;
 }
 
-/*
-int Engine::getProjectionMatrixDirectional() {
-    return projectionMatrixDirectional;
-}
-
-int Engine::getModelViewMatrixDirectional() {
-    return modelViewMatrixDirectional;
-}
-
-int Engine::getInverseTransposeDirectional() {
-    return inverseTransposeDirectional;
-}
-*/
-
 Program* Engine::getProgramSpot() {
     return programSpot;
 }
-
-/*
-int Engine::getProjectionMatrixSpot() {
-    return projectionMatrixSpot;
-}
-
-int Engine::getModelViewMatrixSpot() {
-    return modelViewMatrixSpot;
-}
-
-int Engine::getInverseTransposeSpot() {
-    return inverseTransposeSpot;
-}
-*/
