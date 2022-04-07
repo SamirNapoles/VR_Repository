@@ -13,6 +13,7 @@ const char* FragmentShader::fragmentShaderOmni = R"(
 
    in vec4 fragmentPosition;
    in vec3 normal;
+   in vec2 texCoord;
    
    out vec4 frag_Output;
 
@@ -29,8 +30,14 @@ const char* FragmentShader::fragmentShaderOmni = R"(
    uniform vec3 lightDiffuse;
    uniform vec3 lightSpecular;
 
+   // Texture mapping:
+   layout(binding = 0) uniform sampler2D texSampler;
+
    void main(void)
    {
+      // Texture element:
+      vec4 texel = texture(texSampler, texCoord);
+
       // Ambient
       vec3 fragmentColor = materialEmission + materialAmbient * lightAmbient;
 
@@ -50,7 +57,7 @@ const char* FragmentShader::fragmentShaderOmni = R"(
          fragmentColor += materialSpecular * pow(halfDotNormal, materialShiniess) * lightSpecular;
       }
 
-      frag_Output = vec4(fragmentColor, 1.0f);
+      frag_Output = texel * vec4(fragmentColor, 1.0f);
       // frag_Output = vec4(1.0f, 1.0f, 1.0f, 1.0f);
    }
 )";
@@ -60,7 +67,8 @@ const char* FragmentShader::fragmentShaderDirectional = R"(
 
    in vec4 fragmentPosition;
    in vec3 normal;
-   
+   in vec2 texCoord;
+ 
    out vec4 frag_Output;
 
    // Material properties
@@ -76,8 +84,14 @@ const char* FragmentShader::fragmentShaderDirectional = R"(
    uniform vec3 lightDiffuse;
    uniform vec3 lightSpecular;
 
+   // Texture mapping:
+   layout(binding = 0) uniform sampler2D texSampler;
+
    void main(void)
    {
+      // Texture element:
+      vec4 texel = texture(texSampler, texCoord);
+
       // Ambient
       vec3 fragmentColor = materialEmission + materialAmbient * lightAmbient;
 
@@ -97,7 +111,7 @@ const char* FragmentShader::fragmentShaderDirectional = R"(
          fragmentColor += materialSpecular * pow(halfDotNormal, materialShiniess) * lightSpecular;
       }
 
-      frag_Output = vec4(fragmentColor, 1.0f);
+      frag_Output = texel * vec4(fragmentColor, 1.0f);
       // frag_Output = vec4(1.0f, 1.0f, 1.0f, 1.0f);
    }
 )";
@@ -107,7 +121,8 @@ const char* FragmentShader::fragmentShaderSpot = R"(
 
    in vec4 fragmentPosition;
    in vec3 normal;
-   
+   in vec2 texCoord;
+
    out vec4 frag_Output;
 
    // Material properties
@@ -125,8 +140,14 @@ const char* FragmentShader::fragmentShaderSpot = R"(
    uniform vec3 lightSpecular;
    uniform float cutOff;
 
+   // Texture mapping:
+   layout(binding = 0) uniform sampler2D texSampler;    
+
    void main(void)
    {
+      // Texture element:
+      vec4 texel = texture(texSampler, texCoord);
+
       // Ambient
       vec3 fragmentColor = materialEmission + materialAmbient * lightAmbient;
 
@@ -148,7 +169,7 @@ const char* FragmentShader::fragmentShaderSpot = R"(
          fragmentColor += materialSpecular * pow(halfDotNormal, materialShiniess) * lightSpecular;
       }
 
-      frag_Output = vec4(fragmentColor, 1.0f);
+      frag_Output = texel * vec4(fragmentColor, 1.0f);
       // frag_Output = vec4(1.0f, 1.0f, 1.0f, 1.0f);
       fragmentColor += vec3(cutOff);
    }

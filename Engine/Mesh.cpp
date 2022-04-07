@@ -70,6 +70,7 @@ void LIB_API Mesh::render(glm::mat4 finalMatrix) {
 
     glBindBuffer(GL_ARRAY_BUFFER, textureVbo);
     glVertexAttribPointer((GLuint) 2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glEnableVertexAttribArray(2);
 
     glDrawElements(GL_TRIANGLES, faceNr * 3, GL_UNSIGNED_INT, nullptr);
 }
