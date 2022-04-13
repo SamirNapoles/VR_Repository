@@ -4,6 +4,8 @@
 
 #include <GL/freeglut.h>
 
+#include "SkyBox.h"
+
 Program* Program::activeProgram = nullptr;
 //std::map<std::string, int> Program::uniformVariables = {};
 
@@ -146,20 +148,23 @@ bool Program::build(Shader* vertexShader, Shader* fragmentShader)
 
 	uniformVariables["projection"] = this->getParamLocation("projection");
 	uniformVariables["modelview"] = this->getParamLocation("modelview");
-	uniformVariables["modelviewInverseTranspose"] = this->getParamLocation("modelviewInverseTranspose");
+	if (this->getName() != SkyBox::getProgramName())
+	{
+		uniformVariables["modelviewInverseTranspose"] = this->getParamLocation("modelviewInverseTranspose");
 
-	uniformVariables["materialEmission"] = this->getParamLocation("materialEmission");
-	uniformVariables["materialAmbient"] = this->getParamLocation("materialAmbient");
-	uniformVariables["materialDiffuse"] = this->getParamLocation("materialDiffuse");
-	uniformVariables["materialSpecular"] = this->getParamLocation("materialSpecular");
-	uniformVariables["materialShiniess"] = this->getParamLocation("materialShiniess");
+		uniformVariables["materialEmission"] = this->getParamLocation("materialEmission");
+		uniformVariables["materialAmbient"] = this->getParamLocation("materialAmbient");
+		uniformVariables["materialDiffuse"] = this->getParamLocation("materialDiffuse");
+		uniformVariables["materialSpecular"] = this->getParamLocation("materialSpecular");
+		uniformVariables["materialShiniess"] = this->getParamLocation("materialShiniess");
 
-	// uniformVariables["lightPosition"] = this->getParamLocation("lightPosition");
-	// uniformVariables["lightDirection"] = this->getParamLocation("lightDirection");
-	uniformVariables["lightAmbient"] = this->getParamLocation("lightAmbient");
-	uniformVariables["lightDiffuse"] = this->getParamLocation("lightDiffuse");
-	uniformVariables["lightSpecular"] = this->getParamLocation("lightSpecular");
-	// uniformVariables["cutOff"] = this->getParamLocation("cutOff");
+		// uniformVariables["lightPosition"] = this->getParamLocation("lightPosition");
+		// uniformVariables["lightDirection"] = this->getParamLocation("lightDirection");
+		uniformVariables["lightAmbient"] = this->getParamLocation("lightAmbient");
+		uniformVariables["lightDiffuse"] = this->getParamLocation("lightDiffuse");
+		uniformVariables["lightSpecular"] = this->getParamLocation("lightSpecular");
+		// uniformVariables["cutOff"] = this->getParamLocation("cutOff");
+	}
 
 	// Done:
 	return true;

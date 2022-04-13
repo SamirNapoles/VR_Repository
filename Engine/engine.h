@@ -19,6 +19,7 @@
 #include "List.h"
 #include "Shader.h"
 #include "Program.h"
+#include "SkyBox.h"
 
 /////////////
 // CLASSES //
@@ -50,11 +51,15 @@ class LIB_API Engine
 		static void setTexturePath(std::string width);
 		void setCamera(Camera* camera);
 
+		static Camera* getCamera();
+
 		static Program* getProgramOmni();
 
 		static Program* getProgramDirectional();
 
 		static Program* getProgramSpot();
+
+		static SkyBox* getSkyBox();
 
 	private:
 		static void keyboardCallbackDelegator(unsigned char key, int x, int y);
@@ -78,4 +83,5 @@ class LIB_API Engine
 		static Program* programOmni;
 		static Program* programDirectional;
 		static Program* programSpot;
+		static SkyBox* skyBox;
 };

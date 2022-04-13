@@ -22,3 +22,8 @@ void OrthogonalProjection::update() {
 
 	this->setProjection(p);
 }
+
+float OrthogonalProjection::getFarPlane()
+{
+	return zFar;
+}

@@ -17,3 +17,8 @@ void PerspectiveProjection::update() {
 
 	this->setProjection(p);
 }
+
+float PerspectiveProjection::getFarPlane()
+{
+	return p_far;
+}

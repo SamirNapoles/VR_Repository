@@ -1,3 +1,7 @@
+/**
+The cubemap image is the work of Emil Persson, aka Humus: http://www.humus.name
+*/
+
 //////////////
 // #INCLUDE //
 //////////////

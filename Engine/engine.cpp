@@ -39,10 +39,10 @@ int APIENTRY DllMain(HANDLE instDLL, DWORD reason, LPVOID _reserved)
 
 /**
  * Debug message callback for OpenGL. See https://www.opengl.org/wiki/Debug_Output
- */
+ *//*
 void __stdcall DebugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, GLvoid* userParam) {
     std::cout << "OpenGL says: \"" << std::string(message) << "\"" << std::endl;
-}
+}*/
 
 ////////////////////////////////
 // BODY OF CLASS Engine       //
@@ -61,6 +61,8 @@ Shader* fragmentShaderDirectional = nullptr;
 Program* Engine::programDirectional = nullptr;
 Shader* fragmentShaderSpot = nullptr;
 Program* Engine::programSpot = nullptr;
+
+SkyBox* Engine::skyBox = nullptr;
 
 void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplication)(int), void(*displayCallBackApplication)()) {
     // Init context:
@@ -103,8 +105,8 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
 
     // Register OpenGL debug callback:
     #ifdef _DEBUG
-        glDebugMessageCallback((GLDEBUGPROC)DebugCallback, nullptr);
-        glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+        //glDebugMessageCallback((GLDEBUGPROC)DebugCallback, nullptr);
+        //glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
     #endif // _DEBUG
 
     /*********************************/
@@ -219,6 +221,8 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     //Initialize the UI
     // ui = new UIProjection(glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT));
     fps = new FrameRate();
+
+    skyBox = SkyBox::buildSkyBox("posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg");
 }
 
 void LIB_API Engine::free() {
@@ -236,6 +240,11 @@ void LIB_API Engine::free() {
 
 void LIB_API Engine::setCamera(Camera* camera) {
     this->camera = camera;
+}
+
+Camera* Engine::getCamera()
+{
+    return camera;
 }
 
 Node LIB_API* Engine::loadScene(std::string fileName) {
@@ -339,4 +348,9 @@ Program* Engine::getProgramDirectional() {
 
 Program* Engine::getProgramSpot() {
     return programSpot;
+}
+
+SkyBox* Engine::getSkyBox()
+{
+    return skyBox;
 }

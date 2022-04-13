@@ -12,6 +12,8 @@ public:
 public:
 	void update() override;
 
+	float getFarPlane() override;
+
 private:
 	float left;
 	float right;

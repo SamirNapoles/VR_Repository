@@ -14,6 +14,7 @@ public:
 public:
 	void render(glm::mat4 finalMatrix) override;
 	void setTexId(std::string file);
+	static std::string getPath();
 	static void setPath(std::string);
 
 private:

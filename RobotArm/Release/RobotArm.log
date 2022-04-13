@@ -1,9 +1,9 @@
 ﻿  main.cpp
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\FrameRate.h(21,20): warning C4244: 'inizializzazione': conversione da 'float' a 'time_t'. Possibile perdita di dati.
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\FrameRate.h(22,23): warning C4244: 'inizializzazione': conversione da 'float' a 'time_t'. Possibile perdita di dati.
-  RobotArm.cpp
   Generazione codice in corso...
-  Previous IPDB not found, fall back to full compilation.
-  All 329 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  0 of 329 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Generazione codice terminata
   RobotArm.vcxproj -> D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\x64\Release\RobotArm.exe

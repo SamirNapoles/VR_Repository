@@ -23,6 +23,8 @@ class LIB_API Projection {
 		void setWidth(int width);
 		void setHeigth(int heigth);
 
+		virtual float getFarPlane() = 0;
+
 	private:
 		glm::mat4 projection{ 1.0f };
 		int width;

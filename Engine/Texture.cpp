@@ -17,7 +17,7 @@ LIB_API Texture::Texture(int id, const std::string name) :
 	}
 }
 
-Texture::~Texture() {}
+Texture::~Texture() { glDeleteTextures(1, &texId); }
 
 
 void LIB_API Texture::render(glm::mat4 finalMatrix) {
@@ -59,6 +59,11 @@ void LIB_API Texture::setTexId(std::string file) {
 	// Release bitmap
 	FreeImage_Unload(bitmap);
 	FreeImage_Unload(bitmap32bits);
+}
+
+std::string Texture::getPath()
+{
+	return path;
 }
 
 void Texture::setPath(std::string path)

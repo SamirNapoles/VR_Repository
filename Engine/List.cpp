@@ -39,21 +39,24 @@ void LIB_API List::addEntry(Node* root, glm::mat4 rootMatrix) {
 }
 
 void LIB_API List::render(glm::mat4 inverseCameraMatrix) {
+    Engine::getSkyBox()->render(glm::scale(glm::mat4(1.0f), glm::vec3(5.0f, 5.0f, 5.0f)));  /*0.9f * Engine::getCamera()->getProjection()->getFarPlane()*/
+    //Sleep(1000);
+    /*
     std::list<ListNode>::iterator it;
     //Render each list element
     for (it = objectsList.begin(); it != objectsList.end(); it++)
     {
         if (dynamic_cast<DirectionalLight*>((*it).getObject()) && (Program::getActiveProgram() != Engine::getProgramDirectional()))
             Engine::getProgramDirectional()->render();
-        else if (Program::getActiveProgram() != Engine::getProgramSpot())
-        // considering both spot and omnidirectional lights as a Spot light; not elegant but it works
-        //if (dynamic_cast<SpotLight*>((*it).getObject()))
+        else if (dynamic_cast<SpotLight*>((*it).getObject()) && (Program::getActiveProgram() != Engine::getProgramSpot()))
             Engine::getProgramSpot()->render();
-        /*else if (dynamic_cast<PointLight*>((*it).getObject())) 
+        else if (dynamic_cast<PointLight*>((*it).getObject()) && (Program::getActiveProgram() != Engine::getProgramOmni())) 
             Engine::getProgramOmni()->render();
-        */
+        
         if (dynamic_cast<Light*>((*it).getObject()) == nullptr)
             break;
+
+        Engine::getCamera()->getProjection()->setOpenGLProjection();
 
         (*it).getObject()->render(inverseCameraMatrix * (*it).getMatrix());
 
@@ -68,7 +71,7 @@ void LIB_API List::render(glm::mat4 inverseCameraMatrix) {
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE, GL_ONE);
     }
-    glDisable(GL_BLEND);
+    glDisable(GL_BLEND);*/
 }
 
 void List::clear()
