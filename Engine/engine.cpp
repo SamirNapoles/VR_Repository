@@ -318,7 +318,7 @@ void Engine::createQuads() {
     float roughness = 0.0f;
     std::shared_ptr<Material> material (new Material(Object::getNextId(), "quad_material", glm::vec4(glm::vec3(0.0f), 1.0f), glm::vec4(albedo * 0.2f, 1.0f), glm::vec4(albedo * 0.6f, 1.0f), glm::vec4(albedo * 0.4f, 1.0f), (1 - sqrt(roughness)) * 128));
     */
-
+    std::cout << "MALE" << std::endl;
     Engine::quads[Fbo::EYE_LEFT] = new Mesh(Object::getNextId(), "Quad_L", nullptr);
     Engine::quads[Fbo::EYE_RIGHT] = new Mesh(Object::getNextId(), "Quad_R", nullptr);
 
@@ -469,9 +469,9 @@ void Engine::displayCallbackDelegator() {
 
         //Render quads with related fbos as texture
         passthroughProgram->render();
-        passthroughProgram->setMatrix(Program::getUniforms()["projection"], Engine::orthoProjection->getProjection());
-        passthroughProgram->setMatrix(Program::getUniforms()["modelview"], glm::mat4(1.0f));
-        passthroughProgram->setVec4(Program::getUniforms()["color"], glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
+        passthroughProgram->setMatrix(Program::getActiveProgram()->Program::getUniforms()["projection"], Engine::orthoProjection->getProjection());
+        passthroughProgram->setMatrix(Program::getActiveProgram()->Program::getUniforms()["modelview"], glm::mat4(1.0f));
+        passthroughProgram->setVec4(Program::getActiveProgram()->Program::getUniforms()["color"], glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 
         for (int c = 0; c < Fbo::EYE_LAST; c++) {
             glBindTexture(GL_TEXTURE_2D, Engine::quadTexId[Fbo::EYE_LEFT]);

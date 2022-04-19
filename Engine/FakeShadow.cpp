@@ -108,7 +108,7 @@ void LIB_API FakeShadow::render(glm::mat4 finalMatrix) {
 
             glBindVertexArray(vao);
 
-            glBindBuffer(GL_ARRAY_BUFFER, vertexVbo);
+            /*glBindBuffer(GL_ARRAY_BUFFER, vertexVbo);
             glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
             glEnableVertexAttribArray(0);
 
@@ -120,8 +120,7 @@ void LIB_API FakeShadow::render(glm::mat4 finalMatrix) {
             glVertexAttribPointer((GLuint)2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);*/
 
             glDrawElements(GL_TRIANGLES, faceNr * 3, GL_UNSIGNED_INT, nullptr);
-            glDrawArrays(GL_TRIANGLES, 0, faceNr * 3);
-            //glDrawElements(GL_TRIANGLES, faceNr * 3, GL_UNSIGNED_INT, nullptr);
+            //glDrawArrays(GL_TRIANGLES, 0, faceNr * 3);
 
             glBindVertexArray(0);
         }

@@ -374,7 +374,6 @@ Node* FileReader::recursiveLoad(FILE* dat)
 		// Copy the vertex data from system to video memory:
 		glBufferData(GL_ARRAY_BUFFER, vertices * sizeof(glm::vec2), texturePtr, GL_STATIC_DRAW);
 
-
 		thisMesh->setVao(vertexVbo, normalVbo, textureVbo, vao, faces);
 		shadow->setVao(vertexVbo, normalVbo, textureVbo, vao, faces);
 
