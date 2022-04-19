@@ -44,21 +44,28 @@ void LIB_API Texture::setTexId(std::string file) {
 		glDeleteTextures(1, &texId);
 	glGenTextures(1, &texId);
 	glBindTexture(GL_TEXTURE_2D, texId);
-	std::string filePath = Texture::path + file;
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-	FIBITMAP* bitmap = FreeImage_Load(FreeImage_GetFileType(filePath.c_str(), 0), filePath.c_str());
-	FIBITMAP* bitmap32bits = FreeImage_ConvertTo32Bits(bitmap);
-	FreeImage_FlipVertical(bitmap32bits);
+	if (file != "[none]") {
+		std::string filePath = Texture::path + file;
 
-	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA,
+		FIBITMAP* bitmap = FreeImage_Load(FreeImage_GetFileType(filePath.c_str(), 0), filePath.c_str());
+		FIBITMAP* bitmap32bits = FreeImage_ConvertTo32Bits(bitmap);
+		FreeImage_FlipVertical(bitmap32bits);
+
+		gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA,
 			FreeImage_GetWidth(bitmap32bits), FreeImage_GetHeight(bitmap32bits),
 			GL_BGRA_EXT, GL_UNSIGNED_BYTE,
 			(void*)FreeImage_GetBits(bitmap32bits));
 
-	// Release bitmap
-	FreeImage_Unload(bitmap);
-	FreeImage_Unload(bitmap32bits);
+		// Release bitmap
+		FreeImage_Unload(bitmap);
+		FreeImage_Unload(bitmap32bits);
+	}
+	else {
+		unsigned char bitmap[] = { 255, 255, 255 };
+		gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, bitmap);
+	}
 }
 
 void Texture::setPath(std::string path)

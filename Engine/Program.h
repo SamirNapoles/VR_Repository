@@ -36,10 +36,11 @@ public:
 	bool render(void* data = nullptr);
 
 	static Program* getActiveProgram();
-	static std::map<std::string, int> getUniforms();
+	std::map<std::string, int> getUniforms();
+	unsigned int getGlId();
 
 private:
-	unsigned int/*GLuint*/ glId;
+	unsigned int glId;
 	static Program* activeProgram;
-	static std::map<std::string, int> uniformVariables;
+	std::map<std::string, int> uniformVariables;
 };

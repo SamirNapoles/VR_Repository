@@ -5,7 +5,7 @@
 #include <GL/freeglut.h>
 
 Program* Program::activeProgram = nullptr;
-std::map<std::string, int> Program::uniformVariables = {};
+//std::map<std::string, int> Program::uniformVariables = {};
 
 Program::Program(int id, const std::string name) : Object(id, name), glId{ 0 }
 {}
@@ -144,6 +144,23 @@ bool Program::build(Shader* vertexShader, Shader* fragmentShader)
 		return false;
 	}
 
+	uniformVariables["projection"] = this->getParamLocation("projection");
+	uniformVariables["modelview"] = this->getParamLocation("modelview");
+	uniformVariables["modelviewInverseTranspose"] = this->getParamLocation("modelviewInverseTranspose");
+
+	uniformVariables["materialEmission"] = this->getParamLocation("materialEmission");
+	uniformVariables["materialAmbient"] = this->getParamLocation("materialAmbient");
+	uniformVariables["materialDiffuse"] = this->getParamLocation("materialDiffuse");
+	uniformVariables["materialSpecular"] = this->getParamLocation("materialSpecular");
+	uniformVariables["materialShiniess"] = this->getParamLocation("materialShiniess");
+
+	// uniformVariables["lightPosition"] = this->getParamLocation("lightPosition");
+	// uniformVariables["lightDirection"] = this->getParamLocation("lightDirection");
+	uniformVariables["lightAmbient"] = this->getParamLocation("lightAmbient");
+	uniformVariables["lightDiffuse"] = this->getParamLocation("lightDiffuse");
+	uniformVariables["lightSpecular"] = this->getParamLocation("lightSpecular");
+	// uniformVariables["cutOff"] = this->getParamLocation("cutOff");
+
 	// Done:
 	return true;
 }
@@ -165,23 +182,6 @@ bool Program::render(void* data)
 	{
 		glUseProgram(glId);
 		activeProgram = this;
-
-		uniformVariables["projection"] = this->getParamLocation("projection");
-		uniformVariables["modelview"] = this->getParamLocation("modelview");
-		uniformVariables["modelviewInverseTranspose"] = this->getParamLocation("modelviewInverseTranspose");
-
-		uniformVariables["materialEmission"] = this->getParamLocation("materialEmission");
-		uniformVariables["materialAmbient"] = this->getParamLocation("materialAmbient");
-		uniformVariables["materialDiffuse"] = this->getParamLocation("materialDiffuse");
-		uniformVariables["materialSpecular"] = this->getParamLocation("materialSpecular");
-		uniformVariables["materialShiniess"] = this->getParamLocation("materialShiniess");
-
-		// uniformVariables["lightPosition"] = this->getParamLocation("lightPosition");
-		// uniformVariables["lightDirection"] = this->getParamLocation("lightDirection");
-		uniformVariables["lightAmbient"] = this->getParamLocation("lightAmbient");
-		uniformVariables["lightDiffuse"] = this->getParamLocation("lightDiffuse");
-		uniformVariables["lightSpecular"] = this->getParamLocation("lightSpecular");
-		// uniformVariables["cutOff"] = this->getParamLocation("cutOff");
 	}
 	else
 	{
@@ -201,4 +201,9 @@ Program* Program::getActiveProgram()
 std::map<std::string, int> Program::getUniforms()
 {
 	return uniformVariables;
+}
+
+unsigned int Program::getGlId()
+{
+	return glId;
 }
