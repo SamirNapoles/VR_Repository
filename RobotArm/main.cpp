@@ -176,7 +176,7 @@ void displayCallback() {
  */
 int main(int argc, char* argv[])
 {
-	engine = Engine();
+	engine = Engine(true);
 	engine.setTexturePath("./scene/");
 	engine.init("RobotArm", keyboardCallback, displayCallback);
 	root = engine.loadScene("./scene/ProjectScene.OVO");

@@ -49,9 +49,9 @@ D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\ListNode.h(1
 D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\dependencies\glm\include\glm\fwd.hpp(518): message : vedere la dichiarazione di 'glm::mat<4,4,glm::f32,glm::packed_highp>'
 D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\List.h(20,23): warning C4251: 'List::objectsList': class 'std::list<ListNode,std::allocator<ListNode>>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'List'
 D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\List.h(20): message : vedere la dichiarazione di 'std::list<ListNode,std::allocator<ListNode>>'
-D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Engine.cpp(308,123): warning C4244: 'argomento': conversione da 'int' a 'float'. Possibile perdita di dati.
-D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Engine.cpp(308,102): warning C4244: 'argomento': conversione da 'int' a 'float'. Possibile perdita di dati.
-D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Engine.cpp(386,65): warning C4244: 'argomento': conversione da 'float' a 'GLsizei'. Possibile perdita di dati.
-D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Engine.cpp(394,88): warning C4244: 'argomento': conversione da 'float' a 'int'. Possibile perdita di dati.
+D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Engine.cpp(309,123): warning C4244: 'argomento': conversione da 'int' a 'float'. Possibile perdita di dati.
+D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Engine.cpp(309,102): warning C4244: 'argomento': conversione da 'int' a 'float'. Possibile perdita di dati.
+D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Engine.cpp(388,65): warning C4244: 'argomento': conversione da 'float' a 'GLsizei'. Possibile perdita di dati.
+D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Engine.cpp(396,88): warning C4244: 'argomento': conversione da 'float' a 'int'. Possibile perdita di dati.
   Engine.vcxproj -> D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\x64\Debug\Engine.dll
           1 file copiati.

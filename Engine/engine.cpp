@@ -167,8 +167,6 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     glEnable(GL_DEPTH_TEST);
     //Enable face culling
     glEnable(GL_CULL_FACE);
-    //Vertex rendering Counter Clock-Wise
-    glFrontFace(GL_CCW);
     //Enable smooth shading
     glShadeModel(GL_SMOOTH);
     // Set callback functions:
@@ -282,6 +280,9 @@ void LIB_API Engine::free() {
     delete programDirectional;
     delete fragmentShaderSpot;
     delete programSpot;
+    delete passthroughVertexShader;
+    delete passthroughFragmentShader;
+    delete passthroughProgram;
 }
 
 void LIB_API Engine::setCamera(Camera* camera) {
@@ -318,7 +319,7 @@ void Engine::createQuads() {
     float roughness = 0.0f;
     std::shared_ptr<Material> material (new Material(Object::getNextId(), "quad_material", glm::vec4(glm::vec3(0.0f), 1.0f), glm::vec4(albedo * 0.2f, 1.0f), glm::vec4(albedo * 0.6f, 1.0f), glm::vec4(albedo * 0.4f, 1.0f), (1 - sqrt(roughness)) * 128));
     */
-    std::cout << "MALE" << std::endl;
+
     Engine::quads[Fbo::EYE_LEFT] = new Mesh(Object::getNextId(), "Quad_L", nullptr);
     Engine::quads[Fbo::EYE_RIGHT] = new Mesh(Object::getNextId(), "Quad_R", nullptr);
 
@@ -366,7 +367,8 @@ void Engine::createQuads() {
         glBindBuffer(GL_ARRAY_BUFFER, vertexVbo);
         // Copy the vertex data from system to video memory:
         glBufferData(GL_ARRAY_BUFFER, vertices->length() * sizeof(glm::vec3), vertices, GL_STATIC_DRAW);
-        glVertexAttribPointer((GLuint)0, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+        glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+        glEnableVertexAttribArray(0);
 
         // VBO id:
         unsigned int textureVbo;
@@ -378,7 +380,7 @@ void Engine::createQuads() {
         glVertexAttribPointer((GLuint)2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
         glEnableVertexAttribArray(2);
 
-        quad->setVao(vertexVbo, NULL, textureVbo, vao, 2);
+        quad->setVao(vertexVbo, NULL, textureVbo, NULL, vao, 2);
 
         //Load FBO and its texture
         glGenTextures(1, &Engine::quadTexId[c]);
@@ -429,17 +431,6 @@ void Engine::specialCallbackDelegator(int code, int x, int y) {
 }
 
 void Engine::reshapeCallback(int width, int height) {
-    // Update viewport size:
-    /*glViewport(0, 0, width, height);
-    // Refresh projection matrix:
-    Projection* p = camera->getProjection();
-    p->setWidth(width);
-    p->setHeigth(height);
-    p->update();
-    p->setOpenGLProjection();
-    // Force rendering refresh:
-    glutPostWindowRedisplay(windowId);*/
-
     if (width != Engine::screenW || height != Engine::screenH)
         glutReshapeWindow(Engine::screenW, Engine::screenH);
 }
