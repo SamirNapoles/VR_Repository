@@ -6,6 +6,7 @@ public:
     static const char* fragmentShaderOmni;
     static const char* fragmentShaderDirectional;
     static const char* fragmentShaderSpot;
+    static const char* passthroughFragmentShader;
 };
 
 const char* FragmentShader::fragmentShaderOmni = R"(
@@ -151,5 +152,27 @@ const char* FragmentShader::fragmentShaderSpot = R"(
       frag_Output = vec4(fragmentColor, 1.0f);
       // frag_Output = vec4(1.0f, 1.0f, 1.0f, 1.0f);
       fragmentColor += vec3(cutOff);
+   }
+)";
+
+const char* FragmentShader::passthroughFragmentShader = R"(
+   #version 440 core
+   
+   in vec2 texCoord;
+   
+   uniform vec4 color;
+
+   out vec4 fragOutput;   
+
+   // Texture mapping:
+   layout(binding = 0) uniform sampler2D texSampler;
+
+   void main(void)   
+   {  
+      // Texture element:
+      vec4 texel = texture(texSampler, texCoord);      
+      
+      // Final color:
+      fragOutput = color * texel;       
    }
 )";

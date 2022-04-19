@@ -17,7 +17,6 @@ FakeShadow::~FakeShadow() {
     glDeleteBuffers(1, &vertexVbo);
     glDeleteBuffers(1, &normalVbo);
     glDeleteBuffers(1, &textureVbo);
-    glDeleteBuffers(1, &faceVbo);
     glDeleteVertexArrays(1, &vao);
 }
 
@@ -139,7 +138,7 @@ void LIB_API FakeShadow::render(glm::mat4 finalMatrix) {
             glBindVertexArray(vao);
 
             //glEnableClientState(GL_VERTEX_ARRAY);
-            glBindBuffer(GL_ARRAY_BUFFER, vertexVbo);
+            /* glBindBuffer(GL_ARRAY_BUFFER, vertexVbo);
             glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
             glEnableVertexAttribArray(0);
 
@@ -150,10 +149,10 @@ void LIB_API FakeShadow::render(glm::mat4 finalMatrix) {
 
             //glEnableClientState(GL_TEXTURE_COORD_ARRAY);
             glBindBuffer(GL_ARRAY_BUFFER, textureVbo);
-            glVertexAttribPointer((GLuint)2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+            glVertexAttribPointer((GLuint)2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);*/
 
-            //glDrawArrays(GL_TRIANGLES, 0, faceNr);
-            glDrawElements(GL_TRIANGLES, faceNr * 3, GL_UNSIGNED_INT, nullptr);
+            glDrawArrays(GL_TRIANGLES, 0, faceNr * 3);
+            //glDrawElements(GL_TRIANGLES, faceNr * 3, GL_UNSIGNED_INT, nullptr);
 
             glBindVertexArray(0);
         }

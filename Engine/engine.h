@@ -19,6 +19,7 @@
 #include "List.h"
 #include "Shader.h"
 #include "Program.h"
+#include "Fbo.h"
 
 /////////////
 // CLASSES //
@@ -30,7 +31,7 @@
 class LIB_API Engine
 {
 	public:
-		Engine() {}
+		Engine(bool stereoscopic = false);
 		~Engine() {}
 
 	public:
@@ -39,6 +40,7 @@ class LIB_API Engine
 		void free();
 
 		Node* loadScene(std::string fileName);
+		void createQuads();
 
 		void clean(glm::vec4 color);
 		void begin();
@@ -85,7 +87,6 @@ class LIB_API Engine
 	private:
 		static int windowId;
 		static Camera* camera;
-		static Node* root;
 		static List list;
 		static FrameRate* fps;
 		static Program* programOmni;
@@ -106,4 +107,12 @@ class LIB_API Engine
 		static int modelViewMatrixSpot;
 		static int inverseTransposeSpot;
 		*/
+		static int screenW;
+		static int screenH;
+
+		static bool stereoscopic;
+		static Projection* orthoProjection;
+		static Mesh* quads[Fbo::EYE_LAST];
+		static unsigned int quadTexId[Fbo::EYE_LAST];
+		static Fbo* quadFbo[Fbo::EYE_LAST];
 };

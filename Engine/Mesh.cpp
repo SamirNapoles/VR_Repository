@@ -13,7 +13,6 @@ Mesh::~Mesh() {
     glDeleteBuffers(1, &vertexVbo);
     glDeleteBuffers(1, &normalVbo);
     glDeleteBuffers(1, &textureVbo);
-    glDeleteBuffers(1, &faceVbo);
     glDeleteVertexArrays(1, &vao);
 }
 
@@ -40,11 +39,10 @@ std::vector<Vertex*> Mesh::getVertices(int lod) {
 }
 */
 
-void Mesh::setVao(unsigned int vertexVbo, unsigned int normalVbo, unsigned int textureVbo, unsigned int faceVbo, unsigned int vao, unsigned int  faceNr) {
+void Mesh::setVao(unsigned int vertexVbo, unsigned int normalVbo, unsigned int textureVbo, unsigned int vao, unsigned int  faceNr) {
     this->vertexVbo = vertexVbo;
     this->normalVbo = normalVbo;
     this->textureVbo = textureVbo;
-    this->faceVbo = faceVbo;
     this->vao = vao;
     this->faceNr = faceNr;
 }
@@ -53,7 +51,8 @@ void LIB_API Mesh::render(glm::mat4 finalMatrix) {
 
     //Material
     Material* m = material.get();
-    m->render(finalMatrix);
+    if (m != nullptr)
+        m->render(finalMatrix);
 
     // Set model matrix as current OpenGL matrix:
     // glLoadMatrixf(glm::value_ptr(finalMatrix));
@@ -67,9 +66,6 @@ void LIB_API Mesh::render(glm::mat4 finalMatrix) {
     */
     Program::getActiveProgram()->setMatrix(Program::getUniforms()["modelview"], finalMatrix);
     Program::getActiveProgram()->setMatrix3(Program::getUniforms()["modelviewInverseTranspose"], glm::inverseTranspose(glm::mat3(finalMatrix)));
-
-    //Vertex rendering Counter Clock-Wise
-    glFrontFace(GL_CCW);
 
     // Triangles rendering
     /*
@@ -85,21 +81,24 @@ void LIB_API Mesh::render(glm::mat4 finalMatrix) {
     glBindVertexArray(vao);
 
     //glEnableClientState(GL_VERTEX_ARRAY);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexVbo);
-    glVertexAttribPointer((GLuint) 0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+    /*glBindBuffer(GL_ARRAY_BUFFER, vertexVbo);
+    glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
     glEnableVertexAttribArray(0);
 
     //glEnableClientState(GL_NORMAL_ARRAY);
-    glBindBuffer(GL_ARRAY_BUFFER, normalVbo);
-    glVertexAttribPointer((GLuint) 1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-    glEnableVertexAttribArray(1);
+    if (normalVbo != NULL) {
+        glBindBuffer(GL_ARRAY_BUFFER, normalVbo);
+        glVertexAttribPointer((GLuint)1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+        glEnableVertexAttribArray(1);
+    }
+    else glDisableVertexAttribArray(1);
 
     //glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glBindBuffer(GL_ARRAY_BUFFER, textureVbo);
-    glVertexAttribPointer((GLuint) 2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glVertexAttribPointer((GLuint) 2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);*/
 
-   // glDrawArrays(GL_TRIANGLES, 0, faceNr);
-    glDrawElements(GL_TRIANGLES, faceNr * 3, GL_UNSIGNED_INT, nullptr);
+    glDrawArrays(GL_TRIANGLES, 0, faceNr * 3);
+    //glDrawElements(GL_TRIANGLES, faceNr * 3, GL_UNSIGNED_INT, nullptr);
 
     glBindVertexArray(0);
 

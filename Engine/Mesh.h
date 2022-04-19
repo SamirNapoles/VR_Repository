@@ -12,7 +12,7 @@ public:
 	~Mesh();
 
 public:
-	void setVao(unsigned int vertexVbo, unsigned int normalVbo, unsigned int textureVbo, unsigned int faceVbo, unsigned int vao, unsigned int  faceNr);
+	void setVao(unsigned int vertexVbo, unsigned int normalVbo, unsigned int textureVbo, unsigned int vao, unsigned int  faceNr);
 	//void addVertex(Vertex* v, int lod);
 	virtual void render(glm::mat4 finalMatrix) override;
 	virtual bool getCastShadow() const;
@@ -26,8 +26,7 @@ protected:
 
 	unsigned int vertexVbo;
 	unsigned int normalVbo;
-	unsigned int textureVbo; 
-	unsigned int faceVbo;
+	unsigned int textureVbo;
 	unsigned int vao;
 	unsigned int faceNr;
 
