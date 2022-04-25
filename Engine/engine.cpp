@@ -179,7 +179,7 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     }
     programOmni->bind(0, "in_Position");
     programOmni->bind(1, "in_Normal");
-
+    programOmni->bind(2, "in_TexCoord");
 
     fragmentShaderDirectional = new Shader(Object::getNextId(), "fragment_shader_directional");
     fragmentShaderDirectional->loadFromMemory(Shader::TYPE_FRAGMENT, FragmentShader::fragmentShaderDirectional);
@@ -197,7 +197,7 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     }
     programDirectional->bind(0, "in_Position");
     programDirectional->bind(1, "in_Normal");
-
+    programDirectional->bind(2, "in_TexCoord");
 
     fragmentShaderSpot = new Shader(Object::getNextId(), "fragment_shader_spot");
     fragmentShaderSpot->loadFromMemory(Shader::TYPE_FRAGMENT, FragmentShader::fragmentShaderSpot);
@@ -215,6 +215,7 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     }
     programSpot->bind(0, "in_Position");
     programSpot->bind(1, "in_Normal");
+    programSpot->bind(2, "in_TexCoord");
 
     glDepthFunc(GL_LEQUAL);
 
