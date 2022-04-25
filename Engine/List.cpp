@@ -39,9 +39,8 @@ void LIB_API List::addEntry(Node* root, glm::mat4 rootMatrix) {
 }
 
 void LIB_API List::render(glm::mat4 inverseCameraMatrix) {
-    Engine::getSkyBox()->render(glm::scale(glm::mat4(1.0f), glm::vec3(5.0f, 5.0f, 5.0f)));  /*0.9f * Engine::getCamera()->getProjection()->getFarPlane()*/
-    //Sleep(1000);
-    /*
+    Engine::getSkyBox()->render((glm::translate(glm::mat4(1.0f), glm::vec3(-inverseCameraMatrix[3])) * inverseCameraMatrix * glm::scale(glm::mat4(1.0f), glm::vec3(1 / sqrt(3) * 0.9f * Engine::getCamera()->getProjection()->getFarPlane()))));
+    
     std::list<ListNode>::iterator it;
     //Render each list element
     for (it = objectsList.begin(); it != objectsList.end(); it++)
@@ -71,7 +70,7 @@ void LIB_API List::render(glm::mat4 inverseCameraMatrix) {
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE, GL_ONE);
     }
-    glDisable(GL_BLEND);*/
+    glDisable(GL_BLEND);
 }
 
 void List::clear()

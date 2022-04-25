@@ -158,7 +158,6 @@ const char* FragmentShader::skyBoxFragmentShader = R"(
 
    void main(void)
    {       
-      // fragOutput = texture(cubemapSampler, texCoord);
-      fragOutput = vec4(0.0f, 1.0f, 0.0f, 1.0f);
+      fragOutput = texture(cubemapSampler, texCoord);
    }
 )";

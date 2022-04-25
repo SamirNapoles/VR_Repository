@@ -36,7 +36,7 @@ void CubeMap::init()
 		if (fibitmap == nullptr)
 			std::cout << "[ERROR] loading file '" << cubeMap << "'" << std::endl;
 
-		FIBITMAP* fibitmap32bits = FreeImage_ConvertTo32Bits(fibitmap);
+		FIBITMAP* fibitmap32bits = FreeImage_ConvertTo32Bits(fibitmap);	// setting images as 32 bits (RGBA)
 
 		// Fixing vertical/horizontal mirroring
 		// FreeImage_FlipHorizontal(fibitmap32bits);
@@ -47,16 +47,4 @@ void CubeMap::init()
 		FreeImage_Unload(fibitmap);
 		FreeImage_Unload(fibitmap32bits);
 	}
-}
-
-void CubeMap::render(glm::mat4 finalMatrix)
-{
-	glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapId);
-
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 }

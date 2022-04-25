@@ -39,9 +39,10 @@ unsigned short SkyBox::faces[] =
    1, 6, 2,
 };
 
+//  paramters are images' names
 SkyBox* SkyBox::buildSkyBox(std::string positiveX, std::string negativeX, std::string positiveY, std::string negativeY, std::string positiveZ, std::string negativeZ)
 {
-    if (skyBox == nullptr)
+    if (skyBox == nullptr)  // singleton; if already one skybox defined, return that one
     {
         skyBoxVertexShader = new Shader(Object::getNextId(), "skybox_vertex_shader");
         skyBoxVertexShader->loadFromMemory(Shader::TYPE_VERTEX, VertexShader::skyBoxVertexShader);
@@ -88,10 +89,10 @@ std::string SkyBox::getProgramName()
 
 void SkyBox::render(glm::mat4 finalMatrix)
 {
-    cubeMap->render(finalMatrix);
+    //cubeMap->render(finalMatrix);   // rendering of cubemap images, maybe useless (?)
 
-    program->render();
-    Engine::getCamera()->getProjection()->setOpenGLProjection();
+    program->render();  // use skybox shaders
+    Engine::getCamera()->getProjection()->setOpenGLProjection();    // setting shader's projection matrix
 
     program->setMatrix(program->getUniforms()["modelview"], finalMatrix);
 
@@ -100,7 +101,9 @@ void SkyBox::render(glm::mat4 finalMatrix)
     glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
     glEnableVertexAttribArray(0);
 
+    glDisable(GL_CULL_FACE);
     glDrawElements(GL_TRIANGLES, sizeof(faces) / sizeof(unsigned short), GL_UNSIGNED_SHORT, nullptr);
+    glEnable(GL_CULL_FACE);
 }
 
 SkyBox::SkyBox(std::string positiveX, std::string negativeX, std::string positiveY, std::string negativeY, std::string positiveZ, std::string negativeZ)
@@ -111,7 +114,7 @@ SkyBox::SkyBox(std::string positiveX, std::string negativeX, std::string positiv
     glGenBuffers(1, &vertexVbo);
     glBindBuffer(GL_ARRAY_BUFFER, vertexVbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    // in render
+    
     glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
     glEnableVertexAttribArray(0);
 
