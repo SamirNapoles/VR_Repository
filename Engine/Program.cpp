@@ -161,6 +161,8 @@ bool Program::build(Shader* vertexShader, Shader* fragmentShader)
 	uniformVariables["lightSpecular"] = this->getParamLocation("lightSpecular");
 	// uniformVariables["cutOff"] = this->getParamLocation("cutOff");
 
+	uniformVariables["color"] = this->getParamLocation("color");
+
 	// Done:
 	return true;
 }

@@ -260,7 +260,7 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
         // exit(101);
     }
     passthroughProgram->bind(0, "in_Position");
-    passthroughProgram->bind(1, "in_TexCoord");
+    passthroughProgram->bind(2, "in_TexCoord");
 
     glDepthFunc(GL_LEQUAL);
 
@@ -289,17 +289,23 @@ void LIB_API Engine::setCamera(Camera* camera) {
     this->camera = camera;
 }
 
+Camera LIB_API* Engine::getCamera() {
+    return camera;
+}
+
 Node LIB_API* Engine::loadScene(std::string fileName) {
     FileReader fileReader = FileReader();
     Node* root = fileReader.readFile(fileName.c_str());
 
+    float w = Engine::stereoscopic ? this->screenW / 2.0f : this->screenW;
+
     //free camera
-    Projection* proj = new PerspectiveProjection(this->screenW, this->screenH, 45.0f, 1.0f, 1000.0f);
+    Projection* proj = new PerspectiveProjection(w, this->screenH, 45.0f, 1.0f, 1000.0f);
     Camera* camera = new Camera(Object::getNextId(), std::string("freeCamera"), proj);
     root->addChild(camera);
 
     //stationary camera
-    proj = new PerspectiveProjection(this->screenW, this->screenH, 45.0f, 1.0f, 1000.0f);
+    proj = new PerspectiveProjection(w, this->screenH, 45.0f, 1.0f, 1000.0f);
     camera = new Camera(Object::getNextId(), std::string("stationaryCamera"), proj);
     root->addChild(camera);
     this->camera = camera;
@@ -332,7 +338,7 @@ void Engine::createQuads() {
         glm::vec3(this->screenW / 2.0f, this->screenH, 0.0f)
     };
     glm::vec3 quadRVertices[6];
-    for (int i = 0; i < quadLVertices->length(); i++) {
+    for (int i = 0; i < 6; i++) {
         glm::vec3 v = glm::vec3(quadLVertices[i]);
         v.x += this->screenW / 2.0f;
         quadRVertices[i] = v;
@@ -366,9 +372,11 @@ void Engine::createQuads() {
         glGenBuffers(1, &vertexVbo);
         glBindBuffer(GL_ARRAY_BUFFER, vertexVbo);
         // Copy the vertex data from system to video memory:
-        glBufferData(GL_ARRAY_BUFFER, vertices->length() * sizeof(glm::vec3), vertices, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(glm::vec3), vertices, GL_STATIC_DRAW);
         glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
         glEnableVertexAttribArray(0);
+
+        glDisableVertexAttribArray(1);
 
         // VBO id:
         unsigned int textureVbo;
@@ -376,7 +384,7 @@ void Engine::createQuads() {
         glGenBuffers(1, &textureVbo);
         glBindBuffer(GL_ARRAY_BUFFER, textureVbo);
         // Copy the vertex data from system to video memory:
-        glBufferData(GL_ARRAY_BUFFER, vertices->length() * sizeof(glm::vec2), texCoord, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(glm::vec2), texCoord, GL_STATIC_DRAW);
         glVertexAttribPointer((GLuint)2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
         glEnableVertexAttribArray(2);
 
@@ -436,6 +444,7 @@ void Engine::reshapeCallback(int width, int height) {
 }
 
 void Engine::displayCallbackDelegator() {
+
     //Normal rendering
     if (!Engine::stereoscopic) {
         displayCallBackApplication();
@@ -462,13 +471,19 @@ void Engine::displayCallbackDelegator() {
         passthroughProgram->render();
         passthroughProgram->setMatrix(Program::getActiveProgram()->Program::getUniforms()["projection"], Engine::orthoProjection->getProjection());
         passthroughProgram->setMatrix(Program::getActiveProgram()->Program::getUniforms()["modelview"], glm::mat4(1.0f));
-        passthroughProgram->setVec4(Program::getActiveProgram()->Program::getUniforms()["color"], glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
+        passthroughProgram->setVec4(Program::getActiveProgram()->Program::getUniforms()["color"], glm::vec4(1.0f));
 
         for (int c = 0; c < Fbo::EYE_LAST; c++) {
-            glBindTexture(GL_TEXTURE_2D, Engine::quadTexId[Fbo::EYE_LEFT]);
+            glBindTexture(GL_TEXTURE_2D, Engine::quadTexId[c]);
             Engine::quads[c]->render(glm::mat4(1.0f));
         }
     }
+
+    // Swap this context's buffer:
+    Engine::swap();
+
+    // Force rendering refresh:
+    Engine::forceRefresh();
 }
 
 void Engine::closeCallback() {

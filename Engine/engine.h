@@ -51,6 +51,7 @@ class LIB_API Engine
 		static int getFps();
 		static void setTexturePath(std::string width);
 		void setCamera(Camera* camera);
+		static Camera* getCamera();
 
 		static Program* getProgramOmni();
 

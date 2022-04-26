@@ -61,7 +61,10 @@ void LIB_API Mesh::render(glm::mat4 finalMatrix) {
 
     glBindVertexArray(vao);
 
-    glDrawElements(GL_TRIANGLES, faceNr * 3, GL_UNSIGNED_INT, nullptr);
+    if (faceVbo != NULL)
+        glDrawElements(GL_TRIANGLES, faceNr * 3, GL_UNSIGNED_INT, nullptr);
+    else
+        glDrawArrays(GL_TRIANGLES, 0, faceNr * 3);
 
     glBindVertexArray(0);
 }

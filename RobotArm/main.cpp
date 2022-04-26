@@ -160,12 +160,6 @@ void displayCallback() {
 	engine.getList()->render(activeCamera->getInverse());
 	//clear() would delete pointers which would probably erease scene graph; to consider use of shared pointers in ListNode
 	engine.getList()->removeAllEntries();
-
-	// Swap this context's buffer:
-	engine.swap();
-
-	// Force rendering refresh:
-	engine.forceRefresh();
 }
 
 /**
@@ -176,7 +170,7 @@ void displayCallback() {
  */
 int main(int argc, char* argv[])
 {
-	engine = Engine(true);
+	engine = Engine(false);
 	engine.setTexturePath("./scene/");
 	engine.init("RobotArm", keyboardCallback, displayCallback);
 	root = engine.loadScene("./scene/ProjectScene.OVO");

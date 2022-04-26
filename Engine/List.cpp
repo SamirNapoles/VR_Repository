@@ -45,16 +45,15 @@ void LIB_API List::render(glm::mat4 inverseCameraMatrix) {
     {
         if (dynamic_cast<DirectionalLight*>((*it).getObject()) && (Program::getActiveProgram() != Engine::getProgramDirectional()))
             Engine::getProgramDirectional()->render();
-        else if (Program::getActiveProgram() != Engine::getProgramSpot())
-        // considering both spot and omnidirectional lights as a Spot light; not elegant but it works
-        //if (dynamic_cast<SpotLight*>((*it).getObject()))
+        else if (dynamic_cast<SpotLight*>((*it).getObject()))
             Engine::getProgramSpot()->render();
-        /*else if (dynamic_cast<PointLight*>((*it).getObject())) 
+        else if (dynamic_cast<PointLight*>((*it).getObject())) 
             Engine::getProgramOmni()->render();
-        */
+
         if (dynamic_cast<Light*>((*it).getObject()) == nullptr)
             break;
 
+        Engine::getCamera()->getProjection()->setOpenGLProjection();
         (*it).getObject()->render(inverseCameraMatrix * (*it).getMatrix());
 
         // render only non-Light objects
