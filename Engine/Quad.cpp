@@ -1,6 +1,7 @@
 #include "Quad.h"
 #include <GL/glew.h>
 #include <GL/freeglut.h>
+#include <glm/glm.hpp>
 
 #include "Program.h"
 
@@ -10,10 +11,16 @@ Quad::Quad(const int id, const std::string name, Fbo::Eye eye, int width, int he
     buildQuad();
 }
 
+Quad::~Quad() {
+    delete vertices;
+    delete fbo;
+}
+
 void Quad::render(glm::mat4 finalMatrix) {
     
     // Set model matrix as current OpenGL matrix:
     Program::getActiveProgram()->setMatrix(Program::getActiveProgram()->getUniforms()["modelview"], finalMatrix);
+    Program::getActiveProgram()->setVec4(Program::getActiveProgram()->getUniforms()["color"], glm::vec4(1.0f));
 
     glBindVertexArray(vao);
 

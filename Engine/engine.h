@@ -84,6 +84,7 @@ class LIB_API Engine
 		static Program* programOmni;
 		static Program* programDirectional;
 		static Program* programSpot;
+		static Program* passthroughProgram;
 		
 		static int screenW;
 		static int screenH;
@@ -91,7 +92,6 @@ class LIB_API Engine
 		static bool stereoscopic;
 		static Projection* orthoProjection;
 		static Quad* quads[Fbo::EYE_LAST];
-		static unsigned int quadTexId[Fbo::EYE_LAST];
-		static Fbo* quadFbo[Fbo::EYE_LAST];
+
 		static SkyBox* skyBox;
 };

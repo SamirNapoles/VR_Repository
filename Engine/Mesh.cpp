@@ -52,8 +52,7 @@ void LIB_API Mesh::render(glm::mat4 finalMatrix) {
 
     //Material
     Material* m = material.get();
-    if (m != NULL)
-        m->render(finalMatrix);
+    m->render(finalMatrix);
 
     // Set model matrix as current OpenGL matrix:
     Program::getActiveProgram()->setMatrix(Program::getActiveProgram()->getUniforms()["modelview"], finalMatrix);

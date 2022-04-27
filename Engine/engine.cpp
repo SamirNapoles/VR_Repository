@@ -66,13 +66,11 @@ Program* Engine::programSpot = nullptr;
 
 Shader* passthroughVertexShader = nullptr;
 Shader* passthroughFragmentShader = nullptr;
-Program* passthroughProgram = nullptr;
+Program* Engine::passthroughProgram = nullptr;
 
 bool Engine::stereoscopic = false;
 Projection* Engine::orthoProjection = nullptr;
 Quad* Engine::quads[Fbo::EYE_LAST] = { nullptr, nullptr };
-unsigned int Engine::quadTexId[Fbo::EYE_LAST] = { 0, 0 };
-Fbo* Engine::quadFbo[Fbo::EYE_LAST] = { nullptr, nullptr };
 
 SkyBox* Engine::skyBox = nullptr;
 
@@ -177,6 +175,26 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     Engine::displayCallBackApplication = displayCallBackApplication;
 
     //shaders and program initialization here
+    passthroughVertexShader = new Shader(Object::getNextId(), "passthrough_vertx_shader");
+    passthroughVertexShader->loadFromMemory(Shader::TYPE_VERTEX, VertexShader::passthroughVertexShader);
+
+    passthroughFragmentShader = new Shader(Object::getNextId(), "passthrough_fragment_shader");
+    passthroughFragmentShader->loadFromMemory(Shader::TYPE_FRAGMENT, FragmentShader::passthroughFragmentShader);
+
+    passthroughProgram = new Program(Object::getNextId(), "shader_program_passthrough");
+    if (!passthroughProgram->build(passthroughVertexShader, passthroughFragmentShader))
+    {
+        std::cout << "[ERROR] Unable to build program!" << std::endl;
+        // exit(100);
+    }
+    if (!passthroughProgram->render())
+    {
+        std::cout << "[ERROR] Unable to render program!" << std::endl;
+        // exit(101);
+    }
+    passthroughProgram->bind(0, "in_Position");
+    passthroughProgram->bind(2, "in_TexCoord");
+
     vertexShader = new Shader(Object::getNextId(), "vertx_shader");
     vertexShader->loadFromMemory(Shader::TYPE_VERTEX, VertexShader::vertexShader);
 
@@ -234,26 +252,6 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     programSpot->bind(1, "in_Normal");
     programSpot->bind(2, "in_TexCoord");
 
-    passthroughVertexShader = new Shader(Object::getNextId(), "passthrough_vertx_shader");
-    passthroughVertexShader->loadFromMemory(Shader::TYPE_VERTEX, VertexShader::passthroughVertexShader);
-
-    passthroughFragmentShader = new Shader(Object::getNextId(), "passthrough_fragment_shader");
-    passthroughFragmentShader->loadFromMemory(Shader::TYPE_FRAGMENT, FragmentShader::passthroughFragmentShader);
-
-    passthroughProgram = new Program(Object::getNextId(), "shader_program_passthrough");
-    if (!passthroughProgram->build(passthroughVertexShader, passthroughFragmentShader))
-    {
-        std::cout << "[ERROR] Unable to build program!" << std::endl;
-        // exit(100);
-    }
-    if (!passthroughProgram->render())
-    {
-        std::cout << "[ERROR] Unable to render program!" << std::endl;
-        // exit(101);
-    }
-    passthroughProgram->bind(0, "in_Position");
-    passthroughProgram->bind(2, "in_TexCoord");
-
     glDepthFunc(GL_LEQUAL);
 
     //Initialize the UI
@@ -310,8 +308,8 @@ Node LIB_API* Engine::loadScene(std::string fileName) {
         GLint prevViewport[4];
         glGetIntegerv(GL_VIEWPORT, prevViewport);
 
-        Engine::quads[Fbo::EYE_LEFT] = new Quad(Object::getNextId(), "Quad_L", Fbo::EYE_LEFT, this->screenW / 2.0f, this->screenH);
-        Engine::quads[Fbo::EYE_RIGHT] = new Quad(Object::getNextId(), "Quad_R", Fbo::EYE_RIGHT, this->screenW / 2.0f, this->screenH);
+        Engine::quads[Fbo::EYE_LEFT] = new Quad(Object::getNextId(), "Quad_L", Fbo::EYE_LEFT, w, this->screenH);
+        Engine::quads[Fbo::EYE_RIGHT] = new Quad(Object::getNextId(), "Quad_R", Fbo::EYE_RIGHT, w, this->screenH);
 
         glViewport(0, 0, prevViewport[2], prevViewport[3]);
     }

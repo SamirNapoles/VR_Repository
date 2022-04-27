@@ -51,11 +51,11 @@ D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\List.h(20,23
 D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\List.h(20): message : vedere la dichiarazione di 'std::list<ListNode,std::allocator<ListNode>>'
 D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\SkyBox.h(23,21): warning C4251: 'SkyBox::programName': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'SkyBox'
 D:\App\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xstring(4905): message : vedere la dichiarazione di 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
-D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Engine.cpp(296,50): warning C4244: 'argomento': conversione da 'float' a 'int'. Possibile perdita di dati.
-D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Engine.cpp(301,38): warning C4244: 'argomento': conversione da 'float' a 'int'. Possibile perdita di dati.
-D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Engine.cpp(308,123): warning C4244: 'argomento': conversione da 'int' a 'float'. Possibile perdita di dati.
-D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Engine.cpp(308,102): warning C4244: 'argomento': conversione da 'int' a 'float'. Possibile perdita di dati.
-D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Engine.cpp(314,109): warning C4244: 'argomento': conversione da 'float' a 'int'. Possibile perdita di dati.
-D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Engine.cpp(315,111): warning C4244: 'argomento': conversione da 'float' a 'int'. Possibile perdita di dati.
+D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Engine.cpp(294,50): warning C4244: 'argomento': conversione da 'float' a 'int'. Possibile perdita di dati.
+D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Engine.cpp(299,38): warning C4244: 'argomento': conversione da 'float' a 'int'. Possibile perdita di dati.
+D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Engine.cpp(306,123): warning C4244: 'argomento': conversione da 'int' a 'float'. Possibile perdita di dati.
+D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Engine.cpp(306,102): warning C4244: 'argomento': conversione da 'int' a 'float'. Possibile perdita di dati.
+D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Engine.cpp(311,95): warning C4244: 'argomento': conversione da 'float' a 'int'. Possibile perdita di dati.
+D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Engine.cpp(312,97): warning C4244: 'argomento': conversione da 'float' a 'int'. Possibile perdita di dati.
   Engine.vcxproj -> D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\x64\Debug\Engine.dll
           1 file copiati.
