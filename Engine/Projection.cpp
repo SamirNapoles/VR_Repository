@@ -4,7 +4,10 @@
 #include "Program.h"
 
 Projection::Projection(int width, int heigth) :
-	width(width), heigth(heigth) {}
+	width(width), heigth(heigth) {
+
+    setOpenGLProjection();
+}
 Projection::~Projection() {};
 
 

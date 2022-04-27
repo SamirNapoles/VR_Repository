@@ -81,6 +81,7 @@
     <ClCompile Include="Program.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="SkyBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -91,6 +92,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VertexShader.cpp">
+=======
+    <ClCompile Include="Fbo.cpp">
+>>>>>>> fbo
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -182,10 +186,14 @@
     <ClInclude Include="FragmentShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="SkyBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CubeMap.h">
+=======
+    <ClInclude Include="Fbo.h">
+>>>>>>> fbo
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

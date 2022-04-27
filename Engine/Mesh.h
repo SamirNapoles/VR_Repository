@@ -26,7 +26,7 @@ protected:
 
 	unsigned int vertexVbo;
 	unsigned int normalVbo;
-	unsigned int textureVbo; 
+	unsigned int textureVbo;
 	unsigned int faceVbo;
 	unsigned int vao;
 	unsigned int faceNr;

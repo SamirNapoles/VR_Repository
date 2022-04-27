@@ -358,6 +358,9 @@ Node* FileReader::recursiveLoad(FILE* dat)
 		// Copy the vertex data from system to video memory:
 		glBufferData(GL_ARRAY_BUFFER, vertices * sizeof(glm::vec3), vertexPtr, GL_STATIC_DRAW);
 
+		glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+		glEnableVertexAttribArray(0);
+
 		// VBO id:
 		unsigned int normalVbo;
 		// Generate a vertex buffer and bind it:
@@ -365,6 +368,9 @@ Node* FileReader::recursiveLoad(FILE* dat)
 		glBindBuffer(GL_ARRAY_BUFFER, normalVbo);
 		// Copy the vertex data from system to video memory:
 		glBufferData(GL_ARRAY_BUFFER, vertices * sizeof(glm::vec3), normalPtr, GL_STATIC_DRAW);
+
+		glVertexAttribPointer((GLuint)1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+		glEnableVertexAttribArray(1);
 
 		// VBO id:
 		unsigned int textureVbo;
@@ -374,6 +380,9 @@ Node* FileReader::recursiveLoad(FILE* dat)
 		// Copy the vertex data from system to video memory:
 		glBufferData(GL_ARRAY_BUFFER, vertices * sizeof(glm::vec2), texturePtr, GL_STATIC_DRAW);
 
+		glVertexAttribPointer((GLuint)2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+		glEnableVertexAttribArray(2);
+
 		// VBO id:
 		unsigned int faceVbo;
 		// Generate a vertex buffer and bind it:
@@ -381,7 +390,6 @@ Node* FileReader::recursiveLoad(FILE* dat)
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, faceVbo);
 		// Copy the vertex data from system to video memory:
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, faces * 3 * sizeof(unsigned int), facePtr, GL_STATIC_DRAW);
-
 
 		thisMesh->setVao(vertexVbo, normalVbo, textureVbo, faceVbo, vao, faces);
 		shadow->setVao(vertexVbo, normalVbo, textureVbo, faceVbo, vao, faces);

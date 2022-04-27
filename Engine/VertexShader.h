@@ -4,6 +4,7 @@ class VertexShader
 {
 public:
     static const char* vertexShader;
+    static const char* passthroughVertexShader;
     static const char* skyBoxVertexShader;
 };
 /*
@@ -49,3 +50,25 @@ const char* VertexShader::skyBoxVertexShader = R"(
    }
 )";
 */
+)";
+
+const char* VertexShader::passthroughVertexShader = R"(
+   #version 440 core
+
+   // Uniforms:
+   uniform mat4 projection;
+   uniform mat4 modelview;   
+
+   // Attributes:
+   layout(location = 0) in vec3 in_Position;   
+   layout(location = 2) in vec2 in_TexCoord;
+
+   // Varying:   
+   out vec2 texCoord;
+
+   void main(void)
+   {      
+      gl_Position = projection * modelview * vec4(in_Position, 1.0f);    
+      texCoord = in_TexCoord;
+   }
+)";

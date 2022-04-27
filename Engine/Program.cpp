@@ -166,6 +166,8 @@ bool Program::build(Shader* vertexShader, Shader* fragmentShader)
 		// uniformVariables["cutOff"] = this->getParamLocation("cutOff");
 	}
 
+	uniformVariables["color"] = this->getParamLocation("color");
+
 	// Done:
 	return true;
 }
