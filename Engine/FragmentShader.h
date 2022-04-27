@@ -193,8 +193,6 @@ const char* FragmentShader::skyBoxFragmentShader = R"(
       fragOutput = texture(cubemapSampler, texCoord);
    }
 )";
-*/
-)";
 
 const char* FragmentShader::passthroughFragmentShader = R"(
    #version 440 core
@@ -217,3 +215,4 @@ const char* FragmentShader::passthroughFragmentShader = R"(
       fragOutput = color * texel;       
    }
 )";
+*/

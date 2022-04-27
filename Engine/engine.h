@@ -52,7 +52,6 @@ class LIB_API Engine
 		static int getFps();
 		static void setTexturePath(std::string width);
 		void setCamera(Camera* camera);
-		static Camera* getCamera();
 
 		static Camera* getCamera();
 
@@ -85,11 +84,7 @@ class LIB_API Engine
 		static Program* programOmni;
 		static Program* programDirectional;
 		static Program* programSpot;
-		/*
-		static int projectionMatrixSpot;
-		static int modelViewMatrixSpot;
-		static int inverseTransposeSpot;
-		*/
+		
 		static int screenW;
 		static int screenH;
 

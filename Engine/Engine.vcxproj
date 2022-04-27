@@ -100,11 +100,8 @@
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="FakeShadow.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="FragmentShader.cpp" />
-=======
     <ClCompile Include="Fbo.cpp" />
->>>>>>> fbo
     <ClCompile Include="FrameRate.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="List.cpp" />

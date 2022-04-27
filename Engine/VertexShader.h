@@ -49,8 +49,6 @@ const char* VertexShader::skyBoxVertexShader = R"(
       //gl_Position = gl_Position.xyww;          
    }
 )";
-*/
-)";
 
 const char* VertexShader::passthroughVertexShader = R"(
    #version 440 core
@@ -72,3 +70,4 @@ const char* VertexShader::passthroughVertexShader = R"(
       texCoord = in_TexCoord;
    }
 )";
+*/

@@ -8,9 +8,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RobotArm", "RobotArm\RobotA
 		{7316E27B-99A1-4C2B-87E3-570A57220D34} = {7316E27B-99A1-4C2B-87E3-570A57220D34}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{7316E27B-99A1-4C2B-87E3-570A57220D34}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest", "UnitTest\UnitTest.vcxproj", "{F16E0DAC-C214-4261-A76D-868170205B57}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{7316E27B-99A1-4C2B-87E3-570A57220D34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,14 +22,14 @@ Global
 		{67B3C44A-52B7-4975-9908-77640E1A3812}.Debug|x64.Build.0 = Debug|x64
 		{67B3C44A-52B7-4975-9908-77640E1A3812}.Release|x64.ActiveCfg = Release|x64
 		{67B3C44A-52B7-4975-9908-77640E1A3812}.Release|x64.Build.0 = Release|x64
-		{7316E27B-99A1-4C2B-87E3-570A57220D34}.Debug|x64.ActiveCfg = Debug|x64
-		{7316E27B-99A1-4C2B-87E3-570A57220D34}.Debug|x64.Build.0 = Debug|x64
-		{7316E27B-99A1-4C2B-87E3-570A57220D34}.Release|x64.ActiveCfg = Release|x64
-		{7316E27B-99A1-4C2B-87E3-570A57220D34}.Release|x64.Build.0 = Release|x64
 		{F16E0DAC-C214-4261-A76D-868170205B57}.Debug|x64.ActiveCfg = Debug|x64
 		{F16E0DAC-C214-4261-A76D-868170205B57}.Debug|x64.Build.0 = Debug|x64
 		{F16E0DAC-C214-4261-A76D-868170205B57}.Release|x64.ActiveCfg = Release|x64
 		{F16E0DAC-C214-4261-A76D-868170205B57}.Release|x64.Build.0 = Release|x64
+		{7316E27B-99A1-4C2B-87E3-570A57220D34}.Debug|x64.ActiveCfg = Debug|x64
+		{7316E27B-99A1-4C2B-87E3-570A57220D34}.Debug|x64.Build.0 = Debug|x64
+		{7316E27B-99A1-4C2B-87E3-570A57220D34}.Release|x64.ActiveCfg = Release|x64
+		{7316E27B-99A1-4C2B-87E3-570A57220D34}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

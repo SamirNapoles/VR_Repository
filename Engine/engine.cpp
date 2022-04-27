@@ -39,10 +39,10 @@ int APIENTRY DllMain(HANDLE instDLL, DWORD reason, LPVOID _reserved)
 
 /**
  * Debug message callback for OpenGL. See https://www.opengl.org/wiki/Debug_Output
- *//*
+ */
 void __stdcall DebugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, GLvoid* userParam) {
     std::cout << "OpenGL says: \"" << std::string(message) << "\"" << std::endl;
-}*/
+}
 
 ////////////////////////////////
 // BODY OF CLASS Engine       //
@@ -73,11 +73,6 @@ Projection* Engine::orthoProjection = nullptr;
 Mesh* Engine::quads[Fbo::EYE_LAST] = { nullptr, nullptr };
 unsigned int Engine::quadTexId[Fbo::EYE_LAST] = { 0, 0 };
 Fbo* Engine::quadFbo[Fbo::EYE_LAST] = { nullptr, nullptr };
-/*
-int Engine::projectionMatrixOmni = -1, Engine::modelViewMatrixOmni = -1, Engine::inverseTransposeOmni = -1;    // -1 means not assigned
-int Engine::projectionMatrixDirectional = -1, Engine::modelViewMatrixDirectional = -1, Engine::inverseTransposeDirectional = -1;    // -1 means not assigned
-int Engine::projectionMatrixSpot = -1, Engine::modelViewMatrixSpot = -1, Engine::inverseTransposeSpot = -1;    // -1 means not assigned
-*/
 
 Engine::Engine(bool stereoscopic) {
     Engine::stereoscopic = stereoscopic;
@@ -324,12 +319,6 @@ Node LIB_API* Engine::loadScene(std::string fileName) {
 }
 
 void Engine::createQuads() {
-    /*
-    glm::vec3 albedo = glm::vec3(1.0f);
-    float roughness = 0.0f;
-    std::shared_ptr<Material> material (new Material(Object::getNextId(), "quad_material", glm::vec4(glm::vec3(0.0f), 1.0f), glm::vec4(albedo * 0.2f, 1.0f), glm::vec4(albedo * 0.6f, 1.0f), glm::vec4(albedo * 0.4f, 1.0f), (1 - sqrt(roughness)) * 128));
-    */
-
     Engine::quads[Fbo::EYE_LEFT] = new Mesh(Object::getNextId(), "Quad_L", nullptr);
     Engine::quads[Fbo::EYE_RIGHT] = new Mesh(Object::getNextId(), "Quad_R", nullptr);
 
