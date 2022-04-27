@@ -148,7 +148,7 @@ bool Program::build(Shader* vertexShader, Shader* fragmentShader)
 
 	uniformVariables["projection"] = this->getParamLocation("projection");
 	uniformVariables["modelview"] = this->getParamLocation("modelview");
-	if (this->getName() != SkyBox::getProgramName())
+	if (this->getName() != SkyBox::getProgramName() || this->getName() != "shader_program_passthrough")
 	{
 		uniformVariables["modelviewInverseTranspose"] = this->getParamLocation("modelviewInverseTranspose");
 
@@ -166,7 +166,8 @@ bool Program::build(Shader* vertexShader, Shader* fragmentShader)
 		// uniformVariables["cutOff"] = this->getParamLocation("cutOff");
 	}
 
-	uniformVariables["color"] = this->getParamLocation("color");
+	if (this->getName() == "shader_program_passthrough")
+		uniformVariables["color"] = this->getParamLocation("color");
 
 	// Done:
 	return true;

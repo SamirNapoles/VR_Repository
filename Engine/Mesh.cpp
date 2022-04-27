@@ -52,7 +52,7 @@ void LIB_API Mesh::render(glm::mat4 finalMatrix) {
 
     //Material
     Material* m = material.get();
-    if (m != nullptr)
+    if (m != NULL)
         m->render(finalMatrix);
 
     // Set model matrix as current OpenGL matrix:
@@ -61,10 +61,7 @@ void LIB_API Mesh::render(glm::mat4 finalMatrix) {
 
     glBindVertexArray(vao);
 
-    if (faceVbo != NULL)
-        glDrawElements(GL_TRIANGLES, faceNr * 3, GL_UNSIGNED_INT, nullptr);
-    else
-        glDrawArrays(GL_TRIANGLES, 0, faceNr * 3);
+    glDrawElements(GL_TRIANGLES, faceNr * 3, GL_UNSIGNED_INT, nullptr);
 
     glBindVertexArray(0);
 }

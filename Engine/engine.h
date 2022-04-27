@@ -21,6 +21,7 @@
 #include "Program.h"
 #include "Fbo.h"
 #include "SkyBox.h"
+#include "Quad.h"
 
 /////////////
 // CLASSES //
@@ -41,7 +42,6 @@ class LIB_API Engine
 		void free();
 
 		Node* loadScene(std::string fileName);
-		void createQuads();
 
 		void clean(glm::vec4 color);
 		void begin();
@@ -90,7 +90,7 @@ class LIB_API Engine
 
 		static bool stereoscopic;
 		static Projection* orthoProjection;
-		static Mesh* quads[Fbo::EYE_LAST];
+		static Quad* quads[Fbo::EYE_LAST];
 		static unsigned int quadTexId[Fbo::EYE_LAST];
 		static Fbo* quadFbo[Fbo::EYE_LAST];
 		static SkyBox* skyBox;

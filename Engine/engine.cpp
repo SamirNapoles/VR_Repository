@@ -70,15 +70,16 @@ Program* passthroughProgram = nullptr;
 
 bool Engine::stereoscopic = false;
 Projection* Engine::orthoProjection = nullptr;
-Mesh* Engine::quads[Fbo::EYE_LAST] = { nullptr, nullptr };
+Quad* Engine::quads[Fbo::EYE_LAST] = { nullptr, nullptr };
 unsigned int Engine::quadTexId[Fbo::EYE_LAST] = { 0, 0 };
 Fbo* Engine::quadFbo[Fbo::EYE_LAST] = { nullptr, nullptr };
+
+SkyBox* Engine::skyBox = nullptr;
 
 Engine::Engine(bool stereoscopic) {
     Engine::stereoscopic = stereoscopic;
 }
 
-SkyBox* Engine::skyBox = nullptr;
 
 void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplication)(int), void(*displayCallBackApplication)()) {
     // Init context:
@@ -233,12 +234,6 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     programSpot->bind(1, "in_Normal");
     programSpot->bind(2, "in_TexCoord");
 
-    /*
-    projectionMatrixSpot = programSpot->getParamLocation("projection");
-    modelViewMatrixSpot = programSpot->getParamLocation("modelview");
-    inverseTransposeSpot = programSpot->getParamLocation("modelviewInverseTranspose");
-    */
-
     passthroughVertexShader = new Shader(Object::getNextId(), "passthrough_vertx_shader");
     passthroughVertexShader->loadFromMemory(Shader::TYPE_VERTEX, VertexShader::passthroughVertexShader);
 
@@ -262,7 +257,6 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
     glDepthFunc(GL_LEQUAL);
 
     //Initialize the UI
-    // ui = new UIProjection(glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT));
     fps = new FrameRate();
 
     skyBox = SkyBox::buildSkyBox("posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg");
@@ -312,94 +306,17 @@ Node LIB_API* Engine::loadScene(std::string fileName) {
     //quad projection
     if (Engine::stereoscopic) {
         Engine::orthoProjection = new OrthogonalProjection(this->screenW, this->screenH, 0.0f, this->screenW, 0.0f, this->screenH, -1.0f, 1.0f);
-        this->createQuads();
+        
+        GLint prevViewport[4];
+        glGetIntegerv(GL_VIEWPORT, prevViewport);
+
+        Engine::quads[Fbo::EYE_LEFT] = new Quad(Object::getNextId(), "Quad_L", Fbo::EYE_LEFT, this->screenW / 2.0f, this->screenH);
+        Engine::quads[Fbo::EYE_RIGHT] = new Quad(Object::getNextId(), "Quad_R", Fbo::EYE_RIGHT, this->screenW / 2.0f, this->screenH);
+
+        glViewport(0, 0, prevViewport[2], prevViewport[3]);
     }
     
     return root;
-}
-
-void Engine::createQuads() {
-    Engine::quads[Fbo::EYE_LEFT] = new Mesh(Object::getNextId(), "Quad_L", nullptr);
-    Engine::quads[Fbo::EYE_RIGHT] = new Mesh(Object::getNextId(), "Quad_R", nullptr);
-
-    glm::vec3 quadLVertices[6] = {
-        glm::vec3(0.0f, 0.0f, 0.0f),
-        glm::vec3(this->screenW / 2.0f, 0.0f, 0.0f),
-        glm::vec3(0.0f, this->screenH, 0.0f),
-        glm::vec3(0.0f, this->screenH, 0.0f),
-        glm::vec3(this->screenW / 2.0f, 0.0f, 0.0f),
-        glm::vec3(this->screenW / 2.0f, this->screenH, 0.0f)
-    };
-    glm::vec3 quadRVertices[6];
-    for (int i = 0; i < 6; i++) {
-        glm::vec3 v = glm::vec3(quadLVertices[i]);
-        v.x += this->screenW / 2.0f;
-        quadRVertices[i] = v;
-    }
-    glm::vec3* quadVertices[] = {quadLVertices, quadRVertices};
-
-    glm::vec2* texCoord = new glm::vec2[6];
-    texCoord[0] = glm::vec2(0.0f, 0.0f);
-    texCoord[1] = glm::vec2(1.0f, 0.0f);
-    texCoord[2] = glm::vec2(0.0f, 1.0f);
-    texCoord[3] = glm::vec2(0.0f, 1.0f);
-    texCoord[4] = glm::vec2(1.0f, 0.0f);
-    texCoord[5] = glm::vec2(1.0f, 1.0f);
-
-    GLint prevViewport[4];
-    glGetIntegerv(GL_VIEWPORT, prevViewport);
-
-    for (int c = 0; c < Fbo::EYE_LAST; c++) {
-        Mesh* quad = Engine::quads[c];
-        glm::vec3* vertices = quadVertices[c];
-
-        // VAO id:
-        unsigned int vao;
-        // Generate a vertex array object and bind it :
-        glGenVertexArrays(1, &vao);
-        glBindVertexArray(vao);
-
-        // VBO id:
-        unsigned int vertexVbo;
-        // Generate a vertex buffer and bind it:
-        glGenBuffers(1, &vertexVbo);
-        glBindBuffer(GL_ARRAY_BUFFER, vertexVbo);
-        // Copy the vertex data from system to video memory:
-        glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(glm::vec3), vertices, GL_STATIC_DRAW);
-        glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-        glEnableVertexAttribArray(0);
-
-        glDisableVertexAttribArray(1);
-
-        // VBO id:
-        unsigned int textureVbo;
-        // Generate a vertex buffer and bind it:
-        glGenBuffers(1, &textureVbo);
-        glBindBuffer(GL_ARRAY_BUFFER, textureVbo);
-        // Copy the vertex data from system to video memory:
-        glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(glm::vec2), texCoord, GL_STATIC_DRAW);
-        glVertexAttribPointer((GLuint)2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
-        glEnableVertexAttribArray(2);
-
-        quad->setVao(vertexVbo, NULL, textureVbo, NULL, vao, 2);
-
-        //Load FBO and its texture
-        glGenTextures(1, &Engine::quadTexId[c]);
-        glBindTexture(GL_TEXTURE_2D, Engine::quadTexId[c]);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Engine::screenW / 2.0f, Engine::screenH, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-        Engine::quadFbo[c] = new Fbo();
-        Engine::quadFbo[c]->bindTexture(0, Fbo::BIND_COLORTEXTURE, Engine::quadTexId[c]);
-        Engine::quadFbo[c]->bindRenderBuffer(1, Fbo::BIND_DEPTHBUFFER, Engine::screenW / 2.0f, Engine::screenH);
-        if (!Engine::quadFbo[c]->isOk())
-            std::cout << "[ERROR] Invalid FBO" << std::endl;
-    }
-    Fbo::disable();
-    glViewport(0, 0, prevViewport[2], prevViewport[3]);
 }
 
 void LIB_API Engine::clean(glm::vec4 color) {
@@ -452,10 +369,9 @@ void Engine::displayCallbackDelegator() {
         //Render scene as stereocopic
         for (int c = 0; c < Fbo::EYE_LAST; c++) {
             // Render into this FBO:
-            Engine::quadFbo[c]->render();
+            Engine::quads[c]->getFbo()->render();
 
             displayCallBackApplication();
-            fps->calculateFrameRate();
         }
         Fbo::disable();
         glViewport(0, 0, prevViewport[2], prevViewport[3]);
@@ -467,9 +383,11 @@ void Engine::displayCallbackDelegator() {
         passthroughProgram->setVec4(Program::getActiveProgram()->Program::getUniforms()["color"], glm::vec4(1.0f));
 
         for (int c = 0; c < Fbo::EYE_LAST; c++) {
-            glBindTexture(GL_TEXTURE_2D, Engine::quadTexId[c]);
+            glBindTexture(GL_TEXTURE_2D, Engine::quads[c]->getTexId());
             Engine::quads[c]->render(glm::mat4(1.0f));
         }
+
+        fps->calculateFrameRate();
     }
 
     // Swap this context's buffer:
