@@ -17,11 +17,14 @@
 #include "FakeShadow.h"
 #include "FileReader.h"
 #include "List.h"
+#include "VertexShader.h"
+#include "FragmentShader.h"
 #include "Shader.h"
 #include "Program.h"
 #include "Fbo.h"
 #include "SkyBox.h"
 #include "Quad.h"
+#include "Eye.h"
 
 /////////////
 // CLASSES //
@@ -39,7 +42,7 @@ class LIB_API Engine
 	public:
 		// Init/free:
 		void init(const char* windowName, void(*keyboardCallbackApplication)(int), void(*displayCallBackApplication)());
-		void free();
+		static void free();
 
 		Node* loadScene(std::string fileName);
 
@@ -91,7 +94,7 @@ class LIB_API Engine
 
 		static bool stereoscopic;
 		static Projection* orthoProjection;
-		static Quad* quads[Fbo::EYE_LAST];
+		static Quad* quads[Eye::EYE_LAST];
 
 		static SkyBox* skyBox;
 };

@@ -1,6 +1,7 @@
 #pragma once
 #include "Mesh.h"
 #include "Fbo.h"
+#include "Eye.h"
 
 
 
@@ -11,7 +12,7 @@
 class LIB_API Quad : public Mesh
 {
 public:
-	Quad(const int id, const std::string name, Fbo::Eye eye, int width, int height);
+	Quad(const int id, const std::string name, Eye eye, int width, int height);
 	~Quad();
 
 public:
@@ -24,7 +25,7 @@ private:
 
 private:
 	glm::vec3* vertices;
-	Fbo::Eye eye;
+	Eye eye;
 	int width;
 	int height;
 	unsigned int texId;

@@ -4,8 +4,9 @@
 #include <glm/glm.hpp>
 
 #include "Program.h"
+#include "ovr.h"
 
-Quad::Quad(const int id, const std::string name, Fbo::Eye eye, int width, int height) :
+Quad::Quad(const int id, const std::string name, Eye eye, int width, int height) :
 	Mesh{ id, name, nullptr }, eye(eye), width(width), height(height) {
 
     buildQuad();
@@ -93,7 +94,7 @@ void Quad::buildQuad() {
     //Load FBO and its texture
     glGenTextures(1, &texId);
     glBindTexture(GL_TEXTURE_2D, texId);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);

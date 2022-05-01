@@ -7,24 +7,6 @@
 #pragma once
 
 
-
- //////////////
- // #INCLUDE //
- //////////////
-
-	// GLM:
-/*#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-// Glew (include it before GL.h):
-#include <GL/glew.h>
-
-// C/C++:
-#include <iostream>*/
-
-
-
 ///////////////
 // CLASS Fbo //
 ///////////////
@@ -47,15 +29,6 @@ public: //
 		BIND_DEPTHBUFFER = 0,
 		BIND_COLORTEXTURE,
 		BIND_DEPTHTEXTURE,
-	};
-
-	enum Eye
-	{
-		EYE_LEFT = 0,
-		EYE_RIGHT = 1,
-
-		// Terminator:
-		EYE_LAST,
 	};
 
 	// Const/dest:	 

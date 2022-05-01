@@ -1,10 +1,13 @@
-#include "Engine.h"
+#define GLM_ENABLE_EXPERIMENTAL
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <FreeImage.h>
 
-#include "VertexShader.h"
-#include "FragmentShader.h"
+#include "Engine.h"
+#include "ovr.h"
+
+
+
 //////////////
 // DLL MAIN //
 //////////////
@@ -44,6 +47,8 @@ void __stdcall DebugCallback(GLenum source, GLenum type, GLuint id, GLenum sever
     std::cout << "OpenGL says: \"" << std::string(message) << "\"" << std::endl;
 }
 
+OvVR* ovr = nullptr;
+
 ////////////////////////////////
 // BODY OF CLASS Engine       //
 ////////////////////////////////
@@ -53,8 +58,8 @@ void(*Engine::keyboardCallbackApplication)(int) = nullptr;
 void(*Engine::displayCallBackApplication)() = nullptr;
 Camera* Engine::camera = nullptr;
 FrameRate* Engine::fps = nullptr;
-int Engine::screenW = 1024;
-int Engine::screenH = 512;
+int Engine::screenW = 960;
+int Engine::screenH = 540;
 
 Shader* vertexShader = nullptr;
 Shader* fragmentShaderOmni = nullptr;
@@ -70,7 +75,7 @@ Program* Engine::passthroughProgram = nullptr;
 
 bool Engine::stereoscopic = false;
 Projection* Engine::orthoProjection = nullptr;
-Quad* Engine::quads[Fbo::EYE_LAST] = { nullptr, nullptr };
+Quad* Engine::quads[Eye::EYE_LAST] = { nullptr, nullptr };
 
 SkyBox* Engine::skyBox = nullptr;
 
@@ -124,6 +129,16 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
         glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
     #endif // _DEBUG
 
+    // Init OpenVR:   
+    if (Engine::stereoscopic) {
+        ovr = new OvVR();
+        if (ovr->init() == false) {
+            std::cout << "[ERROR] Unable to init OpenVR" << std::endl;
+            delete ovr;
+            exit(101);
+        }
+    }
+
     /*********************************/
 
     // Log context properties:
@@ -155,6 +170,14 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
         std::cout << "                :  " << "No error flag" << std::endl;
 
     std::cout << "   GLSL . . . . :  " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+
+    // Report some OpenVR info:
+    if (Engine::stereoscopic) {
+        std::cout << "   Manufacturer . . :  " << ovr->getManufacturerName() << std::endl;
+        std::cout << "   Tracking system  :  " << ovr->getTrackingSysName() << std::endl;
+        std::cout << "   Model number . . :  " << ovr->getModelNumber() << std::endl;
+        std::cout << "   Ideal resolution :  " << ovr->getHmdIdealHorizRes() << "x" << ovr->getHmdIdealVertRes() << std::endl;
+    }
     std::cout << std::endl;
 
     /*********************************/
@@ -261,8 +284,16 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
 }
 
 void LIB_API Engine::free() {
+
+    if (Engine::stereoscopic) {
+        // Free OpenVR:   
+        ovr->free();
+        delete ovr;
+    }
+
     list.clear();
     FreeImage_DeInitialise();
+
     //delete root; // avoid root memory leak
     delete vertexShader;
     delete fragmentShaderOmni;
@@ -285,10 +316,31 @@ Camera LIB_API* Engine::getCamera() {
 }
 
 Node LIB_API* Engine::loadScene(std::string fileName) {
+
+    float w = this->screenW;
+
+    //quad projection
+    if (Engine::stereoscopic) {
+        //Reshape view to match hmd resolution
+        this->screenW = ovr->getHmdIdealHorizRes() * 2;
+        this->screenH = ovr->getHmdIdealVertRes();
+        Engine::reshapeCallback(0, 0);
+        w = this->screenW / 2.0f;
+
+        Engine::orthoProjection = new OrthogonalProjection(this->screenW, this->screenH, 0.0f, this->screenW, 0.0f, this->screenH, -1.0f, 1.0f);
+
+        GLint prevViewport[4];
+        glGetIntegerv(GL_VIEWPORT, prevViewport);
+
+        Engine::quads[Eye::EYE_LEFT] = new Quad(Object::getNextId(), "Quad_L", Eye::EYE_LEFT, w, this->screenH);
+        Engine::quads[Eye::EYE_RIGHT] = new Quad(Object::getNextId(), "Quad_R", Eye::EYE_RIGHT, w, this->screenH);
+
+        glViewport(0, 0, prevViewport[2], prevViewport[3]);
+    }
+
+    //Read scene file
     FileReader fileReader = FileReader();
     Node* root = fileReader.readFile(fileName.c_str());
-
-    float w = Engine::stereoscopic ? this->screenW / 2.0f : this->screenW;
 
     //free camera
     Projection* proj = new PerspectiveProjection(w, this->screenH, 45.0f, 1.0f, 1000.0f);
@@ -296,22 +348,10 @@ Node LIB_API* Engine::loadScene(std::string fileName) {
     root->addChild(camera);
 
     //stationary camera
-    proj = new PerspectiveProjection(w, this->screenH, 45.0f, 1.0f, 1000.0f);
-    camera = new Camera(Object::getNextId(), std::string("stationaryCamera"), proj);
-    root->addChild(camera);
-    this->camera = camera;
-
-    //quad projection
-    if (Engine::stereoscopic) {
-        Engine::orthoProjection = new OrthogonalProjection(this->screenW, this->screenH, 0.0f, this->screenW, 0.0f, this->screenH, -1.0f, 1.0f);
-        
-        GLint prevViewport[4];
-        glGetIntegerv(GL_VIEWPORT, prevViewport);
-
-        Engine::quads[Fbo::EYE_LEFT] = new Quad(Object::getNextId(), "Quad_L", Fbo::EYE_LEFT, w, this->screenH);
-        Engine::quads[Fbo::EYE_RIGHT] = new Quad(Object::getNextId(), "Quad_R", Fbo::EYE_RIGHT, w, this->screenH);
-
-        glViewport(0, 0, prevViewport[2], prevViewport[3]);
+    if (!Engine::stereoscopic) {
+        proj = new PerspectiveProjection(w, this->screenH, 45.0f, 1.0f, 1000.0f);
+        camera = new Camera(Object::getNextId(), std::string("stationaryCamera"), proj);
+        root->addChild(camera);
     }
     
     return root;
@@ -364,13 +404,44 @@ void Engine::displayCallbackDelegator() {
         GLint prevViewport[4];
         glGetIntegerv(GL_VIEWPORT, prevViewport);
 
+        // Update user position:
+        ovr->update();
+        glm::mat4 headPos = ovr->getModelviewMatrix();
+
         //Render scene as stereocopic
-        for (int c = 0; c < Fbo::EYE_LAST; c++) {
+        for (int c = 0; c < Eye::EYE_LAST; c++) {
+            // Get OpenVR matrices:
+            Eye curEye = (Eye)c;
+            glm::mat4 projMat = ovr->getProjMatrix(curEye, 1.0f, 1024.0f);
+            glm::mat4 eye2Head = ovr->getEye2HeadMatrix(curEye);
+
+            // Update camera projection matrix:
+            glm::mat4 ovrProjMat = projMat * glm::inverse(eye2Head);
+            camera->getProjection()->setProjection(ovrProjMat);
+
+            // Update camera modelview matrix:
+            /*glm::mat4 ovrModelViewMat = glm::inverse(headPos); // Inverted because this is the camera matrix
+            camera->setTransform(ovrModelViewMat);*/
+
+            // Update camera position according to head position
+            camera->setTransform(headPos);
+
+            // Set light pos:
+            //pplShader->setVec3(lightPositionLoc, glm::vec3(ovrModelViewMat * glm::vec4(lightPos, 1.0f))); // Light position in eye coordinates!
+
             // Render into this FBO:
             Engine::quads[c]->getFbo()->render();
 
             displayCallBackApplication();
+
+            // Send rendered image to the proper OpenVR eye:      
+            ovr->pass(curEye, Engine::quads[c]->getTexId());
         }
+
+        // Update internal OpenVR settings:
+        ovr->render();
+
+        // Done with the FBO, go back to rendering into the window context buffers:
         Fbo::disable();
         glViewport(0, 0, prevViewport[2], prevViewport[3]);
 
@@ -380,7 +451,7 @@ void Engine::displayCallbackDelegator() {
         passthroughProgram->setMatrix(Program::getActiveProgram()->Program::getUniforms()["modelview"], glm::mat4(1.0f));
         passthroughProgram->setVec4(Program::getActiveProgram()->Program::getUniforms()["color"], glm::vec4(1.0f));
 
-        for (int c = 0; c < Fbo::EYE_LAST; c++) {
+        for (int c = 0; c < Eye::EYE_LAST; c++) {
             glBindTexture(GL_TEXTURE_2D, Engine::quads[c]->getTexId());
             Engine::quads[c]->render(glm::mat4(1.0f));
         }
@@ -396,13 +467,7 @@ void Engine::displayCallbackDelegator() {
 }
 
 void Engine::closeCallback() {
-    // Release OpenGL resources (VBO, VAO, shaders) while the context is still available:
-    /*glDeleteBuffers(1, &vertexVbo);
-    glDeleteBuffers(1, &colorVbo);
-    glDeleteVertexArrays(1, &globalVao);
-    delete shader;
-    delete fs;
-    delete vs;*/
+    free();
 }
 
 List LIB_API* Engine::getList() {

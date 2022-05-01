@@ -1,3 +1,12 @@
+/*
+* Forces windows to use dedicated instead of built-in GPU
+* https://stackoverflow.com/questions/16823372/forcing-machine-to-use-dedicated-graphics-card
+*/
+extern "C"
+{
+	__declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
+}
+
 /**
 The cubemap image is the work of Emil Persson, aka Humus: http://www.humus.name
 */
@@ -24,6 +33,7 @@ The cubemap image is the work of Emil Persson, aka Humus: http://www.humus.name
 //////////
 
 Engine engine;
+bool stereoscopic = true;
 
 glm::vec3 cameraPos = glm::vec3(0.0f, 100.0f, -40.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
@@ -55,7 +65,7 @@ Camera* activeCamera = nullptr;
 
 void keyboardCallback(int key) {
 
-	if (activeCamera == freeCamera) {
+	if (activeCamera == freeCamera && !stereoscopic) {
 		switch (key) {
 			//Free camera movement
 			case 'w':
@@ -70,6 +80,7 @@ void keyboardCallback(int key) {
 			case 'd':
 				cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 				break;
+
 			case 'e':
 				cameraPos += cameraSpeed * cameraUp;
 				break;
@@ -97,17 +108,45 @@ void keyboardCallback(int key) {
 		if (pitch < -89.0f)
 			pitch = -89.0f;
 	}
+	else if (activeCamera == freeCamera) {
+		//Free camera movement based on hmd
+		switch (key) {
+			case 'w':
+				cameraPos += cameraSpeed * activeCamera->getFrontDirection();
+				break;
+			case 's':
+				cameraPos -= cameraSpeed * activeCamera->getFrontDirection();
+				break;
+			case 'a':
+				cameraPos -= cameraSpeed * activeCamera->getRightDirection();
+				break;
+			case 'd':
+				cameraPos += cameraSpeed * activeCamera->getRightDirection();
+				break;
+
+			case 'e':
+				cameraPos += cameraSpeed * cameraUp;
+				break;
+			case 'q':
+				cameraPos -= cameraSpeed * cameraUp;
+				break;
+		}
+	}
 
 	switch (key) {
 
 		//Camera management
 		case 'c':
-			activeCamera = (activeCamera == freeCamera ? stationaryCamera : freeCamera);
-			engine.setCamera(activeCamera);
+			//Valid only in normal rendering (non stereoscopic)
+			if (!stereoscopic) {
+				activeCamera = (activeCamera == freeCamera ? stationaryCamera : freeCamera);
+				engine.setCamera(activeCamera);
+			}
 			break;
 
 		//Application controls
-		case 27:
+		//Exit application
+		case 27: // Esc
 			isActive = false;
 			break;
 
@@ -146,7 +185,7 @@ void displayCallback() {
 
 	//Set projection
 	activeCamera->getProjection()->setOpenGLProjection();
-	if (activeCamera == freeCamera) {	
+	if (activeCamera == freeCamera && !stereoscopic) {
 		direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 		direction.y = sin(glm::radians(pitch));
 		direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
@@ -155,6 +194,8 @@ void displayCallback() {
 
 		activeCamera->setTransform(glm::inverse(glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp)));
 	}
+	else if (activeCamera == freeCamera)
+		activeCamera->setWorldPosition(cameraPos);
 
 	ra->update();
 
@@ -174,34 +215,42 @@ void displayCallback() {
  */
 int main(int argc, char* argv[])
 {
-	engine = Engine(true);
+	engine = Engine(stereoscopic);
 	engine.setTexturePath("./scene/");
 	engine.init("RobotArm", keyboardCallback, displayCallback);
 	root = engine.loadScene("./scene/ProjectScene.OVO");
 
 	freeCamera = (Camera*)root->findByName("freeCamera");
 	stationaryCamera = (Camera*)root->findByName("stationaryCamera");
-	activeCamera = stationaryCamera;
-	glm::mat4 translation_cam = glm::translate(
-		glm::mat4(1.0f),
-		glm::vec3(0.0f + stationaryCameraX, 0.0f + stationaryCameraY, 0.0f + stationaryCameraZ)
-	);
-	glm::mat4 rotationX_cam = glm::rotate(
-		glm::mat4(1.0f),
-		glm::radians(stationaryRotationX),
-		glm::vec3(1.0f, 0.0f, 0.0f)
-	);
-	glm::mat4 rotationY_cam = glm::rotate(
-		glm::mat4(1.0f),
-		glm::radians(stationaryRotationY),
-		glm::vec3(0.0f, 1.0f, 0.0f)
-	);
-	glm::mat4 rotationZ_cam = glm::rotate(
-		glm::mat4(1.0f),
-		glm::radians(stationaryRotationZ),
-		glm::vec3(0.0f, 0.0f, 1.0f)
-	);
-	activeCamera->setTransform(translation_cam * rotationX_cam * rotationY_cam * rotationZ_cam);
+	activeCamera = stereoscopic ? freeCamera : stationaryCamera;
+	engine.setCamera(activeCamera);
+
+	cameraPos = activeCamera->getWorldPosition();
+	if (stereoscopic)
+		cameraPos += cameraUp * 2.0f;
+	else {
+		glm::mat4 translation_cam = glm::translate(
+			glm::mat4(1.0f),
+			glm::vec3(0.0f + stationaryCameraX, 0.0f + stationaryCameraY, 0.0f + stationaryCameraZ)
+		);
+		glm::mat4 rotationX_cam = glm::rotate(
+			glm::mat4(1.0f),
+			glm::radians(stationaryRotationX),
+			glm::vec3(1.0f, 0.0f, 0.0f)
+		);
+		glm::mat4 rotationY_cam = glm::rotate(
+			glm::mat4(1.0f),
+			glm::radians(stationaryRotationY),
+			glm::vec3(0.0f, 1.0f, 0.0f)
+		);
+		glm::mat4 rotationZ_cam = glm::rotate(
+			glm::mat4(1.0f),
+			glm::radians(stationaryRotationZ),
+			glm::vec3(0.0f, 0.0f, 1.0f)
+		);
+		stationaryCamera->setTransform(translation_cam * rotationX_cam * rotationY_cam * rotationZ_cam);
+		cameraPos.y = stationaryCameraY;
+	}
 
 	//Set where the fake shadows will be projected
 	Mesh* floor = (Mesh*)root->findByName("Floor");

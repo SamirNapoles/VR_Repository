@@ -12,6 +12,8 @@ public:
 public:
 	Projection* getProjection();
 	glm::mat4 getInverse();
+	glm::vec3 getFrontDirection();
+	glm::vec3 getRightDirection();
 
 private:
 	Projection* projection;
