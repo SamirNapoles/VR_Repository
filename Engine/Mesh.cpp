@@ -74,3 +74,11 @@ void LIB_API Mesh::render(glm::mat4 finalMatrix) {
 
     glDrawElements(GL_TRIANGLES, faceNr * 3, GL_UNSIGNED_INT, nullptr);
 }
+
+float Mesh::getRadius() {
+    return radius;
+}
+
+void Mesh::setRadius(float radius) {
+    this->radius = radius;
+}

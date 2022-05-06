@@ -178,6 +178,9 @@ Node* FileReader::recursiveLoad(FILE* dat)
 		// Mesh bounding sphere radius:
 		float radius;
 		memcpy(&radius, data + position, sizeof(float));
+
+		thisMesh->setRadius(radius);
+
 		position += sizeof(float);
 		// Mesh bounding box minimum corner:
 		glm::vec3 bBoxMin;

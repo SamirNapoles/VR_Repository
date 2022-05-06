@@ -22,3 +22,8 @@ float PerspectiveProjection::getFarPlane()
 {
 	return p_far;
 }
+
+float PerspectiveProjection::getNearPlane()
+{
+	return p_near;
+}

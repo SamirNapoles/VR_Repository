@@ -27,3 +27,8 @@ float OrthogonalProjection::getFarPlane()
 {
 	return zFar;
 }
+
+float OrthogonalProjection::getNearPlane()
+{
+	return zNear;
+}

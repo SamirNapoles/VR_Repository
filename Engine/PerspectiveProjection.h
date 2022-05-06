@@ -12,6 +12,7 @@ public:
 	void update() override;
 
 	float getFarPlane() override;
+	float getNearPlane() override;
 
 private:
 	float p_fov;
