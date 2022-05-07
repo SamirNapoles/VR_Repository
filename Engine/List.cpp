@@ -43,9 +43,9 @@ void LIB_API List::render(glm::mat4 inverseCameraMatrix) {
     float farPlane{ Engine::getCamera()->getProjection()->getFarPlane() };
     float nearPlane{ Engine::getCamera()->getProjection()->getNearPlane() };
 
-    float midPointZ{ nearPlane + (farPlane - nearPlane) / 2 };
+    float boundingSphereRadius{ (farPlane - nearPlane) / 4 };
+    float midPointZ{ nearPlane + boundingSphereRadius };
     glm::vec4 midPoint = glm::inverse(inverseCameraMatrix) * glm::vec4(0.0f, 0.0f, -midPointZ, 1.0f);
-    double boundingSphereRadius{ (farPlane - nearPlane) * sqrt(3) / 2 };
 
     std::list<ListNode>::iterator it;
     //Render each list element
@@ -64,7 +64,6 @@ void LIB_API List::render(glm::mat4 inverseCameraMatrix) {
         Engine::getCamera()->getProjection()->setOpenGLProjection();
 
         (*it).getObject()->render(inverseCameraMatrix * (*it).getMatrix());
-        int culledObjects{ 0 };
         // render only non-Light objects
         std::list<ListNode>::iterator nonLightIt;
         for (nonLightIt = objectsList.begin(); nonLightIt != objectsList.end(); nonLightIt++) {
@@ -74,12 +73,8 @@ void LIB_API List::render(glm::mat4 inverseCameraMatrix) {
                 if ((obj = dynamic_cast<Mesh*>((*nonLightIt).getObject())) && distance <= (boundingSphereRadius + obj->getRadius())) {
                     obj->render(inverseCameraMatrix * (*nonLightIt).getMatrix());
                 }
-                else {
-                    culledObjects++;
-                }
             }
         }
-        std::cout << "Culled objects: " << culledObjects << std::endl;
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE, GL_ONE);
@@ -87,7 +82,7 @@ void LIB_API List::render(glm::mat4 inverseCameraMatrix) {
     glDisable(GL_BLEND);
 
     // render skybox
-    //Engine::getSkyBox()->render((glm::translate(glm::mat4(1.0f), glm::vec3(-inverseCameraMatrix[3])) * inverseCameraMatrix * glm::scale(glm::mat4(1.0f), glm::vec3(1 / sqrt(3) * 0.9f * farPlane))));
+    Engine::getSkyBox()->render((glm::translate(glm::mat4(1.0f), glm::vec3(-inverseCameraMatrix[3])) * inverseCameraMatrix * glm::scale(glm::mat4(1.0f), glm::vec3(1 / sqrt(3) * 0.9f * farPlane))));
 }
 
 void List::clear()
