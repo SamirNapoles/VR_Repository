@@ -360,13 +360,15 @@ Node LIB_API* Engine::loadScene(std::string fileName) {
     root->addChild(camera);
 
     //Leap motion
-    Material* handMaterial = new Material(Object::getNextId(), "handMaterial", 
-        glm::vec4(1.0f),
-        glm::vec4(0.105882f, 0.058824f, 0.113725f, 1.0f), 
-        glm::vec4(0.427451f, 0.470588f, 0.541176f, 1.0f), 
-        glm::vec4(0.333333f, 0.333333f, 0.521569f, 1.0f), 
-        9.84615f
+    Texture* texture = new Texture(Object::getNextId(), "handTexture");
+    texture->setTexId("[none]");
+    Material* handMaterial = new Material(Object::getNextId(), "handMaterial",
+        glm::vec4(0.24725f, 0.1995f, 0.0745f, 1.0f),
+        glm::vec4(0.75164f, 0.60648f, 0.22648f, 1.0f),
+        glm::vec4(0.628281f, 0.555802f, 0.366065f, 1.0f),
+        51.2f
     );
+    handMaterial->setTexture(texture);
     std::shared_ptr<Material> material(handMaterial);
     camera->addChild(new Hands(Object::getNextId(), "Hands", material));
 

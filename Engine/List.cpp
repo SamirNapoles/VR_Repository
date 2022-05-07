@@ -43,7 +43,7 @@ void LIB_API List::render(glm::mat4 inverseCameraMatrix) {
     float farPlane{ Engine::getCamera()->getProjection()->getFarPlane() };
     float nearPlane{ Engine::getCamera()->getProjection()->getNearPlane() };
 
-    float boundingSphereRadius{ (farPlane - nearPlane) / 4 };
+    float boundingSphereRadius{ (farPlane - nearPlane) / 2 };
     float midPointZ{ nearPlane + boundingSphereRadius };
     glm::vec4 midPoint = glm::inverse(inverseCameraMatrix) * glm::vec4(0.0f, 0.0f, -midPointZ, 1.0f);
 

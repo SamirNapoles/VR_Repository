@@ -222,7 +222,8 @@ int main(int argc, char* argv[])
 
 	freeCamera = (Camera*)root->findByName("freeCamera");
 	stationaryCamera = (Camera*)root->findByName("stationaryCamera");
-	activeCamera = stereoscopic ? freeCamera : stationaryCamera;
+	//activeCamera = stereoscopic ? freeCamera : stationaryCamera;
+	activeCamera = freeCamera;
 	engine.setCamera(activeCamera);
 
 	cameraPos = activeCamera->getWorldPosition();
