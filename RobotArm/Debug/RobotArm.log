@@ -1,5 +1,5 @@
 ﻿  main.cpp
-\\Desktop-pl7uve7\scuola\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\FrameRate.h(21,20): warning C4244: 'inizializzazione': conversione da 'float' a 'time_t'. Possibile perdita di dati.
-\\Desktop-pl7uve7\scuola\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\FrameRate.h(22,23): warning C4244: 'inizializzazione': conversione da 'float' a 'time_t'. Possibile perdita di dati.
+D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\FrameRate.h(21,20): warning C4244: 'inizializzazione': conversione da 'float' a 'time_t'. Possibile perdita di dati.
+D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\FrameRate.h(22,23): warning C4244: 'inizializzazione': conversione da 'float' a 'time_t'. Possibile perdita di dati.
      Creazione della libreria ..\x64\Debug\RobotArm.lib e dell'oggetto ..\x64\Debug\RobotArm.exp
-  RobotArm.vcxproj -> \\Desktop-pl7uve7\scuola\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\x64\Debug\RobotArm.exe
+  RobotArm.vcxproj -> D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\x64\Debug\RobotArm.exe

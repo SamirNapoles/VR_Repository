@@ -18,6 +18,8 @@ public:
 	virtual bool getCastShadow() const;
 	virtual void setCastShadow(bool castShadow);
 	//std::vector<Vertex*> getVertices(int lod);
+	float getRadius();
+	void setRadius(float radius);
 
 protected:
 	int lod = 0;
@@ -31,6 +33,7 @@ protected:
 	unsigned int vao;
 	unsigned int faceNr;
 
+	float radius;
 
 private:
 	bool castShadow = true;

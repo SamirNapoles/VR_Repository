@@ -64,3 +64,11 @@ void LIB_API Mesh::render(glm::mat4 finalMatrix) {
 
     glBindVertexArray(0);
 }
+
+float Mesh::getRadius() {
+    return radius;
+}
+
+void Mesh::setRadius(float radius) {
+    this->radius = radius;
+}

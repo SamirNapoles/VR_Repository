@@ -39,8 +39,14 @@ void LIB_API List::addEntry(Node* root, glm::mat4 rootMatrix) {
 }
 
 void LIB_API List::render(glm::mat4 inverseCameraMatrix) {
-    Engine::getSkyBox()->render((glm::translate(glm::mat4(1.0f), glm::vec3(-inverseCameraMatrix[3])) * inverseCameraMatrix * glm::scale(glm::mat4(1.0f), glm::vec3(1 / sqrt(3) * 0.9f * Engine::getCamera()->getProjection()->getFarPlane()))));
-    
+    // getting far plane and near plane for sphere culling
+    float farPlane{ Engine::getCamera()->getProjection()->getFarPlane() };
+    float nearPlane{ Engine::getCamera()->getProjection()->getNearPlane() };
+
+    float midPointZ{ nearPlane + (farPlane - nearPlane) / 2 };
+    glm::vec4 midPoint = glm::inverse(inverseCameraMatrix) * glm::vec4(0.0f, 0.0f, -midPointZ, 1.0f);
+    double boundingSphereRadius{ (farPlane - nearPlane) * sqrt(3) / 2 };
+
     std::list<ListNode>::iterator it;
     //Render each list element
     for (it = objectsList.begin(); it != objectsList.end(); it++)
@@ -58,19 +64,30 @@ void LIB_API List::render(glm::mat4 inverseCameraMatrix) {
         Engine::getCamera()->getProjection()->setOpenGLProjection();
 
         (*it).getObject()->render(inverseCameraMatrix * (*it).getMatrix());
-
+        int culledObjects{ 0 };
         // render only non-Light objects
         std::list<ListNode>::iterator nonLightIt;
         for (nonLightIt = objectsList.begin(); nonLightIt != objectsList.end(); nonLightIt++) {
             if (dynamic_cast<Light*>((*nonLightIt).getObject()) == nullptr) {
-                (*nonLightIt).getObject()->render(inverseCameraMatrix * (*nonLightIt).getMatrix());
+                Mesh* obj;
+                float distance = glm::distance((*nonLightIt).getMatrix()[3], midPoint);
+                if ((obj = dynamic_cast<Mesh*>((*nonLightIt).getObject())) && distance <= (boundingSphereRadius + obj->getRadius())) {
+                    obj->render(inverseCameraMatrix * (*nonLightIt).getMatrix());
+                }
+                else {
+                    culledObjects++;
+                }
             }
         }
+        std::cout << "Culled objects: " << culledObjects << std::endl;
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE, GL_ONE);
     }
     glDisable(GL_BLEND);
+
+    // render skybox
+    //Engine::getSkyBox()->render((glm::translate(glm::mat4(1.0f), glm::vec3(-inverseCameraMatrix[3])) * inverseCameraMatrix * glm::scale(glm::mat4(1.0f), glm::vec3(1 / sqrt(3) * 0.9f * farPlane))));
 }
 
 void List::clear()

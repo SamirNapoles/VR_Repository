@@ -9,6 +9,7 @@ LIB_API FakeShadow::FakeShadow(const int id, const std::string name, std::shared
     Mesh{ id, name, material }, model(model)
 {
     scaling = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 0.0f, 1.0f));
+    this->radius = model->getRadius();
 };
 
 FakeShadow::~FakeShadow() {
