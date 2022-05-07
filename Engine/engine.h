@@ -25,6 +25,8 @@
 #include "SkyBox.h"
 #include "Quad.h"
 #include "Eye.h"
+#include "Leap.h"
+#include "Hands.h"
 
 /////////////
 // CLASSES //
@@ -66,6 +68,8 @@ class LIB_API Engine
 
 		static SkyBox* getSkyBox();
 
+		static Leap* getLeap();
+
 	private:
 		static void keyboardCallbackDelegator(unsigned char key, int x, int y);
 		static void specialCallbackDelegator(int code, int x, int y);
@@ -97,4 +101,6 @@ class LIB_API Engine
 		static Quad* quads[Eye::EYE_LAST];
 
 		static SkyBox* skyBox;
+
+		static Leap* leap;
 };

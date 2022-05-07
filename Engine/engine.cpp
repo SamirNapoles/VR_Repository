@@ -79,6 +79,8 @@ Quad* Engine::quads[Eye::EYE_LAST] = { nullptr, nullptr };
 
 SkyBox* Engine::skyBox = nullptr;
 
+Leap* Engine::leap = nullptr;
+
 Engine::Engine(bool stereoscopic) {
     Engine::stereoscopic = stereoscopic;
 }
@@ -129,7 +131,7 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
         glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
     #endif // _DEBUG
 
-    // Init OpenVR:   
+    // Init OpenVR & Leap:  
     if (Engine::stereoscopic) {
         ovr = new OvVR();
         if (ovr->init() == false) {
@@ -137,6 +139,13 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
             delete ovr;
             exit(101);
         }
+    }
+
+    leap = new Leap();
+    if (!leap->init()) {
+        std::cout << "[ERROR] Unable to init Leap Motion" << std::endl;
+        delete leap;
+        exit(101);
     }
 
     /*********************************/
@@ -290,6 +299,9 @@ void LIB_API Engine::free() {
         ovr->free();
         delete ovr;
     }
+    // Free Leap:  
+    leap->free();
+    delete leap;
 
     list.clear();
     FreeImage_DeInitialise();
@@ -317,6 +329,10 @@ Camera LIB_API* Engine::getCamera() {
 
 Node LIB_API* Engine::loadScene(std::string fileName) {
 
+    //Read scene file
+    FileReader fileReader = FileReader();
+    Node* root = fileReader.readFile(fileName.c_str());
+
     float w = this->screenW;
 
     //quad projection
@@ -338,14 +354,21 @@ Node LIB_API* Engine::loadScene(std::string fileName) {
         glViewport(0, 0, prevViewport[2], prevViewport[3]);
     }
 
-    //Read scene file
-    FileReader fileReader = FileReader();
-    Node* root = fileReader.readFile(fileName.c_str());
-
     //free camera
     Projection* proj = new PerspectiveProjection(w, this->screenH, 45.0f, 1.0f, 1000.0f);
     Camera* camera = new Camera(Object::getNextId(), std::string("freeCamera"), proj);
     root->addChild(camera);
+
+    //Leap motion
+    Material* handMaterial = new Material(Object::getNextId(), "handMaterial", 
+        glm::vec4(1.0f),
+        glm::vec4(0.105882f, 0.058824f, 0.113725f, 1.0f), 
+        glm::vec4(0.427451f, 0.470588f, 0.541176f, 1.0f), 
+        glm::vec4(0.333333f, 0.333333f, 0.521569f, 1.0f), 
+        9.84615f
+    );
+    std::shared_ptr<Material> material(handMaterial);
+    camera->addChild(new Hands(Object::getNextId(), "Hands", material));
 
     //stationary camera
     if (!Engine::stereoscopic) {
@@ -393,8 +416,15 @@ void Engine::reshapeCallback(int width, int height) {
 
 void Engine::displayCallbackDelegator() {
 
+    // Update Leap Motion status:
+    leap->update();
+
     //Normal rendering
     if (!Engine::stereoscopic) {
+        
+        //Render leap hands
+        //Engine::hands->render(glm::mat4(1.0f));
+
         displayCallBackApplication();
         fps->calculateFrameRate();
     }
@@ -419,19 +449,17 @@ void Engine::displayCallbackDelegator() {
             glm::mat4 ovrProjMat = projMat * glm::inverse(eye2Head);
             camera->getProjection()->setProjection(ovrProjMat);
 
-            // Update camera modelview matrix:
-            /*glm::mat4 ovrModelViewMat = glm::inverse(headPos); // Inverted because this is the camera matrix
-            camera->setTransform(ovrModelViewMat);*/
-
             // Update camera position according to head position
             camera->setTransform(headPos);
-
-            // Set light pos:
-            //pplShader->setVec3(lightPositionLoc, glm::vec3(ovrModelViewMat * glm::vec4(lightPos, 1.0f))); // Light position in eye coordinates!
 
             // Render into this FBO:
             Engine::quads[c]->getFbo()->render();
 
+            //Render leap hands
+            //Engine::hands->render(glm::mat4(1.0f));
+            //Engine::hands->render(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -300.0f, -500.0f)));
+
+            //Render client scene
             displayCallBackApplication();
 
             // Send rendered image to the proper OpenVR eye:      
@@ -500,4 +528,8 @@ Program* Engine::getProgramSpot() {
 SkyBox* Engine::getSkyBox()
 {
     return skyBox;
+}
+
+Leap* Engine::getLeap() {
+    return leap;
 }

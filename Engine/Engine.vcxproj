@@ -55,19 +55,20 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;FREEGLUT_STATIC;FREEIMAGE_LIB;_DEBUG;ENGINE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\dependencies\glm\include;..\dependencies\glew\include;..\dependencies\freeglut\include;..\dependencies\freeimage\include;..\dependencies\openvr\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\dependencies\leap\include;..\dependencies\glm\include;..\dependencies\glew\include;..\dependencies\freeglut\include;..\dependencies\freeimage\include;..\dependencies\openvr\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalLibraryDirectories>..\dependencies\freeimage\lib\$(Platform)\$(Configuration);..\dependencies\glew\lib\$(Platform)\$(Configuration);..\dependencies\freeglut\lib\$(Platform)\$(Configuration);..\dependencies\openvr\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>openvr_api64.lib;glew.lib;FreeImageLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\dependencies\leap\lib\$(Platform);..\dependencies\freeimage\lib\$(Platform)\$(Configuration);..\dependencies\glew\lib\$(Platform)\$(Configuration);..\dependencies\freeglut\lib\$(Platform)\$(Configuration);..\dependencies\openvr\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>LeapC.lib;openvr_api64.lib;glew.lib;FreeImageLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Message>
       </Message>
-      <Command>xcopy ..\dependencies\openvr\bin\$(Platform)\$(Configuration)\openvr_api64.dll "$(OutDir)" /Y</Command>
+      <Command>xcopy ..\dependencies\openvr\bin\$(Platform)\$(Configuration)\openvr_api64.dll "$(OutDir)" /Y
+xcopy ..\dependencies\leap\bin\$(Platform)\LeapC.dll "$(OutDir)" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -77,7 +78,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;FREEGLUT_STATIC;FREEIMAGE_LIB;NDEBUG;ENGINE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\dependencies\glm\include;..\dependencies\glew\include;..\dependencies\freeglut\include;..\dependencies\freeimage\include;..\dependencies\openvr\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\dependencies\leap\include;..\dependencies\glm\include;..\dependencies\glew\include;..\dependencies\freeglut\include;..\dependencies\freeimage\include;..\dependencies\openvr\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>MaxSpeed</Optimization>
       <CompileAsManaged>
       </CompileAsManaged>
@@ -89,12 +90,13 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>true</EnableUAC>
-      <AdditionalLibraryDirectories>..\dependencies\freeimage\lib\$(Platform)\$(Configuration);..\dependencies\glew\lib\$(Platform)\$(Configuration);..\dependencies\freeglut\lib\$(Platform)\$(Configuration);..\dependencies\openvr\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>openvr_api64.lib;glew.lib;FreeImageLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\dependencies\leap\lib\$(Platform);..\dependencies\freeimage\lib\$(Platform)\$(Configuration);..\dependencies\glew\lib\$(Platform)\$(Configuration);..\dependencies\freeglut\lib\$(Platform)\$(Configuration);..\dependencies\openvr\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>LeapC.lib;openvr_api64.lib;glew.lib;FreeImageLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary />
     </Link>
     <PostBuildEvent>
-      <Command>xcopy ..\dependencies\openvr\bin\$(Platform)\$(Configuration)\openvr_api64.dll "$(OutDir)" /Y</Command>
+      <Command>xcopy ..\dependencies\openvr\bin\$(Platform)\$(Configuration)\openvr_api64.dll "$(OutDir)" /Y
+xcopy ..\dependencies\leap\bin\$(Platform)\LeapC.dll "$(OutDir)" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -106,6 +108,8 @@
     <ClCompile Include="FragmentShader.cpp" />
     <ClCompile Include="Fbo.cpp" />
     <ClCompile Include="FrameRate.cpp" />
+    <ClCompile Include="Hands.cpp" />
+    <ClCompile Include="Leap.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="List.cpp" />
     <ClCompile Include="ListNode.cpp" />
@@ -137,7 +141,9 @@
     <ClInclude Include="Fbo.h" />
     <ClInclude Include="FragmentShader.h" />
     <ClInclude Include="FrameRate.h" />
+    <ClInclude Include="Hands.h" />
     <ClInclude Include="KeyCodes.h" />
+    <ClInclude Include="Leap.h" />
     <ClInclude Include="LibDef.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="List.h" />

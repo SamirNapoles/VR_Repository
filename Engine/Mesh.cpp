@@ -8,7 +8,6 @@ LIB_API Mesh::Mesh(const int id, const std::string name, std::shared_ptr<Materia
 	Node{id, name}, material(material) {}
 
 Mesh::~Mesh() {
-    //vertices.clear();
     glDeleteBuffers(1, &vertexVbo);
     glDeleteBuffers(1, &normalVbo);
     glDeleteBuffers(1, &textureVbo);
@@ -23,21 +22,6 @@ bool Mesh::getCastShadow() const {
 void Mesh::setCastShadow(bool castShadow) {
     this->castShadow = castShadow;
 }
-
-/*
-void Mesh::addVertex(Vertex* v,int lod) {
-    if (vertices.size() <= lod) {
-        std::vector<Vertex*> tempVec;
-        tempVec.push_back(v);
-        vertices.push_back(tempVec);
-    } else 
-	    vertices.at(lod).push_back(v);
-}
-
-std::vector<Vertex*> Mesh::getVertices(int lod) {
-    return vertices.at(lod);
-}
-*/
 
 void Mesh::setVao(unsigned int vertexVbo, unsigned int normalVbo, unsigned int textureVbo, unsigned int faceVbo, unsigned int vao, unsigned int  faceNr) {
     this->vertexVbo = vertexVbo;

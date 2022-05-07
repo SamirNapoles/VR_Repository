@@ -85,6 +85,12 @@
     <ClCompile Include="Quad.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Leap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hands.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -190,6 +196,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Eye.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Leap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hands.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
