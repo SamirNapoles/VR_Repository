@@ -25,7 +25,6 @@
 #include "SkyBox.h"
 #include "Quad.h"
 #include "Eye.h"
-#include "Leap.h"
 #include "Hands.h"
 
 /////////////
@@ -67,7 +66,7 @@ class LIB_API Engine
 
 		static SkyBox* getSkyBox();
 
-		static Leap* getLeap();
+		static Hands* getHands();
 
 	private:
 		static void keyboardCallbackDelegator(unsigned char key, int x, int y);
@@ -82,6 +81,7 @@ class LIB_API Engine
 
 	private:
 		static int windowId;
+		static Node* root;
 		static Camera* camera;
 		static List list;
 		static FrameRate* fps;
@@ -100,6 +100,4 @@ class LIB_API Engine
 		static Quad* quads[Eye::EYE_LAST];
 
 		static SkyBox* skyBox;
-
-		static Leap* leap;
 };

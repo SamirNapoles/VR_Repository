@@ -8,6 +8,13 @@
 Hands::Hands(const int id, const std::string name) :
 	Mesh{ id, name, nullptr } {
 
+    leap = new Leap();
+    if (!leap->init()) {
+        std::cout << "[ERROR] Unable to init Leap Motion" << std::endl;
+        delete leap;
+        exit(101);
+    }
+
 	buildSphere();
     setTransform(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -40.0f, -50.0f)));
 
@@ -20,13 +27,17 @@ Hands::~Hands() {
     glDeleteVertexArrays(1, &sphereVertexVbo);
     sphereVertices.clear();
     delete texture;
+
+    // Free Leap:  
+    leap->free();
+    delete leap;
 }
 
 void Hands::render(glm::mat4 finalMatrix) {
 
     // Update Leap Motion status:
-    Engine::getLeap()->update();
-    const LEAP_TRACKING_EVENT* l = Engine::getLeap()->getCurFrame();
+    leap->update();
+    const LEAP_TRACKING_EVENT* l = leap->getCurFrame();
 
     //Temporary switch to passthrough shader program
     Program* prevProgram = Program::getActiveProgram();
@@ -40,7 +51,7 @@ void Hands::render(glm::mat4 finalMatrix) {
 
     // Render hands using spheres:
     for (unsigned int h = 0; h < l->nHands; h++) {
-        Engine::getLeap()->update();
+        leap->update();
 
         LEAP_HAND hand = l->pHands[h];
 
@@ -71,6 +82,10 @@ void Hands::render(glm::mat4 finalMatrix) {
                 f = finalMatrix * c;
                 Program::getActiveProgram()->setMatrix(Program::getActiveProgram()->getUniforms()["modelview"], f);
                 glDrawArrays(GL_TRIANGLE_STRIP, 0, (GLsizei)sphereVertices.size());
+
+                //Save index finger position
+                if(d == 1 && b == 3)
+                    indexPosition[h] = glm::vec3(bone.next_joint.x, bone.next_joint.y, bone.next_joint.z) * scale;
             }
         }
     }
@@ -122,4 +137,8 @@ void Hands::buildSphere() {
     glEnableVertexAttribArray(2);
 
     glBindVertexArray(0);
+}
+
+glm::vec3 LIB_API* Hands::getIndexPosition() {
+    return indexPosition;
 }

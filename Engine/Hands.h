@@ -1,5 +1,6 @@
 #pragma once
 #include "Mesh.h"
+#include "Leap.h"
 #include <vector>
 
 
@@ -16,6 +17,7 @@ public:
 
 public:
 	void render(glm::mat4 finalMatrix) override;
+	glm::vec3* getIndexPosition();
 
 private:
 	void buildSphere();
@@ -27,6 +29,8 @@ private:
 	std::vector<glm::vec3> sphereVertices;
 	std::vector<glm::vec2> sphereTextures;
 	Texture* texture;
+	Leap* leap;
+	glm::vec3 indexPosition[2];
 };
 
 #endif //HAND

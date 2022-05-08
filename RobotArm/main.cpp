@@ -54,6 +54,7 @@ float stationaryRotationY = -26.0f;
 float stationaryRotationZ = -8.0f;
 
 Node* root;
+Hands* hands;
 bool isActive = true;
 RobotArm* ra;
 
@@ -183,6 +184,13 @@ void displayCallback() {
 	glm::vec3 color(37.0f, 53.0f, 87.0f);
 	engine.clean(glm::vec4(color.r / 255, color.g / 255, color.b / 255, 1.0f));
 
+	//Use engine's hands for controls
+	glm::vec3* indexPositions = hands->getIndexPosition();
+	for (int i = 0; i < 2; i++) {
+		std::cout << "index " << i << ": " << glm::to_string(indexPositions[i]) << std::endl;
+	}
+	std::cout << std::endl;
+
 	//Set projection
 	activeCamera->getProjection()->setOpenGLProjection();
 	if (activeCamera == freeCamera && !stereoscopic) {
@@ -225,6 +233,8 @@ int main(int argc, char* argv[])
 	//activeCamera = stereoscopic ? freeCamera : stationaryCamera;
 	activeCamera = freeCamera;
 	engine.setCamera(activeCamera);
+
+	hands = engine.getHands();
 
 	cameraPos = activeCamera->getWorldPosition();
 	if (stereoscopic)

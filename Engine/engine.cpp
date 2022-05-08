@@ -56,6 +56,7 @@ int Engine::windowId = 0;
 List Engine::list = List();
 void(*Engine::keyboardCallbackApplication)(int) = nullptr;
 void(*Engine::displayCallBackApplication)() = nullptr;
+Node* Engine::root = nullptr;
 Camera* Engine::camera = nullptr;
 FrameRate* Engine::fps = nullptr;
 int Engine::screenW = 960;
@@ -78,8 +79,6 @@ Projection* Engine::orthoProjection = nullptr;
 Quad* Engine::quads[Eye::EYE_LAST] = { nullptr, nullptr };
 
 SkyBox* Engine::skyBox = nullptr;
-
-Leap* Engine::leap = nullptr;
 
 Engine::Engine(bool stereoscopic) {
     Engine::stereoscopic = stereoscopic;
@@ -139,13 +138,6 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
             delete ovr;
             exit(101);
         }
-    }
-
-    leap = new Leap();
-    if (!leap->init()) {
-        std::cout << "[ERROR] Unable to init Leap Motion" << std::endl;
-        delete leap;
-        exit(101);
     }
 
     /*********************************/
@@ -299,9 +291,6 @@ void LIB_API Engine::free() {
         ovr->free();
         delete ovr;
     }
-    // Free Leap:  
-    leap->free();
-    delete leap;
 
     list.clear();
     FreeImage_DeInitialise();
@@ -369,6 +358,7 @@ Node LIB_API* Engine::loadScene(std::string fileName) {
         root->addChild(camera);
     }
     
+    this->root = root;
     return root;
 }
 
@@ -407,9 +397,6 @@ void Engine::reshapeCallback(int width, int height) {
 }
 
 void Engine::displayCallbackDelegator() {
-
-    // Update Leap Motion status:
-    //leap->update();
 
     //Normal rendering
     if (!Engine::stereoscopic) {
@@ -519,6 +506,6 @@ SkyBox* Engine::getSkyBox()
     return skyBox;
 }
 
-Leap* Engine::getLeap() {
-    return leap;
+Hands LIB_API* Engine::getHands() {
+    return (Hands*)root->findByName("Hands");
 }
