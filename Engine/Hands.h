@@ -11,7 +11,7 @@
 class LIB_API Hands : public Mesh
 {
 public:
-	Hands(const int id, const std::string name, std::shared_ptr<Material> material);
+	Hands(const int id, const std::string name);
 	~Hands();
 
 public:
@@ -23,7 +23,10 @@ private:
 private:
 	unsigned int sphereVao;
 	unsigned int sphereVertexVbo;
+	unsigned int sphereTextureVbo;
 	std::vector<glm::vec3> sphereVertices;
+	std::vector<glm::vec2> sphereTextures;
+	Texture* texture;
 };
 
 #endif //HAND

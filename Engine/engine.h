@@ -61,10 +61,9 @@ class LIB_API Engine
 		static Camera* getCamera();
 
 		static Program* getProgramOmni();
-
 		static Program* getProgramDirectional();
-
 		static Program* getProgramSpot();
+		static Program* getProgramPassThrough();
 
 		static SkyBox* getSkyBox();
 

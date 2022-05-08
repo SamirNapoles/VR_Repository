@@ -25,6 +25,7 @@ public:
 	void setMatrix3(int param, const glm::mat3& mat);
 	void setFloat(int param, float value);
 	void setInt(int param, int value);
+	void setBool(int param, bool value);
 	void setVec3(int param, const glm::vec3& vect);
 	void setVec4(int param, const glm::vec4& vect);
 

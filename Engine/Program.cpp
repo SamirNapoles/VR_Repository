@@ -7,7 +7,6 @@
 #include "SkyBox.h"
 
 Program* Program::activeProgram = nullptr;
-//std::map<std::string, int> Program::uniformVariables = {};
 
 Program::Program(int id, const std::string name) : Object(id, name), glId{ 0 }
 {}
@@ -15,9 +14,7 @@ Program::Program(int id, const std::string name) : Object(id, name), glId{ 0 }
 Program::~Program()
 {
 	if (glId)
-	{
 		glDeleteProgram(glId);
-	}
 }
 
 void Program::setMatrix(int param, const glm::mat4& mat)
@@ -38,6 +35,11 @@ void Program::setFloat(int param, float value)
 void Program::setInt(int param, int value)
 {
 	glUniform1i(param, value);
+}
+
+void Program::setBool(int param, bool value)
+{
+	glUniform1i(param, value ? 1 : 0);
 }
 
 void Program::setVec3(int param, const glm::vec3& vect)
@@ -93,17 +95,7 @@ bool Program::build(Shader* vertexShader, Shader* fragmentShader)
 
 	// Delete if already used:
 	if (glId)
-	{
-		// On reload, make sure it was a program before:
-		/*
-		if (this->type != TYPE_PROGRAM)
-		{
-			std::cout << "[ERROR] Cannot reload a shader as a program" << std::endl;
-			return false;
-		}
-		*/
 		glDeleteProgram(glId);
-	}
 
 	// Create program:
 	glId = glCreateProgram();
@@ -158,12 +150,9 @@ bool Program::build(Shader* vertexShader, Shader* fragmentShader)
 		uniformVariables["materialSpecular"] = this->getParamLocation("materialSpecular");
 		uniformVariables["materialShiniess"] = this->getParamLocation("materialShiniess");
 
-		// uniformVariables["lightPosition"] = this->getParamLocation("lightPosition");
-		// uniformVariables["lightDirection"] = this->getParamLocation("lightDirection");
 		uniformVariables["lightAmbient"] = this->getParamLocation("lightAmbient");
 		uniformVariables["lightDiffuse"] = this->getParamLocation("lightDiffuse");
 		uniformVariables["lightSpecular"] = this->getParamLocation("lightSpecular");
-		// uniformVariables["cutOff"] = this->getParamLocation("cutOff");
 	}
 
 	if (this->getName() == "shader_program_passthrough")

@@ -360,17 +360,7 @@ Node LIB_API* Engine::loadScene(std::string fileName) {
     root->addChild(camera);
 
     //Leap motion
-    Texture* texture = new Texture(Object::getNextId(), "handTexture");
-    texture->setTexId("[none]");
-    Material* handMaterial = new Material(Object::getNextId(), "handMaterial",
-        glm::vec4(0.24725f, 0.1995f, 0.0745f, 1.0f),
-        glm::vec4(0.75164f, 0.60648f, 0.22648f, 1.0f),
-        glm::vec4(0.628281f, 0.555802f, 0.366065f, 1.0f),
-        51.2f
-    );
-    handMaterial->setTexture(texture);
-    std::shared_ptr<Material> material(handMaterial);
-    camera->addChild(new Hands(Object::getNextId(), "Hands", material));
+    camera->addChild(new Hands(Object::getNextId(), "Hands"));
 
     //stationary camera
     if (!Engine::stereoscopic) {
@@ -419,13 +409,10 @@ void Engine::reshapeCallback(int width, int height) {
 void Engine::displayCallbackDelegator() {
 
     // Update Leap Motion status:
-    leap->update();
+    //leap->update();
 
     //Normal rendering
     if (!Engine::stereoscopic) {
-        
-        //Render leap hands
-        //Engine::hands->render(glm::mat4(1.0f));
 
         displayCallBackApplication();
         fps->calculateFrameRate();
@@ -456,10 +443,6 @@ void Engine::displayCallbackDelegator() {
 
             // Render into this FBO:
             Engine::quads[c]->getFbo()->render();
-
-            //Render leap hands
-            //Engine::hands->render(glm::mat4(1.0f));
-            //Engine::hands->render(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -300.0f, -500.0f)));
 
             //Render client scene
             displayCallBackApplication();
@@ -525,6 +508,10 @@ Program* Engine::getProgramDirectional() {
 
 Program* Engine::getProgramSpot() {
     return programSpot;
+}
+
+Program* Engine::getProgramPassThrough() {
+    return passthroughProgram;
 }
 
 SkyBox* Engine::getSkyBox()

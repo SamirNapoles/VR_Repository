@@ -39,18 +39,17 @@ const char* FragmentShader::fragmentShaderOmni = R"(
 
       // only if lighted
       if (normalDotLightDirection > 0.0f) {
-         // Diffuse
-         fragmentColor += materialDiffuse * normalDotLightDirection * lightDiffuse;
+          // Diffuse
+          fragmentColor += materialDiffuse * normalDotLightDirection * lightDiffuse;
 
-         vec3 halfVector = normalize(lightDirection + normalize(-fragmentPosition.xyz));
-         float halfDotNormal = dot(halfVector, normalizedNormal);
+          vec3 halfVector = normalize(lightDirection + normalize(-fragmentPosition.xyz));
+          float halfDotNormal = dot(halfVector, normalizedNormal);
 
-         // Specular
-         fragmentColor += materialSpecular * pow(halfDotNormal, materialShiniess) * lightSpecular;
+          // Specular
+          fragmentColor += materialSpecular * pow(halfDotNormal, materialShiniess) * lightSpecular;
       }
 
       frag_Output = texel * vec4(fragmentColor, 1.0f);
-      // frag_Output = vec4(1.0f, 1.0f, 1.0f, 1.0f);
    }
 )";
 
@@ -104,7 +103,6 @@ const char* FragmentShader::fragmentShaderDirectional = R"(
       }
 
       frag_Output = texel * vec4(fragmentColor, 1.0f);
-      // frag_Output = vec4(1.0f, 1.0f, 1.0f, 1.0f);
    }
 )";
 
@@ -116,6 +114,9 @@ const char* FragmentShader::fragmentShaderSpot = R"(
    in vec2 texCoord;
 
    out vec4 frag_Output;
+
+   // Object that needs or not illumination
+   uniform int needsIllumination;
 
    // Material properties
    uniform vec3 materialEmission;
@@ -162,7 +163,6 @@ const char* FragmentShader::fragmentShaderSpot = R"(
       }
 
       frag_Output = texel * vec4(fragmentColor, 1.0f);
-      // frag_Output = vec4(1.0f, 1.0f, 1.0f, 1.0f);
       fragmentColor += vec3(cutOff);
    }
 )";
