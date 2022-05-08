@@ -49,7 +49,7 @@ void LIB_API Mesh::render(glm::mat4 finalMatrix) {
     glBindVertexArray(0);
 }
 
-float Mesh::getRadius() {
+float LIB_API Mesh::getRadius() {
     return radius;
 }
 

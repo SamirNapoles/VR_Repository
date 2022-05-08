@@ -84,8 +84,8 @@ void Hands::render(glm::mat4 finalMatrix) {
                 glDrawArrays(GL_TRIANGLE_STRIP, 0, (GLsizei)sphereVertices.size());
 
                 //Save index finger position
-                if(d == 1 && b == 3)
-                    indexPosition[h] = glm::vec3(bone.next_joint.x, bone.next_joint.y, bone.next_joint.z) * scale;
+                if (d == 1 && b == 3)
+                    indexPosition[h] = (Engine::getCamera()->getFinalMatrix() * f)[3];
             }
         }
     }

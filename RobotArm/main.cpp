@@ -187,9 +187,13 @@ void displayCallback() {
 	//Use engine's hands for controls
 	glm::vec3* indexPositions = hands->getIndexPosition();
 	for (int i = 0; i < 2; i++) {
-		std::cout << "index " << i << ": " << glm::to_string(indexPositions[i]) << std::endl;
+		glm::vec3 pos = indexPositions[i];
+
+		Mesh* subject = (Mesh*)root->findByName("Sphere");
+		float distance = glm::distance(pos, subject->getWorldPosition());
+		if (distance <= subject->getRadius())
+			std::cout << "Toccato!" << std::endl;
 	}
-	std::cout << std::endl;
 
 	//Set projection
 	activeCamera->getProjection()->setOpenGLProjection();
