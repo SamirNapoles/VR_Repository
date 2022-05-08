@@ -6,6 +6,7 @@
 #include <GL/freeglut.h>
 
 #include <glm/gtx/string_cast.hpp>
+#include <glm/gtc/matrix_access.hpp>
 #include "FakeShadow.h"
 
 #include "engine.h"
@@ -47,6 +48,14 @@ void LIB_API List::render(glm::mat4 inverseCameraMatrix) {
     glm::vec4 midPoint = glm::inverse(inverseCameraMatrix) * glm::vec4(0.0f, 0.0f, -midPointZ, 1.0f);
     double boundingSphereRadius{ (farPlane - nearPlane) * sqrt(3) / 2 };
 
+    glm::mat4 controlMatrix{ Engine::getCamera()->getProjection()->getProjection() * inverseCameraMatrix };
+    glm::vec4 leftPlane = glm::row(controlMatrix, 3) + glm::row(controlMatrix, 0);
+    glm::vec4 rightPlane = glm::row(controlMatrix, 3) - glm::row(controlMatrix, 0);
+    glm::vec4 lowerPlane = glm::row(controlMatrix, 3) + glm::row(controlMatrix, 1);
+    glm::vec4 upperPlane = glm::row(controlMatrix, 3) - glm::row(controlMatrix, 1);
+    glm::vec4 nearerPlane = glm::row(controlMatrix, 3) + glm::row(controlMatrix, 2);
+    glm::vec4 furtherPlane = glm::row(controlMatrix, 3) - glm::row(controlMatrix, 2);
+
     std::list<ListNode>::iterator it;
     //Render each list element
     for (it = objectsList.begin(); it != objectsList.end(); it++)
@@ -72,7 +81,19 @@ void LIB_API List::render(glm::mat4 inverseCameraMatrix) {
                 Mesh* obj;
                 float distance = glm::distance((*nonLightIt).getMatrix()[3], midPoint);
                 if ((obj = dynamic_cast<Mesh*>((*nonLightIt).getObject())) && distance <= (boundingSphereRadius + obj->getRadius())) {
-                    obj->render(inverseCameraMatrix * (*nonLightIt).getMatrix());
+                    glm::vec4 leftPoint = glm::translate(glm::mat4(1.0f), glm::normalize(glm::vec3(rightPlane)) * obj->getRadius()) * (*nonLightIt).getMatrix()[3];
+                    glm::vec4 rightPoint = glm::translate(glm::mat4(1.0f), glm::normalize(glm::vec3(leftPlane)) * obj->getRadius()) * (*nonLightIt).getMatrix()[3];
+                    glm::vec4 upPoint = glm::translate(glm::mat4(1.0f), glm::normalize(glm::vec3(lowerPlane)) * obj->getRadius()) * (*nonLightIt).getMatrix()[3];
+                    glm::vec4 downPoint = glm::translate(glm::mat4(1.0f), glm::normalize(glm::vec3(upperPlane)) * obj->getRadius()) * (*nonLightIt).getMatrix()[3];
+                    glm::vec4 farPoint = glm::translate(glm::mat4(1.0f), glm::normalize(glm::vec3(nearerPlane)) * obj->getRadius()) * (*nonLightIt).getMatrix()[3];
+                    glm::vec4 nearPoint = glm::translate(glm::mat4(1.0f), glm::normalize(glm::vec3(furtherPlane)) * obj->getRadius()) * (*nonLightIt).getMatrix()[3];
+                    if ((glm::dot(rightPlane, leftPoint) >= 0) && (glm::dot(leftPlane, rightPoint) >= 0) && (glm::dot(lowerPlane, upPoint) >= 0) 
+                        && (glm::dot(upperPlane, downPoint) >= 0) && (glm::dot(nearerPlane, farPoint) >= 0) && (glm::dot(furtherPlane, nearPoint) >= 0)) {
+                        obj->render(inverseCameraMatrix * (*nonLightIt).getMatrix());
+                    }
+                    else {
+                        culledObjects++;
+                    }
                 }
                 else {
                     culledObjects++;
@@ -87,7 +108,7 @@ void LIB_API List::render(glm::mat4 inverseCameraMatrix) {
     glDisable(GL_BLEND);
 
     // render skybox
-    //Engine::getSkyBox()->render((glm::translate(glm::mat4(1.0f), glm::vec3(-inverseCameraMatrix[3])) * inverseCameraMatrix * glm::scale(glm::mat4(1.0f), glm::vec3(1 / sqrt(3) * 0.9f * farPlane))));
+    Engine::getSkyBox()->render((glm::translate(glm::mat4(1.0f), glm::vec3(-inverseCameraMatrix[3])) * inverseCameraMatrix * glm::scale(glm::mat4(1.0f), glm::vec3(1 / sqrt(3) * 0.9f * farPlane))));
 }
 
 void List::clear()

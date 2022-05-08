@@ -51,6 +51,6 @@ D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\FileReade
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\FileReader.h(25): message : vedere la dichiarazione di 'std::vector<Vertex *,std::allocator<Vertex *>>'
 D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\SkyBox.h(23,21): warning C4251: 'SkyBox::programName': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'SkyBox'
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xstring(4905): message : vedere la dichiarazione di 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
-D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\List.cpp(128,30): warning C4267: 'return': conversione da 'size_t' a 'int'. Possibile perdita di dati.
+D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\Engine\List.cpp(149,30): warning C4267: 'return': conversione da 'size_t' a 'int'. Possibile perdita di dati.
   Engine.vcxproj -> D:\SUPSI\Anno III\Semestre II\RealtàVirtuale\Git\VR_Repository\x64\Debug\Engine.dll
           1 file copiati.
