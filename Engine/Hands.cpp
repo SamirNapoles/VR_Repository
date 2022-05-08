@@ -139,6 +139,22 @@ void Hands::buildSphere() {
     glBindVertexArray(0);
 }
 
-glm::vec3 LIB_API* Hands::getIndexPosition() {
-    return indexPosition;
+std::vector<Node*> LIB_API Hands::getCollisions(Node* root) {
+
+    std::vector<Node*> collisions;
+    std::vector<Node*> elements = Engine::getList()->getElements();
+    for (int i = 0; i < 2; i++) {
+        glm::vec3 pos = indexPosition[i];
+
+        std::vector<Node*>::iterator it;
+        for (it = elements.begin(); it != elements.end(); it++) {
+            float distance = glm::distance(pos, (*it)->getWorldPosition());
+
+            Mesh* obj;
+            if ((obj = dynamic_cast<Mesh*>(*it)) && distance <= obj->getRadius())
+                collisions.push_back(*it);
+        }
+    }
+
+    return collisions;
 }

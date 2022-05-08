@@ -15,6 +15,7 @@ class LIB_API List : public  Object {
 		void removeAllEntries();
 		Node* getObject(int i);
 		int size();
+		std::vector<Node*> getElements();
 
 	private:
 		std::list<ListNode> objectsList;

@@ -17,7 +17,7 @@ public:
 
 public:
 	void render(glm::mat4 finalMatrix) override;
-	glm::vec3* getIndexPosition();
+	std::vector<Node*> getCollisions(Node* root);
 
 private:
 	void buildSphere();

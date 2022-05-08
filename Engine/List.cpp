@@ -122,3 +122,15 @@ Node LIB_API *List::getObject(int i) {
 int LIB_API List::size(){
     return objectsList.size();
 }
+
+std::vector<Node*> LIB_API List::getElements() {
+    
+    std::vector<Node*> elements;
+    std::list<ListNode>::iterator it;
+    //Render each list element
+    for (it = objectsList.begin(); it != objectsList.end(); it++)
+    {
+        elements.push_back((*it).getObject());
+    }
+    return elements;
+}

@@ -184,17 +184,6 @@ void displayCallback() {
 	glm::vec3 color(37.0f, 53.0f, 87.0f);
 	engine.clean(glm::vec4(color.r / 255, color.g / 255, color.b / 255, 1.0f));
 
-	//Use engine's hands for controls
-	glm::vec3* indexPositions = hands->getIndexPosition();
-	for (int i = 0; i < 2; i++) {
-		glm::vec3 pos = indexPositions[i];
-
-		Mesh* subject = (Mesh*)root->findByName("Sphere");
-		float distance = glm::distance(pos, subject->getWorldPosition());
-		if (distance <= subject->getRadius())
-			std::cout << "Toccato!" << std::endl;
-	}
-
 	//Set projection
 	activeCamera->getProjection()->setOpenGLProjection();
 	if (activeCamera == freeCamera && !stereoscopic) {
@@ -215,6 +204,37 @@ void displayCallback() {
 	engine.getList()->addEntry(root, root->getTransform());
 	//draw scene
 	engine.getList()->render(activeCamera->getInverse());
+
+	//Use engine's hands for controls
+	std::vector<Node*> collisions = hands->getCollisions(root);
+	std::vector<Node*>::iterator it;
+	for (it = collisions.begin(); it != collisions.end(); it++) {
+		
+		std::string name = (*it)->getName();
+		
+		//Application controls
+		if(name == "") //Exit application
+			isActive = false;
+
+		//Robot arm controls
+		if (name == "+")
+			ra->setActiveJoint((ra->getActiveJoint() + 4 + 1) % 4);
+		else if (name == "-")
+			ra->setActiveJoint((ra->getActiveJoint() + 4 - 1) % 4);
+		else if (name == "up")
+			ra->rotateJoint(glm::vec3(-1.0f, 0.0f, 0.0f));
+		else if (name == "down")
+			ra->rotateJoint(glm::vec3(1.0f, 0.0f, 0.0f));
+		else if (name == "right")
+			ra->rotateJoint(glm::vec3(0.0f, 1.0f, 0.0f));
+		else if (name == "left")
+			ra->rotateJoint(glm::vec3(0.0f, -1.0f, 0.0f));
+		else if (name == ".")
+			ra->openClaws();
+		else if (name == ",")
+			ra->closeClaws();
+	}
+
 	//clear() would delete pointers which would probably erease scene graph; to consider use of shared pointers in ListNode
 	engine.getList()->removeAllEntries();
 }
@@ -270,16 +290,16 @@ int main(int argc, char* argv[])
 	//Set where the fake shadows will be projected
 	Mesh* floor = (Mesh*)root->findByName("Floor");
 	Mesh* table = (Mesh*)root->findByName("Table");
-	((FakeShadow*)root->findByName("Table_shadow"))->setShadowParent(floor);
-	((FakeShadow*)root->findByName("Teapot_shadow"))->setShadowParent(table);
-	((FakeShadow*)root->findByName("TV_shadow"))->setShadowParent(floor);
-	((FakeShadow*)root->findByName("arm1_shadow"))->setShadowParent(floor);
-	((FakeShadow*)root->findByName("arm2_shadow"))->setShadowParent(floor);
-	((FakeShadow*)root->findByName("arm3_shadow"))->setShadowParent(floor);
-	((FakeShadow*)root->findByName("clawSupport_shadow"))->setShadowParent(floor);
-	((FakeShadow*)root->findByName("clawL_shadow"))->setShadowParent(floor);
-	((FakeShadow*)root->findByName("clawR_shadow"))->setShadowParent(floor);
-	((FakeShadow*)root->findByName("Sphere_shadow"))->setShadowParent(floor);
+	((FakeShadow*)root->findByName("Table_shadow"))			->setShadowParent(floor);
+	((FakeShadow*)root->findByName("Teapot_shadow"))		->setShadowParent(table);
+	((FakeShadow*)root->findByName("TV_shadow"))			->setShadowParent(floor);
+	((FakeShadow*)root->findByName("arm1_shadow"))			->setShadowParent(floor);
+	((FakeShadow*)root->findByName("arm2_shadow"))			->setShadowParent(floor);
+	((FakeShadow*)root->findByName("arm3_shadow"))			->setShadowParent(floor);
+	((FakeShadow*)root->findByName("clawSupport_shadow"))	->setShadowParent(floor);
+	((FakeShadow*)root->findByName("clawL_shadow"))			->setShadowParent(floor);
+	((FakeShadow*)root->findByName("clawR_shadow"))			->setShadowParent(floor);
+	((FakeShadow*)root->findByName("Sphere_shadow"))		->setShadowParent(floor);
 
 	//Prepare robotarm
 	Node* ball = root->findByName("Sphere");
