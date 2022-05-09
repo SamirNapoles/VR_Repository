@@ -225,7 +225,7 @@ void displayCallback() {
 			ra->rotateJoint(glm::vec3(-1.0f, 0.0f, 0.0f));
 		else if (name == "down")
 			ra->rotateJoint(glm::vec3(1.0f, 0.0f, 0.0f));
-		else if (name == "right")
+		else if (name == "Sphere")
 			ra->rotateJoint(glm::vec3(0.0f, 1.0f, 0.0f));
 		else if (name == "left")
 			ra->rotateJoint(glm::vec3(0.0f, -1.0f, 0.0f));

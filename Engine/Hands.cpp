@@ -45,13 +45,26 @@ void Hands::render(glm::mat4 finalMatrix) {
     Engine::getCamera()->getProjection()->setOpenGLProjection();
     Program::getActiveProgram()->setVec4(Program::getActiveProgram()->getUniforms()["color"], glm::vec4(1.0f));
 
+    //Unbind camera rotation from hands position
+    glm::mat4 transf = Engine::getCamera()->getFinalMatrix();
+    float xScale = glm::length(transf[0]);
+    float yScale = glm::length(transf[1]);
+    float zScale = glm::length(transf[2]);
+    glm::mat4 r(
+        transf[0][0] / xScale, transf[0][1] / xScale, transf[0][2] / xScale, 0.0f,
+        transf[1][0] / yScale, transf[1][1] / yScale, transf[1][2] / yScale, 0.0f,
+        transf[2][0] / zScale, transf[2][1] / zScale, transf[2][2] / zScale, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    );
+    finalMatrix = glm::inverse(r) * finalMatrix;
+
     glBindVertexArray(sphereVao);
 
     texture->render(finalMatrix);
 
     // Render hands using spheres:
     for (unsigned int h = 0; h < l->nHands; h++) {
-        leap->update();
+        //leap->update();
 
         LEAP_HAND hand = l->pHands[h];
 
