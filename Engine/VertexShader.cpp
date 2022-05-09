@@ -38,6 +38,6 @@ const char* VertexShader::skyBoxVertexShader = R"(
    {
       texCoord = in_Position;
       gl_Position = projection * modelview * vec4(in_Position, 1.0f);  
-      //gl_Position = gl_Position.xyww;          
+      gl_Position = gl_Position.xyww;          
    }
 )";
