@@ -179,7 +179,6 @@ Node* FileReader::recursiveLoad(FILE* dat)
 		float radius;
 		memcpy(&radius, data + position, sizeof(float));
 		thisMesh->setRadius(radius);
-		std::cout << "name: " << thisMesh->getName() << ", radius: " << thisMesh->getRadius() << std::endl;
 
 		position += sizeof(float);
 		// Mesh bounding box minimum corner:

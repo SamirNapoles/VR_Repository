@@ -67,8 +67,8 @@ void RobotArm::closeClaws() {
 
 void RobotArm::grab() {
 
-	glm::vec3 ballPosition = glm::vec3(ball->getFinalMatrix()[3]);
-	glm::vec3 clawPosition = glm::vec3(joints.at(3)->getFinalMatrix()[3]);
+	glm::vec3 ballPosition = glm::vec3(ball->getWorldPosition());
+	glm::vec3 clawPosition = glm::vec3(joints.at(3)->getWorldPosition());
 
 	//Remap claws rotation to evaluate how much they are open
 	float start1 = clawsRotationLimit.at(0).y;
@@ -82,7 +82,7 @@ void RobotArm::grab() {
 		release = true;
 	}
 	else if (glm::distance(ballPosition, clawPosition) <= clawDistance && map < 1.0f) {
-
+		float ballRadius = ((Mesh*)ball)->getRadius() + 0.05f;
 		joints.at(3)->addChild(ball);
 		ball->setTransform(
 			glm::scale(
@@ -91,7 +91,7 @@ void RobotArm::grab() {
 			) *
 			glm::translate(
 				glm::mat4(1.0f),
-				glm::vec3(0.0f, 10.0f, 10.0f)
+				glm::vec3(0.0f, ballRadius, ballRadius)
 			)
 		);
 
@@ -113,12 +113,12 @@ void RobotArm::update() {
 			hasBall = false;
 		}
 
-		if (ballPosition.y >= 8.5) {
+		if (ballPosition.y >= ((Mesh*)ball)->getRadius()) {
 			ball->setTransform(
 				ball->getTransform() *
 				glm::translate(
 					glm::mat4(1.0f),
-					glm::vec3(0.0f, -1.0f, 0.0f) * fallSpeed
+					glm::vec3(0.0f, -0.03f, 0.0f) * fallSpeed
 				)
 			);
 		}

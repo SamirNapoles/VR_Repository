@@ -166,10 +166,8 @@ std::vector<Node*> LIB_API Hands::getCollisions(Node* root) {
             Mesh* obj;
             if ((obj = dynamic_cast<Mesh*>(*it)) && distance <= obj->getRadius()) {
                 collisions.push_back(*it);
-                //std::cout << "name: " << obj->getName() << ", radius: " << obj->getRadius() << std::endl;
             }
         }
-        //std::cout << std::endl;
     }
 
     return collisions;

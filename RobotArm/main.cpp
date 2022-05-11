@@ -46,12 +46,12 @@ float pitch = 0.0f;
 float cameraSpeed = 0.3f;
 float rotationSpeed = 5.0f;
 
-float stationaryCameraX = -3.5f;
+float stationaryCameraX = -1.5f;
 float stationaryCameraY = 3.0f;
-float stationaryCameraZ = 4.5;
-float stationaryRotationX = -22.0f;
-float stationaryRotationY = -26.0f;
-float stationaryRotationZ = -8.0f;
+float stationaryCameraZ = 2.5;
+float stationaryRotationX = -25.0f;
+float stationaryRotationY = -30.0f;
+float stationaryRotationZ = -10.0f;
 
 Node* root;
 Hands* hands;
@@ -336,8 +336,8 @@ int main(int argc, char* argv[])
 	Node* claw1 = joint3->findByName("clawR");
 	std::vector<Node*> claws{ claw0, claw1 };
 	std::vector<glm::vec3> clawsLimits{
-		glm::vec3(0.0f, 10.0f, 0.0f),
-		glm::vec3(0.0f, 10.0f, 0.0f)
+		glm::vec3(0.0f, 15.0f, 0.0f),
+		glm::vec3(0.0f, 15.0f, 0.0f)
 	};
 	ra = new RobotArm(joints, jointsLimits, claws, clawsLimits, ball);
 

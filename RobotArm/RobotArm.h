@@ -1,4 +1,5 @@
 #include "Node.h"
+#include "Mesh.h"
 #include <glm/glm.hpp>
 #include <math.h>
 #include <vector>
@@ -46,8 +47,8 @@ private:
 
 	float clawDistance = 30.0f;
 
-	float rotationSpeed = 1.0f;
-	float fallSpeed = 3.0f;
+	float rotationSpeed = 0.3f;
+	float fallSpeed = 0.5f;
 	int activeJoint = 0;
 };
 
