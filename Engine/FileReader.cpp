@@ -178,8 +178,8 @@ Node* FileReader::recursiveLoad(FILE* dat)
 		// Mesh bounding sphere radius:
 		float radius;
 		memcpy(&radius, data + position, sizeof(float));
-
 		thisMesh->setRadius(radius);
+		std::cout << "name: " << thisMesh->getName() << ", radius: " << thisMesh->getRadius() << std::endl;
 
 		position += sizeof(float);
 		// Mesh bounding box minimum corner:
@@ -187,7 +187,10 @@ Node* FileReader::recursiveLoad(FILE* dat)
 		memcpy(&bBoxMin, data + position, sizeof(glm::vec3));
 		position += sizeof(glm::vec3);
 		// Mesh bounding box maximum corner:
+		glm::vec3 bBoxMax;
+		memcpy(&bBoxMax, data + position, sizeof(glm::vec3));
 		position += sizeof(glm::vec3);
+
 		// Optional physics properties:
 		unsigned char hasPhysics;
 		memcpy(&hasPhysics, data + position, sizeof(unsigned char));
@@ -258,6 +261,7 @@ Node* FileReader::recursiveLoad(FILE* dat)
 
 		std::shared_ptr<Material> smaterial(materials.find("shadow_material")->second);
 		FakeShadow* shadow = new FakeShadow(Object::getNextId(), nodeName_str + "_shadow", smaterial, thisMesh);
+		thisMesh->setRadius(radius);
 
 
 		// Nr. of LODs:
@@ -315,13 +319,6 @@ Node* FileReader::recursiveLoad(FILE* dat)
 
 			glm::vec4 normal = glm::unpackSnorm3x10_1x2(normalData);
 			glm::vec2 uv = glm::unpackHalf2x16(textureData);
-			/*
-			Vertex* newVertex = new Vertex(vertex, glm::vec3(normal.x, normal.y, normal.z));
-			newVertex->setTextureCoordinates(glm::vec2(uv));
-			tempVertices.push_back(newVertex);
-			if (vertex.y < offset)
-				offset = vertex.y;
-			*/
 
 			vertexPtr[c] = vertex;
 			normalPtr[c] = glm::vec3(normal.x, normal.y, normal.z);
@@ -338,8 +335,6 @@ Node* FileReader::recursiveLoad(FILE* dat)
 
 			for (int i = 0; i < 3; i++)
 			{
-				//thisMesh->addVertex(tempVertices.at(face[i]), l);
-				//shadow->addVertex(tempVertices.at(face[i]), l);
 				facePtr[c * 3 + i] = face[i];
 			}
 		}

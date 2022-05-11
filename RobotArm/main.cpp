@@ -33,7 +33,7 @@ The cubemap image is the work of Emil Persson, aka Humus: http://www.humus.name
 //////////
 
 Engine engine;
-bool stereoscopic = false;
+bool stereoscopic = true;
 
 glm::vec3 cameraPos = glm::vec3(0.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
@@ -62,7 +62,7 @@ Camera* freeCamera = nullptr;
 Camera* stationaryCamera = nullptr;
 Camera* activeCamera = nullptr;
 
-
+std::vector<Node*> prevCollisions{};
 
 void keyboardCallback(int key) {
 
@@ -197,10 +197,6 @@ void displayCallback() {
 		activeCamera->setTransform(glm::inverse(glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp)));
 	}
 	else if (activeCamera == freeCamera)
-		/*activeCamera->setTransform(
-			glm::translate(glm::mat4(1.0f), cameraPos) *
-			activeCamera->getTransform()
-		);*/
 		activeCamera->setWorldPosition(activeCamera->getWorldPosition() + cameraPos);
 
 	/*hands->setTransform(glm::translate(
@@ -221,29 +217,42 @@ void displayCallback() {
 	for (it = collisions.begin(); it != collisions.end(); it++) {
 		
 		std::string name = (*it)->getName();
+
+		//Check if this collision was triggered last frame too
+		bool prevColl = false;
+		std::vector<Node*>::iterator pit;
+		for (pit = prevCollisions.begin(); pit != prevCollisions.end(); pit++) {
+			if ((*pit)->getName() == name) {
+				prevColl = true;
+				break;
+			}
+		}
 		
 		//Application controls
-		if(name == "") //Exit application
+		if (name == "button_esc") { //Exit application
 			isActive = false;
+			std::cout << "exit" << std::endl;
+		}
 
 		//Robot arm controls
-		if (name == "+")
+		else if (name == "button_next_joint" && !prevColl)
 			ra->setActiveJoint((ra->getActiveJoint() + 4 + 1) % 4);
-		else if (name == "-")
+		else if (name == "button_prev_joint" && !prevColl)
 			ra->setActiveJoint((ra->getActiveJoint() + 4 - 1) % 4);
 		else if (name == "up")
 			ra->rotateJoint(glm::vec3(-1.0f, 0.0f, 0.0f));
 		else if (name == "down")
 			ra->rotateJoint(glm::vec3(1.0f, 0.0f, 0.0f));
-		else if (name == "Sphere")
+		else if (name == "right")
 			ra->rotateJoint(glm::vec3(0.0f, 1.0f, 0.0f));
 		else if (name == "left")
 			ra->rotateJoint(glm::vec3(0.0f, -1.0f, 0.0f));
-		else if (name == ".")
+		else if (name == "button_open_claw")
 			ra->openClaws();
-		else if (name == ",")
+		else if (name == "button_close_claw")
 			ra->closeClaws();
 	}
+	prevCollisions = collisions;
 
 	//clear() would delete pointers which would probably erease scene graph; to consider use of shared pointers in ListNode
 	engine.getList()->removeAllEntries();
@@ -270,10 +279,6 @@ int main(int argc, char* argv[])
 
 	hands = engine.getHands();
 
-	/*cameraPos = activeCamera->getWorldPosition();
-	if (stereoscopic)
-		cameraPos += cameraUp * 1.7f;
-	else {*/
 	if (!stereoscopic) {
 		glm::mat4 translation_cam = glm::translate(
 			glm::mat4(1.0f),

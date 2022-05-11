@@ -44,7 +44,11 @@ int APIENTRY DllMain(HANDLE instDLL, DWORD reason, LPVOID _reserved)
  * Debug message callback for OpenGL. See https://www.opengl.org/wiki/Debug_Output
  */
 void __stdcall DebugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, GLvoid* userParam) {
-    std::cout << "OpenGL says: \"" << std::string(message) << "\"" << std::endl;
+    
+    //Major performance warnings, shader compilation/linking warnings, 
+    //use of deprecated functionality or highly-dangerous undefined behavior
+    if(severity == GL_DEBUG_SEVERITY_MEDIUM)
+        std::cout << "OpenGL says: \"" << std::string(message) << "\"" << std::endl;
 }
 
 OvVR* ovr = nullptr;

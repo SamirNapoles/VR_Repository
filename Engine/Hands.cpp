@@ -107,7 +107,6 @@ void Hands::render(glm::mat4 finalMatrix) {
 
     //Switch back to previous program in render pipeline
     prevProgram->render();
-    //Engine::getCamera()->getProjection()->setOpenGLProjection();
 }
 
 void Hands::buildSphere() {
@@ -165,9 +164,12 @@ std::vector<Node*> LIB_API Hands::getCollisions(Node* root) {
             float distance = glm::distance(pos, (*it)->getWorldPosition());
 
             Mesh* obj;
-            if ((obj = dynamic_cast<Mesh*>(*it)) && distance <= obj->getRadius())
+            if ((obj = dynamic_cast<Mesh*>(*it)) && distance <= obj->getRadius()) {
                 collisions.push_back(*it);
+                //std::cout << "name: " << obj->getName() << ", radius: " << obj->getRadius() << std::endl;
+            }
         }
+        //std::cout << std::endl;
     }
 
     return collisions;
