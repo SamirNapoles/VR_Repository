@@ -16,7 +16,7 @@ Hands::Hands(const int id, const std::string name) :
     }
 
 	buildSphere();
-    setTransform(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -40.0f, -50.0f)));
+    setTransform(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -0.5f, -0.4f)));
 
     texture = new Texture(Object::getNextId(), "hands_texture");
     texture->setTexId("[none]");
@@ -70,7 +70,7 @@ void Hands::render(glm::mat4 finalMatrix) {
 
         glm::mat4 f;
         glm::mat4 c;
-        float scale = 0.1f;
+        float scale = 0.00125f;
 
         // Wrist:
         c = glm::translate(glm::mat4(1.0f), glm::vec3(hand.arm.next_joint.x, hand.arm.next_joint.y, hand.arm.next_joint.z) * scale);
@@ -107,13 +107,14 @@ void Hands::render(glm::mat4 finalMatrix) {
 
     //Switch back to previous program in render pipeline
     prevProgram->render();
+    //Engine::getCamera()->getProjection()->setOpenGLProjection();
 }
 
 void Hands::buildSphere() {
 
     // Build a sphere procedurally:   
     GLfloat x, y, z, alpha, beta; // Storage for coordinates and angles        
-    GLfloat radius = 1.0f;
+    GLfloat radius = 0.00625f;
     int gradation = 10;
     for (alpha = 0.0f; alpha < glm::pi<float>(); alpha += glm::pi<float>() / gradation)
         for (beta = 0.0f; beta < 2.01f * glm::pi<float>(); beta += glm::pi<float>() / gradation)

@@ -344,7 +344,7 @@ Node LIB_API* Engine::loadScene(std::string fileName) {
     }
 
     //free camera
-    Projection* proj = new PerspectiveProjection(w, this->screenH, 45.0f, 1.0f, 1000.0f);
+    Projection* proj = new PerspectiveProjection(w, this->screenH, 45.0f, 0.1f, 500.0f);
     Camera* camera = new Camera(Object::getNextId(), std::string("freeCamera"), proj);
     root->addChild(camera);
 
@@ -413,20 +413,22 @@ void Engine::displayCallbackDelegator() {
         // Update user position:
         ovr->update();
         glm::mat4 headPos = ovr->getModelviewMatrix();
+        glm::vec3 pos (headPos[3]);
+        headPos[3] += glm::vec4(camera->getWorldPosition(), 0.0f);
+
+        // Update camera position according to head position
+        camera->setTransform(headPos);
 
         //Render scene as stereocopic
         for (int c = 0; c < Eye::EYE_LAST; c++) {
             // Get OpenVR matrices:
             Eye curEye = (Eye)c;
-            glm::mat4 projMat = ovr->getProjMatrix(curEye, 1.0f, 1024.0f);
+            glm::mat4 projMat = ovr->getProjMatrix(curEye, 0.1f, 500.0f);
             glm::mat4 eye2Head = ovr->getEye2HeadMatrix(curEye);
 
             // Update camera projection matrix:
             glm::mat4 ovrProjMat = projMat * glm::inverse(eye2Head);
             camera->getProjection()->setProjection(ovrProjMat);
-
-            // Update camera position according to head position
-            camera->setTransform(headPos);
 
             // Render into this FBO:
             Engine::quads[c]->getFbo()->render();
@@ -457,6 +459,8 @@ void Engine::displayCallbackDelegator() {
         }
 
         fps->calculateFrameRate();
+
+        camera->setWorldPosition(camera->getWorldPosition() - pos);
     }
 
     // Swap this context's buffer:

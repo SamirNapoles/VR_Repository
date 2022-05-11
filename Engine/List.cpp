@@ -82,6 +82,7 @@ void LIB_API List::render(glm::mat4 inverseCameraMatrix) {
     glDisable(GL_BLEND);
 
     // render skybox
+    // scaling in maniera che sia sempre visibile, anche quando posizionata diagonalmente
     Engine::getSkyBox()->render((glm::translate(glm::mat4(1.0f), glm::vec3(-inverseCameraMatrix[3])) * inverseCameraMatrix * glm::scale(glm::mat4(1.0f), glm::vec3(1 / sqrt(3) * 0.9f * farPlane))));
 }
 

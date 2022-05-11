@@ -61,7 +61,7 @@ void FakeShadow::updateTransform()
             glm::vec3 modelPos = model->getWorldPosition();
             //World position of node on which shadow will be casted
             glm::vec3 shadowParentPos = getParent()->getWorldPosition();
-            shadowParentPos.y += shadowParentPos.y + 0.6f;
+            shadowParentPos.y += shadowParentPos.y + 0.02f;
 
             offset = glm::translate(
                 glm::mat4(1.0f),

@@ -14,11 +14,6 @@ CubeMap::~CubeMap()
 
 void CubeMap::init()
 {
-	/*if (cubeMapId)
-	{
-		glDeleteTextures(1, &cubeMapId);
-	}*/
-
 	glGenTextures(1, &cubeMapId);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapId);
 
@@ -39,7 +34,6 @@ void CubeMap::init()
 		FIBITMAP* fibitmap32bits = FreeImage_ConvertTo32Bits(fibitmap);	// setting images as 32 bits (RGBA)
 
 		// Fixing vertical/horizontal mirroring
-		// FreeImage_FlipHorizontal(fibitmap32bits);
 		FreeImage_FlipVertical(fibitmap32bits);
 
 		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, FreeImage_GetWidth(fibitmap32bits), FreeImage_GetHeight(fibitmap32bits), 0, GL_BGRA, GL_UNSIGNED_BYTE, (void*)FreeImage_GetBits(fibitmap32bits));

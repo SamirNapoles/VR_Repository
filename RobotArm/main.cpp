@@ -35,7 +35,7 @@ The cubemap image is the work of Emil Persson, aka Humus: http://www.humus.name
 Engine engine;
 bool stereoscopic = false;
 
-glm::vec3 cameraPos = glm::vec3(0.0f, 100.0f, -40.0f);
+glm::vec3 cameraPos = glm::vec3(0.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 glm::vec3 direction = glm::vec3(0.0f, 0.0f, 1.0f);
@@ -43,12 +43,12 @@ glm::vec3 direction = glm::vec3(0.0f, 0.0f, 1.0f);
 float yaw = 90.0f;
 float pitch = 0.0f;
 
-float cameraSpeed = 2.0f;
-float rotationSpeed = 2.0f;
+float cameraSpeed = 0.3f;
+float rotationSpeed = 5.0f;
 
-float stationaryCameraX = -102.0f;
-float stationaryCameraY = 91.0f;
-float stationaryCameraZ = 136;
+float stationaryCameraX = -3.5f;
+float stationaryCameraY = 3.0f;
+float stationaryCameraZ = 4.5;
 float stationaryRotationX = -22.0f;
 float stationaryRotationY = -26.0f;
 float stationaryRotationZ = -8.0f;
@@ -192,11 +192,21 @@ void displayCallback() {
 		direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 
 		cameraFront = glm::normalize(direction);
+		cameraPos += activeCamera->getWorldPosition();
 
 		activeCamera->setTransform(glm::inverse(glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp)));
 	}
 	else if (activeCamera == freeCamera)
-		activeCamera->setWorldPosition(cameraPos);
+		/*activeCamera->setTransform(
+			glm::translate(glm::mat4(1.0f), cameraPos) *
+			activeCamera->getTransform()
+		);*/
+		activeCamera->setWorldPosition(activeCamera->getWorldPosition() + cameraPos);
+
+	/*hands->setTransform(glm::translate(
+		glm::mat4(1.0f), 
+		glm::vec3(0.0f, activeCamera->getWorldPosition().y - 0.5f, -0.4f)
+	));*/
 
 	ra->update();
 
@@ -248,9 +258,9 @@ void displayCallback() {
 int main(int argc, char* argv[])
 {
 	engine = Engine(stereoscopic);
-	engine.setTexturePath("./scene/");
+	engine.setTexturePath("./newScene/");
 	engine.init("RobotArm", keyboardCallback, displayCallback);
-	root = engine.loadScene("./scene/ProjectScene.OVO");
+	root = engine.loadScene("./newScene/scene.OVO");
 
 	freeCamera = (Camera*)root->findByName("freeCamera");
 	stationaryCamera = (Camera*)root->findByName("stationaryCamera");
@@ -260,10 +270,11 @@ int main(int argc, char* argv[])
 
 	hands = engine.getHands();
 
-	cameraPos = activeCamera->getWorldPosition();
+	/*cameraPos = activeCamera->getWorldPosition();
 	if (stereoscopic)
-		cameraPos += cameraUp * 2.0f;
-	else {
+		cameraPos += cameraUp * 1.7f;
+	else {*/
+	if (!stereoscopic) {
 		glm::mat4 translation_cam = glm::translate(
 			glm::mat4(1.0f),
 			glm::vec3(0.0f + stationaryCameraX, 0.0f + stationaryCameraY, 0.0f + stationaryCameraZ)
@@ -300,6 +311,7 @@ int main(int argc, char* argv[])
 	((FakeShadow*)root->findByName("clawL_shadow"))			->setShadowParent(floor);
 	((FakeShadow*)root->findByName("clawR_shadow"))			->setShadowParent(floor);
 	((FakeShadow*)root->findByName("Sphere_shadow"))		->setShadowParent(floor);
+	((FakeShadow*)root->findByName("joystick_shadow"))		->setShadowParent(floor);
 
 	//Prepare robotarm
 	Node* ball = root->findByName("Sphere");
@@ -326,6 +338,7 @@ int main(int argc, char* argv[])
 
 	while (isActive) {
 		engine.begin();
+		cameraPos = glm::vec3(0.0f);
 	}
 
 	engine.free();

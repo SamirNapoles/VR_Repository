@@ -36,6 +36,6 @@ protected:
 	float radius;
 
 private:
-	bool castShadow = true;
+	bool castShadow = false;
 };
 #endif //MESH
