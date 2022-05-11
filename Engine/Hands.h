@@ -12,7 +12,7 @@
 class LIB_API Hands : public Mesh
 {
 public:
-	Hands(const int id, const std::string name);
+	Hands(const int id, const std::string name, const float height);
 	~Hands();
 
 public:
@@ -31,6 +31,7 @@ private:
 	Texture* texture;
 	Leap* leap;
 	glm::vec3 indexPosition[2];
+	float height;
 };
 
 #endif //HAND

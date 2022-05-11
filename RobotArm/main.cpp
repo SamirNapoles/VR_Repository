@@ -199,11 +199,6 @@ void displayCallback() {
 	else if (activeCamera == freeCamera)
 		activeCamera->setWorldPosition(activeCamera->getWorldPosition() + cameraPos);
 
-	/*hands->setTransform(glm::translate(
-		glm::mat4(1.0f), 
-		glm::vec3(0.0f, activeCamera->getWorldPosition().y - 0.5f, -0.4f)
-	));*/
-
 	ra->update();
 
 
@@ -229,10 +224,8 @@ void displayCallback() {
 		}
 		
 		//Application controls
-		if (name == "button_esc") { //Exit application
+		if (name == "button_esc") //Exit application
 			isActive = false;
-			std::cout << "exit" << std::endl;
-		}
 
 		//Robot arm controls
 		else if (name == "button_next_joint" && !prevColl)
@@ -268,7 +261,7 @@ int main(int argc, char* argv[])
 {
 	engine = Engine(stereoscopic);
 	engine.setTexturePath("./newScene/");
-	engine.init("RobotArm", keyboardCallback, displayCallback);
+	engine.init("RobotArm", keyboardCallback, displayCallback, 0.75f);
 	root = engine.loadScene("./newScene/scene.OVO");
 
 	freeCamera = (Camera*)root->findByName("freeCamera");

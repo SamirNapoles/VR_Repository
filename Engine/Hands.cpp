@@ -5,8 +5,8 @@
 #include "Program.h"
 #include "Engine.h"
 
-Hands::Hands(const int id, const std::string name) :
-	Mesh{ id, name, nullptr } {
+Hands::Hands(const int id, const std::string name, const float height) :
+	Mesh{ id, name, nullptr }, height(height) {
 
     leap = new Leap();
     if (!leap->init()) {
@@ -16,7 +16,7 @@ Hands::Hands(const int id, const std::string name) :
     }
 
 	buildSphere();
-    setTransform(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -0.5f, -0.4f)));
+    //setTransform(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -0.5f, -0.4f)));
 
     texture = new Texture(Object::getNextId(), "hands_texture");
     texture->setTexId("[none]");
@@ -46,7 +46,7 @@ void Hands::render(glm::mat4 finalMatrix) {
     Program::getActiveProgram()->setVec4(Program::getActiveProgram()->getUniforms()["color"], glm::vec4(1.0f));
 
     //Unbind camera rotation from hands position
-    glm::mat4 transf = Engine::getCamera()->getFinalMatrix();
+    /*glm::mat4 transf = Engine::getCamera()->getFinalMatrix();
     float xScale = glm::length(transf[0]);
     float yScale = glm::length(transf[1]);
     float zScale = glm::length(transf[2]);
@@ -56,7 +56,13 @@ void Hands::render(glm::mat4 finalMatrix) {
         transf[2][0] / zScale, transf[2][1] / zScale, transf[2][2] / zScale, 0.0f,
         0.0f, 0.0f, 0.0f, 1.0f
     );
-    finalMatrix = glm::inverse(r) * finalMatrix;
+    finalMatrix = glm::inverse(r) * finalMatrix;*/
+    //finalMatrix = glm::inverse(Engine::getCamera()->getFinalMatrix()) * finalMatrix;
+    float cameraAltitude = Engine::getCamera()->getWorldPosition().y;
+    setTransform(glm::translate(
+        glm::mat4(1.0f),
+        glm::vec3(0.0f, cameraAltitude - (cameraAltitude - height), -0.4f)
+    ));
 
     glBindVertexArray(sphereVao);
 

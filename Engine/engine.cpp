@@ -83,13 +83,14 @@ Projection* Engine::orthoProjection = nullptr;
 Quad* Engine::quads[Eye::EYE_LAST] = { nullptr, nullptr };
 
 SkyBox* Engine::skyBox = nullptr;
+Hands* Engine::hands = nullptr;
 
 Engine::Engine(bool stereoscopic) {
     Engine::stereoscopic = stereoscopic;
 }
 
 
-void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplication)(int), void(*displayCallBackApplication)()) {
+void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplication)(int), void(*displayCallBackApplication)(), const float handsHeight) {
     // Init context:
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
     glutInitContextVersion(4, 4);
@@ -282,10 +283,11 @@ void LIB_API Engine::init(const char* windowName, void(*keyboardCallbackApplicat
 
     glDepthFunc(GL_LEQUAL);
 
-    //Initialize the UI
     fps = new FrameRate();
-
     skyBox = SkyBox::buildSkyBox("posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg");
+
+    //Leap motion
+    hands = new Hands(Object::getNextId(), "Hands", handsHeight);
 }
 
 void LIB_API Engine::free() {
@@ -352,9 +354,6 @@ Node LIB_API* Engine::loadScene(std::string fileName) {
     Camera* camera = new Camera(Object::getNextId(), std::string("freeCamera"), proj);
     root->addChild(camera);
 
-    //Leap motion
-    camera->addChild(new Hands(Object::getNextId(), "Hands"));
-
     //stationary camera
     if (!Engine::stereoscopic) {
         proj = new PerspectiveProjection(w, this->screenH, 45.0f, 1.0f, 1000.0f);
@@ -362,6 +361,7 @@ Node LIB_API* Engine::loadScene(std::string fileName) {
         root->addChild(camera);
     }
     
+    root->addChild(hands);
     this->root = root;
     return root;
 }
@@ -515,5 +515,5 @@ SkyBox* Engine::getSkyBox()
 }
 
 Hands LIB_API* Engine::getHands() {
-    return (Hands*)root->findByName("Hands");
+    return hands;
 }

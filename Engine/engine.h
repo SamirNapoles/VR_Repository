@@ -42,7 +42,7 @@ class LIB_API Engine
 
 	public:
 		// Init/free:
-		void init(const char* windowName, void(*keyboardCallbackApplication)(int), void(*displayCallBackApplication)());
+		void init(const char* windowName, void(*keyboardCallbackApplication)(int), void(*displayCallBackApplication)(), const float handsHeight);
 		static void free();
 
 		Node* loadScene(std::string fileName);
@@ -100,4 +100,6 @@ class LIB_API Engine
 		static Quad* quads[Eye::EYE_LAST];
 
 		static SkyBox* skyBox;
+
+		static Hands* hands;
 };
