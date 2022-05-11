@@ -45,24 +45,11 @@ void Hands::render(glm::mat4 finalMatrix) {
     Engine::getCamera()->getProjection()->setOpenGLProjection();
     Program::getActiveProgram()->setVec4(Program::getActiveProgram()->getUniforms()["color"], glm::vec4(1.0f));
 
-    //Unbind camera rotation from hands position
-    /*glm::mat4 transf = Engine::getCamera()->getFinalMatrix();
-    float xScale = glm::length(transf[0]);
-    float yScale = glm::length(transf[1]);
-    float zScale = glm::length(transf[2]);
-    glm::mat4 r(
-        transf[0][0] / xScale, transf[0][1] / xScale, transf[0][2] / xScale, 0.0f,
-        transf[1][0] / yScale, transf[1][1] / yScale, transf[1][2] / yScale, 0.0f,
-        transf[2][0] / zScale, transf[2][1] / zScale, transf[2][2] / zScale, 0.0f,
-        0.0f, 0.0f, 0.0f, 1.0f
-    );
-    finalMatrix = glm::inverse(r) * finalMatrix;*/
-    //finalMatrix = glm::inverse(Engine::getCamera()->getFinalMatrix()) * finalMatrix;
+    //Follow camera
     float cameraAltitude = Engine::getCamera()->getWorldPosition().y;
-    setTransform(glm::translate(
-        glm::mat4(1.0f),
-        glm::vec3(0.0f, cameraAltitude - (cameraAltitude - height), -0.4f)
-    ));
+    glm::vec3 pos = glm::vec3(0.0f, cameraAltitude - (cameraAltitude - height), -0.4f);
+    glm::mat4 m = glm::translate(glm::mat4(1.0f), pos);
+    setTransform(m);
 
     glBindVertexArray(sphereVao);
 
@@ -108,6 +95,7 @@ void Hands::render(glm::mat4 finalMatrix) {
             }
         }
     }
+    prevHandsNumber = l->nHands;
 
     glBindVertexArray(0);
 

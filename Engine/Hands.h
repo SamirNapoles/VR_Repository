@@ -32,6 +32,7 @@ private:
 	Leap* leap;
 	glm::vec3 indexPosition[2];
 	float height;
+	int prevHandsNumber = 0;
 };
 
 #endif //HAND
