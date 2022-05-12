@@ -1,4 +1,11 @@
-﻿  Engine.vcxproj -> D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\x64\Debug\Engine.dll
+﻿  Program.cpp
+D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Object.h(30,15): warning C4251: 'Object::name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'Object'
+D:\App\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xstring(4905): message : vedere la dichiarazione di 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\Texture.h(24,21): warning C4251: 'Texture::path': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'Texture'
+D:\App\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xstring(4905): message : vedere la dichiarazione di 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\Engine\SkyBox.h(23,21): warning C4251: 'SkyBox::programName': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' deve avere un'interfaccia dll per essere utilizzata dai client di class 'SkyBox'
+D:\App\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xstring(4905): message : vedere la dichiarazione di 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+  Engine.vcxproj -> D:\SCUOLA\SUPSI\SCUOLA anno 2021-2022\VR\Serie\VR_Repository\x64\Debug\Engine.dll
   ..\dependencies\openvr\bin\x64\Debug\openvr_api64.dll
   1 File copiati
   ..\dependencies\leap\bin\x64\LeapC.dll
