@@ -1,5 +1,6 @@
 #include "Node.h"
 #include "Mesh.h"
+#include "FakeShadow.h"
 #include <glm/glm.hpp>
 #include <math.h>
 #include <vector>
@@ -44,8 +45,6 @@ private:
 	Node* ball;
 	bool release = true;
 	bool hasBall = false;
-
-	float clawDistance = 30.0f;
 
 	float rotationSpeed = 0.3f;
 	float fallSpeed = 0.5f;

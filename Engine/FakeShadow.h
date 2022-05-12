@@ -23,7 +23,7 @@ public:
 	void setShadowParent(Mesh* node);
 
 private:
-	glm::mat4 getRotationMatrix();
+	glm::mat4 getRotationMatrix(Node* node);
 
 private:
 	glm::mat4 offset;

@@ -38,9 +38,9 @@ void LIB_API FakeShadow::setShadowParent(Mesh* node) {
     setCastShadow(true);
 }
 
-glm::mat4 FakeShadow::getRotationMatrix() {
+glm::mat4 FakeShadow::getRotationMatrix(Node* node) {
 
-    glm::mat4 transf = model->getFinalMatrix();
+    glm::mat4 transf = node->getFinalMatrix();
     float xScale = glm::length(transf[0]);
     float yScale = glm::length(transf[1]);
     float zScale = glm::length(transf[2]);
@@ -53,7 +53,7 @@ glm::mat4 FakeShadow::getRotationMatrix() {
     );
 }
 
-void FakeShadow::updateTransform()
+void LIB_API FakeShadow::updateTransform()
 {
     if (this->getParent() != nullptr) {
         if (getCastShadow()) {
@@ -68,7 +68,7 @@ void FakeShadow::updateTransform()
                 glm::vec3(modelPos.x - shadowParentPos.x, shadowParentPos.y, modelPos.z - shadowParentPos.z)
             );
 
-            glm::mat4 R = getRotationMatrix();
+            glm::mat4 R = getRotationMatrix(model);
             glm::mat4 transf = model->getFinalMatrix();
             float xScale = glm::length(transf[0]);
             float yScale = glm::length(transf[1]);
@@ -91,7 +91,11 @@ void FakeShadow::updateTransform()
                 )
             );
 
-            setTransform(offset * scaling * shadowParentScale * modelScale * R);
+            setTransform(
+                offset * scaling *
+                R * glm::inverse(getRotationMatrix(getParent())) *
+                shadowParentScale * modelScale
+            );
         }
     }
 }
