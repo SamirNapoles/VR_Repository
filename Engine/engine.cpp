@@ -47,7 +47,7 @@ void __stdcall DebugCallback(GLenum source, GLenum type, GLuint id, GLenum sever
     
     //Major performance warnings, shader compilation/linking warnings, 
     //use of deprecated functionality or highly-dangerous undefined behavior
-    if(severity == GL_DEBUG_SEVERITY_MEDIUM)
+    if(severity == GL_DEBUG_SEVERITY_HIGH)
         std::cout << "OpenGL says: \"" << std::string(message) << "\"" << std::endl;
 }
 
